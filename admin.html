@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin – Portfolio</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0e0f14;--surface:#161820;--card:#1c1e2a;--border:#272a38;
+      --accent:#7c6af7;--accent-dim:rgba(124,106,247,.12);--accent-border:rgba(124,106,247,.3);
+      --green:#22d3a5;--red:#f76a6a;--text:#e2e4f0;--muted:#636680;--radius:10px;
+    }
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.6}
+
+    /* LOGIN */
+    #loginScreen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
+    .login-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:36px 32px;width:340px;text-align:center}
+    .login-logo{width:52px;height:52px;background:var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px}
+    .login-box h2{font-size:1.2rem;font-weight:800;margin-bottom:6px}
+    .login-box p{color:var(--muted);font-size:.82rem;margin-bottom:24px}
+    .login-box input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:.9rem;margin-bottom:12px;outline:none;font-family:inherit}
+    .login-box input:focus{border-color:var(--accent)}
+    .login-err{color:var(--red);font-size:.78rem;margin-bottom:10px;display:none}
+
+    /* LAYOUT */
+    #adminApp{display:none;height:100vh;display:none;flex-direction:column}
+    #adminApp.show{display:flex}
+    .admin-header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:50px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .admin-header .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.95rem}
+    .admin-header .logo-icon{width:28px;height:28px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+    .header-actions{display:flex;align-items:center;gap:10px}
+    .btn{padding:7px 16px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:#6a58e0}
+    .btn-primary:disabled{opacity:.5;cursor:not-allowed}
+    .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-danger{background:rgba(247,106,106,.12);color:var(--red);border:1px solid rgba(247,106,106,.25)}
+    .btn-danger:hover{background:rgba(247,106,106,.2)}
+    .btn-sm{padding:4px 10px;font-size:.72rem}
+    .save-status{font-size:.75rem;color:var(--muted)}
+    .save-status.saving{color:var(--accent)}
+    .save-status.saved{color:var(--green)}
+    .save-status.error{color:var(--red)}
+
+    .admin-body{display:flex;flex:1;overflow:hidden}
+
+    /* SIDEBAR */
+    .admin-nav{width:180px;background:var(--surface);border-right:1px solid var(--border);padding:12px 8px;flex-shrink:0;overflow-y:auto}
+    .admin-nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:.83rem;color:var(--muted);border:none;background:none;width:100%;text-align:left;font-family:inherit;transition:all .15s}
+    .admin-nav-item:hover{background:rgba(255,255,255,.04);color:var(--text)}
+    .admin-nav-item.active{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+
+    /* CONTENT */
+    .admin-content{flex:1;overflow-y:auto;padding:24px}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    /* FORM ELEMENTS */
+    .form-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+    .form-section h3{font-size:.85rem;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+    .form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:12px}
+    .form-group{display:flex;flex-direction:column;gap:5px}
+    .form-group label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+    .form-group input,.form-group textarea,.form-group select{
+      background:var(--surface);border:1px solid var(--border);border-radius:7px;
+      padding:8px 11px;color:var(--text);font-size:.85rem;outline:none;font-family:inherit;
+    }
+    .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+    .form-group textarea{resize:vertical;min-height:72px}
+
+    /* CARDS IN ADMIN */
+    .item-list{display:flex;flex-direction:column;gap:10px}
+    .item-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+    .item-card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .item-card-header img{width:44px;height:44px;border-radius:8px;object-fit:cover;background:var(--card)}
+    .item-card-header .item-emoji{width:44px;height:44px;border-radius:8px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:1px solid var(--border)}
+    .item-title{font-weight:700;font-size:.88rem}
+    .item-sub{font-size:.75rem;color:var(--muted)}
+    .item-actions{margin-left:auto;display:flex;gap:7px}
+    .item-form{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+    .item-form.open{display:block}
+
+    /* TAGS INPUT */
+    .tags-input-wrap{display:flex;flex-wrap:wrap;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:6px 8px;min-height:38px;align-items:center}
+    .tags-input-wrap:focus-within{border-color:var(--accent)}
+    .tag-chip{display:inline-flex;align-items:center;gap:4px;background:var(--accent-dim);border:1px solid var(--accent-border);color:#a99dff;border-radius:999px;padding:2px 9px;font-size:.72rem}
+    .tag-chip button{background:none;border:none;color:#a99dff;cursor:pointer;font-size:.8rem;line-height:1;padding:0;margin-left:2px}
+    .tag-chip button:hover{color:#fff}
+    .tags-input{border:none;outline:none;background:transparent;color:var(--text);font-size:.82rem;min-width:80px;font-family:inherit}
+
+    /* STATS EDITOR */
+    .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .stat-edit{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;gap:8px;align-items:center}
+    .stat-edit input{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-size:.82rem;font-family:inherit;outline:none}
+    .stat-edit input:focus{border-color:var(--accent)}
+    .stat-edit input.big{width:70px;font-size:1.1rem;font-weight:700;color:var(--accent)}
+    .stat-edit input.label{flex:1}
+
+    /* SKILLS EDITOR */
+    .skill-edit-list{display:flex;flex-direction:column;gap:8px}
+    .skill-edit-row{display:flex;align-items:center;gap:8px}
+    .skill-color-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;cursor:pointer;border:2px solid transparent}
+    .skill-color-dot:focus{border-color:var(--accent)}
+
+    /* GITHUB SETUP */
+    .setup-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+    .setup-box h3{font-size:.9rem;font-weight:700;margin-bottom:4px}
+    .setup-box p{color:var(--muted);font-size:.8rem;margin-bottom:14px;line-height:1.6}
+    .setup-status{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;font-size:.8rem;margin-top:12px}
+    .setup-status.ok{background:rgba(34,211,165,.1);color:var(--green);border:1px solid rgba(34,211,165,.25)}
+    .setup-status.warn{background:rgba(247,200,106,.1);color:#f7c86a;border:1px solid rgba(247,200,106,.25)}
+    .guide-steps{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;margin-top:10px}
+    .guide-steps li{color:#9ea0b0;font-size:.8rem;margin-bottom:6px;margin-left:16px;line-height:1.6}
+    .guide-steps li code{background:rgba(124,106,247,.15);color:#a99dff;padding:1px 6px;border-radius:4px;font-size:.78rem}
+    .guide-steps a{color:var(--accent)}
+
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 18px;font-size:.82rem;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast.success{border-color:rgba(34,211,165,.3);color:var(--green)}
+    .toast.error{border-color:rgba(247,106,106,.3);color:var(--red)}
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">🔐</div>
+    <h2>Admin Panel</h2>
+    <p>Nhập mật khẩu để quản lý nội dung website</p>
+    <input type="password" id="pwInput" placeholder="Mật khẩu..." onkeydown="if(event.key==='Enter')login()"/>
+    <div class="login-err" id="loginErr">Mật khẩu không đúng</div>
+    <button class="btn btn-primary" style="width:100%;padding:10px" onclick="login()">Đăng nhập</button>
+    <div style="margin-top:14px;font-size:.72rem;color:var(--muted)">Mật khẩu mặc định: <code style="color:var(--accent)">metagame</code></div>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp">
+  <div class="admin-header">
+    <div class="logo">
+      <div class="logo-icon">🎮</div>
+      Admin Panel
+    </div>
+    <div class="header-actions">
+      <span class="save-status" id="saveStatus"></span>
+      <button class="btn btn-primary" onclick="saveAll()" id="saveBtn">💾 Lưu tất cả</button>
+      <a class="btn btn-outline" href="index.html" target="_blank">👁 Xem web</a>
+      <button class="btn btn-outline" onclick="logout()">Đăng xuất</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <div class="admin-nav">
+      <button class="admin-nav-item active" onclick="switchTab('profile',this)">👤 Hồ sơ cá nhân</button>
+      <button class="admin-nav-item" onclick="switchTab('stats',this)">📊 Thống kê</button>
+      <button class="admin-nav-item" onclick="switchTab('skills',this)">⚡ Kỹ năng</button>
+      <button class="admin-nav-item" onclick="switchTab('experience',this)">💼 Kinh nghiệm</button>
+      <button class="admin-nav-item" onclick="switchTab('playable',this)">🎯 Playable Ads</button>
+      <button class="admin-nav-item" onclick="switchTab('games',this)">🕹️ Game Portfolio</button>
+      <button class="admin-nav-item" onclick="switchTab('github',this)">⚙️ Publish / GitHub</button>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- PROFILE -->
+      <div class="tab-panel active" id="tab-profile">
+        <div class="form-section">
+          <h3>👤 Thông tin cá nhân</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Họ tên</label><input id="p_name" placeholder="Nguyễn Tới"/></div>
+            <div class="form-group"><label>Studio</label><input id="p_studio" placeholder="Meta Game"/></div>
+          </div>
+          <div class="form-group" style="margin-bottom:10px">
+            <label>Chức danh</label>
+            <input id="p_role" placeholder="Game Developer · Playable Ads Specialist · Unity"/>
+          </div>
+          <div class="form-group" style="margin-bottom:10px">
+            <label>Bio</label>
+            <textarea id="p_bio" rows="3" placeholder="Mô tả ngắn về bản thân..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input id="p_email" type="email" placeholder="dev@example.com"/></div>
+            <div class="form-group"><label>LinkedIn URL</label><input id="p_linkedin" placeholder="https://linkedin.com/in/..."/></div>
+            <div class="form-group"><label>GitHub URL</label><input id="p_github" placeholder="https://github.com/..."/></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="tab-panel" id="tab-stats">
+        <div class="form-section">
+          <h3>📊 Thống kê nổi bật</h3>
+          <div class="stats-grid" id="statsEditor"></div>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="tab-panel" id="tab-skills">
+        <div class="form-section">
+          <h3>⚡ Kỹ năng
+            <button class="btn btn-outline btn-sm" onclick="addSkill()" style="margin-left:auto">+ Thêm</button>
+          </h3>
+          <div class="skill-edit-list" id="skillsEditor"></div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="tab-panel" id="tab-experience">
+        <div class="form-section">
+          <h3>💼 Kinh nghiệm
+            <button class="btn btn-outline btn-sm" onclick="addExp()" style="margin-left:auto">+ Thêm</button>
+          </h3>
+          <div class="item-list" id="expEditor"></div>
+        </div>
+      </div>
+
+      <!-- PLAYABLE ADS -->
+      <div class="tab-panel" id="tab-playable">
+        <div class="form-section">
+          <h3>🎯 Playable Ads
+            <button class="btn btn-primary btn-sm" onclick="addAd()" style="margin-left:auto">+ Thêm game</button>
+          </h3>
+          <div class="item-list" id="adsEditor"></div>
+        </div>
+      </div>
+
+      <!-- GAMES -->
+      <div class="tab-panel" id="tab-games">
+        <div class="form-section">
+          <h3>🕹️ Game Portfolio
+            <button class="btn btn-primary btn-sm" onclick="addGame()" style="margin-left:auto">+ Thêm game</button>
+          </h3>
+          <div class="item-list" id="gamesEditor"></div>
+        </div>
+      </div>
+
+      <!-- GITHUB SETUP -->
+      <div class="tab-panel" id="tab-github">
+        <div class="setup-box">
+          <h3>🌐 Publish lên GitHub Pages</h3>
+          <p>Lưu dữ liệu qua GitHub API — sync trên mọi thiết bị, miễn phí. Khi lưu, file <code style="color:var(--accent)">data.json</code> trên GitHub sẽ được cập nhật tự động và website public sau ~1 phút.</p>
+          <div class="form-row">
+            <div class="form-group"><label>GitHub Username</label><input id="gh_user" placeholder="your-username"/></div>
+            <div class="form-group"><label>Tên Repository</label><input id="gh_repo" placeholder="portfolio"/></div>
+            <div class="form-group"><label>Branch</label><input id="gh_branch" placeholder="main"/></div>
+          </div>
+          <div class="form-group" style="margin-bottom:10px">
+            <label>Personal Access Token (lưu trong trình duyệt này)</label>
+            <input id="gh_token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-primary" onclick="saveGithubConfig()">Lưu cấu hình</button>
+            <button class="btn btn-outline" onclick="testGithubConnection()">Kiểm tra kết nối</button>
+          </div>
+          <div id="ghStatus"></div>
+        </div>
+
+        <div class="setup-box">
+          <h3>📋 Hướng dẫn setup lần đầu</h3>
+          <p>Nếu bạn chưa có GitHub repo, làm theo các bước sau:</p>
+          <ol class="guide-steps">
+            <li>Tạo tài khoản <a href="https://github.com" target="_blank">github.com</a> (nếu chưa có)</li>
+            <li>Tạo repo mới: nhấn <strong>+</strong> → <strong>New repository</strong> → đặt tên <code>portfolio</code> → <strong>Public</strong> → Create</li>
+            <li>Upload 3 file: <code>index.html</code>, <code>admin.html</code>, <code>data.json</code> vào repo (kéo thả trực tiếp)</li>
+            <li>Vào <strong>Settings</strong> → <strong>Pages</strong> → Source: <code>main</code> branch → Save → website live sau ~1 phút</li>
+            <li>Tạo token: <strong>Settings</strong> → <strong>Developer settings</strong> → <strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong> → Generate → tick <code>repo</code> → Copy token</li>
+            <li>Dán username, tên repo và token vào form bên trên → Lưu cấu hình</li>
+          </ol>
+        </div>
+
+        <div class="setup-box">
+          <h3>🔄 Chuyển sang hosting riêng sau này</h3>
+          <p>Khi bạn muốn dùng hosting riêng (VPS, shared hosting, Vercel...): chỉ cần copy 3 file HTML/JSON lên server mới. GitHub token vẫn dùng được để lưu data — hoặc bạn có thể thêm một API đơn giản trên server của mình để thay thế.</p>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-body -->
+</div><!-- /adminApp -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── CONFIG ─────────────────────────────────────────────
+  const ADMIN_PASSWORD = 'metagame'; // ← đổi mật khẩu ở đây
+  const DATA_URL = './data.json';
+
+  let D = {};
+
+  // ── LOGIN ──────────────────────────────────────────────
+  function login() {
+    const pw = document.getElementById('pwInput').value;
+    if (pw === ADMIN_PASSWORD) {
+      localStorage.setItem('admin_auth','1');
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminApp').classList.add('show');
+      loadData();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+    }
+  }
+  function logout() {
+    localStorage.removeItem('admin_auth');
+    location.reload();
+  }
+  if (localStorage.getItem('admin_auth') === '1') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminApp').classList.add('show');
+    loadData();
+  }
+
+  // ── TABS ───────────────────────────────────────────────
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── LOAD DATA ──────────────────────────────────────────
+  async function loadData() {
+    try {
+      const r = await fetch(DATA_URL + '?v=' + Date.now());
+      D = await r.json();
+    } catch(e) {
+      D = { profile:{name:'',role:'',bio:'',email:'',linkedin:'#',github:'#',studio:''},
+            stats:[{num:'',label:''},{num:'',label:''},{num:'',label:''},{num:'',label:''}],
+            skills:[], experience:[], playableAds:[], games:[] };
+    }
+    loadGithubConfig();
+    fillForms();
+  }
+
+  // ── FILL FORMS ────────────────────────────────────────
+  function fillForms() {
+    const p = D.profile||{};
+    document.getElementById('p_name').value    = p.name||'';
+    document.getElementById('p_studio').value  = p.studio||'';
+    document.getElementById('p_role').value    = p.role||'';
+    document.getElementById('p_bio').value     = p.bio||'';
+    document.getElementById('p_email').value   = p.email||'';
+    document.getElementById('p_linkedin').value= p.linkedin||'';
+    document.getElementById('p_github').value  = p.github||'';
+    renderStatsEditor();
+    renderSkillsEditor();
+    renderExpEditor();
+    renderAdsEditor();
+    renderGamesEditor();
+  }
+
+  // ── STATS ─────────────────────────────────────────────
+  function renderStatsEditor() {
+    document.getElementById('statsEditor').innerHTML = (D.stats||[]).map((s,i)=>
+      `<div class="stat-edit">
+        <input class="big" value="${s.num}" oninput="D.stats[${i}].num=this.value" placeholder="50+"/>
+        <input class="label" value="${s.label}" oninput="D.stats[${i}].label=this.value" placeholder="Mô tả..."/>
+      </div>`
+    ).join('');
+  }
+
+  // ── SKILLS ────────────────────────────────────────────
+  function renderSkillsEditor() {
+    document.getElementById('skillsEditor').innerHTML = (D.skills||[]).map((s,i)=>
+      `<div class="skill-edit-row">
+        <input type="color" value="${s.color||'#7c6af7'}" class="skill-color-dot" style="background:${s.color||'#7c6af7'};width:28px;height:28px;border-radius:50%;border:2px solid var(--border);cursor:pointer;padding:0"
+          oninput="D.skills[${i}].color=this.value;this.style.background=this.value"/>
+        <input style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:7px 10px;color:var(--text);font-family:inherit;font-size:.85rem;outline:none"
+          value="${s.name}" oninput="D.skills[${i}].name=this.value" placeholder="Tên kỹ năng"/>
+        <button class="btn btn-danger btn-sm" onclick="D.skills.splice(${i},1);renderSkillsEditor()">✕</button>
+      </div>`
+    ).join('');
+  }
+  function addSkill() {
+    D.skills = D.skills||[];
+    D.skills.push({name:'',color:'#7c6af7'});
+    renderSkillsEditor();
+    document.getElementById('skillsEditor').lastElementChild?.querySelector('input[type=text],input:not([type=color])')?.focus();
+  }
+
+  // ── EXPERIENCE ────────────────────────────────────────
+  function renderExpEditor() {
+    document.getElementById('expEditor').innerHTML = (D.experience||[]).map((e,i)=>
+      `<div class="item-card">
+        <div class="item-card-header">
+          <div class="item-emoji">${e.icon||'💼'}</div>
+          <div>
+            <div class="item-title">${e.title||'(chưa có tên)'}</div>
+            <div class="item-sub">${e.company||''} · ${e.period||''}</div>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleForm('exp${i}')">Sửa</button>
+            <button class="btn btn-danger btn-sm" onclick="D.experience.splice(${i},1);renderExpEditor()">Xóa</button>
+          </div>
+        </div>
+        <div class="item-form" id="exp${i}">
+          <div class="form-row">
+            <div class="form-group"><label>Icon (emoji)</label><input value="${e.icon||''}" oninput="D.experience[${i}].icon=this.value;renderExpEditor()" placeholder="💼"/></div>
+            <div class="form-group"><label>Chức danh</label><input value="${e.title||''}" oninput="D.experience[${i}].title=this.value" placeholder="Job title"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Công ty</label><input value="${e.company||''}" oninput="D.experience[${i}].company=this.value" placeholder="Tên công ty"/></div>
+            <div class="form-group"><label>Thời gian</label><input value="${e.period||''}" oninput="D.experience[${i}].period=this.value" placeholder="2022 – Hiện tại"/></div>
+          </div>
+          <div class="form-group"><label>Mô tả</label><textarea rows="2" oninput="D.experience[${i}].desc=this.value">${e.desc||''}</textarea></div>
+        </div>
+      </div>`
+    ).join('');
+  }
+  function addExp() {
+    D.experience = D.experience||[];
+    D.experience.push({icon:'💼',title:'',company:'',period:'',desc:''});
+    renderExpEditor();
+    const forms = document.querySelectorAll('#expEditor .item-form');
+    const last = forms[forms.length-1]; if(last){last.classList.add('open');}
+  }
+
+  // ── PLAYABLE ADS ──────────────────────────────────────
+  function renderAdsEditor() {
+    const genres = ['casual','puzzle','action','hyper'];
+    document.getElementById('adsEditor').innerHTML = (D.playableAds||[]).map((ad,i)=>
+      `<div class="item-card">
+        <div class="item-card-header">
+          <img src="${ad.icon||''}" onerror="this.style.display='none'" style="width:44px;height:44px;border-radius:8px;object-fit:cover"/>
+          <div>
+            <div class="item-title">${ad.title||'(chưa có tên)'}</div>
+            <div class="item-sub">${ad.genre||''}</div>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleForm('ad${i}')">Sửa</button>
+            <button class="btn btn-danger btn-sm" onclick="D.playableAds.splice(${i},1);renderAdsEditor()">Xóa</button>
+          </div>
+        </div>
+        <div class="item-form" id="ad${i}">
+          <div class="form-row">
+            <div class="form-group"><label>Tên game</label><input value="${ad.title||''}" oninput="D.playableAds[${i}].title=this.value;renderAdsEditor()" placeholder="Game title"/></div>
+            <div class="form-group"><label>Thể loại hiển thị</label><input value="${ad.genre||''}" oninput="D.playableAds[${i}].genre=this.value" placeholder="Casual"/></div>
+            <div class="form-group"><label>Filter key</label>
+              <select oninput="D.playableAds[${i}].genreKey=this.value">
+                ${genres.map(g=>`<option value="${g}" ${ad.genreKey===g?'selected':''}>${g}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:10px"><label>Mô tả ngắn</label><textarea rows="2" oninput="D.playableAds[${i}].desc=this.value">${ad.desc||''}</textarea></div>
+          <div class="form-group" style="margin-bottom:10px"><label>Icon URL (từ Play Store)</label><input value="${ad.icon||''}" oninput="D.playableAds[${i}].icon=this.value;renderAdsEditor()" placeholder="https://play-lh.googleusercontent.com/..."/></div>
+          <div class="form-group" style="margin-bottom:10px"><label>Playable Ad URL (LunaLabs)</label><input value="${ad.playUrl||''}" oninput="D.playableAds[${i}].playUrl=this.value" placeholder="https://playground.lunalabs.io/preview/..."/></div>
+          <div class="form-group" style="margin-bottom:10px"><label>Play Store URL</label><input value="${ad.playStore||''}" oninput="D.playableAds[${i}].playStore=this.value" placeholder="https://play.google.com/store/apps/..."/></div>
+          <div class="form-group"><label>Tags (nhấn Enter để thêm)</label>
+            <div class="tags-input-wrap" id="adTags${i}">
+              ${(ad.tags||[]).map((t,ti)=>`<span class="tag-chip">${t}<button onclick="D.playableAds[${i}].tags.splice(${ti},1);renderAdsEditor()">×</button></span>`).join('')}
+              <input class="tags-input" placeholder="tag..." onkeydown="addTag(event,D.playableAds[${i}].tags,'adTags${i}',()=>renderAdsEditor())"/>
+            </div>
+          </div>
+        </div>
+      </div>`
+    ).join('') || `<div style="color:var(--muted);text-align:center;padding:20px">Chưa có Playable Ad nào. Nhấn "+ Thêm game" để bắt đầu.</div>`;
+  }
+  function addAd() {
+    D.playableAds = D.playableAds||[];
+    const newId = (D.playableAds.reduce((m,a)=>Math.max(m,a.id||0),0))+1;
+    D.playableAds.push({id:newId,title:'',genre:'Casual',genreKey:'casual',desc:'',tags:[],icon:'',playUrl:'',playStore:''});
+    renderAdsEditor();
+    const forms = document.querySelectorAll('#adsEditor .item-form');
+    const last = forms[forms.length-1]; if(last) last.classList.add('open');
+  }
+
+  // ── GAMES ─────────────────────────────────────────────
+  function renderGamesEditor() {
+    document.getElementById('gamesEditor').innerHTML = (D.games||[]).map((g,i)=>
+      `<div class="item-card">
+        <div class="item-card-header">
+          <div class="item-emoji">${g.emoji||'🎮'}</div>
+          <div>
+            <div class="item-title">${g.title||'(chưa có tên)'}</div>
+            <div class="item-sub">${(g.tags||[]).join(' · ')}</div>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleForm('gm${i}')">Sửa</button>
+            <button class="btn btn-danger btn-sm" onclick="D.games.splice(${i},1);renderGamesEditor()">Xóa</button>
+          </div>
+        </div>
+        <div class="item-form" id="gm${i}">
+          <div class="form-row">
+            <div class="form-group"><label>Tên game</label><input value="${g.title||''}" oninput="D.games[${i}].title=this.value;renderGamesEditor()" placeholder="Game title"/></div>
+            <div class="form-group"><label>Emoji icon</label><input value="${g.emoji||''}" oninput="D.games[${i}].emoji=this.value;renderGamesEditor()" placeholder="🎮" style="font-size:1.4rem"/></div>
+          </div>
+          <div class="form-group" style="margin-bottom:10px"><label>Màu banner (CSS gradient)</label><input value="${g.color||''}" oninput="D.games[${i}].color=this.value" placeholder="linear-gradient(135deg,#1e2a3a,#2a1e3a)"/></div>
+          <div class="form-group" style="margin-bottom:10px"><label>Mô tả</label><textarea rows="2" oninput="D.games[${i}].desc=this.value">${g.desc||''}</textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label>Play Store URL</label><input value="${g.storeUrl||''}" oninput="D.games[${i}].storeUrl=this.value" placeholder="https://play.google.com/..."/></div>
+            <div class="form-group"><label>Demo URL</label><input value="${g.demoUrl||''}" oninput="D.games[${i}].demoUrl=this.value" placeholder="https://..."/></div>
+          </div>
+          <div class="form-group"><label>Tags (nhấn Enter để thêm)</label>
+            <div class="tags-input-wrap" id="gmTags${i}">
+              ${(g.tags||[]).map((t,ti)=>`<span class="tag-chip">${t}<button onclick="D.games[${i}].tags.splice(${ti},1);renderGamesEditor()">×</button></span>`).join('')}
+              <input class="tags-input" placeholder="tag..." onkeydown="addTag(event,D.games[${i}].tags,'gmTags${i}',()=>renderGamesEditor())"/>
+            </div>
+          </div>
+        </div>
+      </div>`
+    ).join('');
+  }
+  function addGame() {
+    D.games = D.games||[];
+    D.games.push({title:'',emoji:'🎮',color:'linear-gradient(135deg,#1e2a3a,#2a1e3a)',tags:[],desc:'',storeUrl:'',demoUrl:''});
+    renderGamesEditor();
+    const forms = document.querySelectorAll('#gamesEditor .item-form');
+    const last = forms[forms.length-1]; if(last) last.classList.add('open');
+  }
+
+  // ── HELPERS ───────────────────────────────────────────
+  function toggleForm(id) {
+    document.getElementById(id)?.classList.toggle('open');
+  }
+  function addTag(event, arr, wrapperId, rerender) {
+    if (event.key !== 'Enter') return;
+    const val = event.target.value.trim();
+    if (!val) return;
+    arr.push(val);
+    event.target.value = '';
+    rerender();
+    event.preventDefault();
+  }
+
+  // ── GITHUB CONFIG ─────────────────────────────────────
+  function loadGithubConfig() {
+    document.getElementById('gh_user').value   = localStorage.getItem('gh_user')||'';
+    document.getElementById('gh_repo').value   = localStorage.getItem('gh_repo')||'portfolio';
+    document.getElementById('gh_branch').value = localStorage.getItem('gh_branch')||'main';
+    document.getElementById('gh_token').value  = localStorage.getItem('gh_token')||'';
+    updateGhStatus();
+  }
+  function saveGithubConfig() {
+    localStorage.setItem('gh_user',   document.getElementById('gh_user').value.trim());
+    localStorage.setItem('gh_repo',   document.getElementById('gh_repo').value.trim());
+    localStorage.setItem('gh_branch', document.getElementById('gh_branch').value.trim());
+    localStorage.setItem('gh_token',  document.getElementById('gh_token').value.trim());
+    updateGhStatus();
+    toast('Đã lưu cấu hình GitHub!','success');
+  }
+  function updateGhStatus() {
+    const user = localStorage.getItem('gh_user');
+    const token = localStorage.getItem('gh_token');
+    const el = document.getElementById('ghStatus');
+    if (user && token) {
+      el.innerHTML = `<div class="setup-status ok">✅ Đã cấu hình: <strong>${user}/${localStorage.getItem('gh_repo')||'portfolio'}</strong> — Lưu sẽ sync lên GitHub Pages</div>`;
+    } else {
+      el.innerHTML = `<div class="setup-status warn">⚠️ Chưa cấu hình GitHub — Lưu sẽ chỉ tải file xuống máy</div>`;
+    }
+  }
+  async function testGithubConnection() {
+    const user=localStorage.getItem('gh_user'), token=localStorage.getItem('gh_token'), repo=localStorage.getItem('gh_repo')||'portfolio';
+    if (!user||!token) { toast('Điền username và token trước','error'); return; }
+    try {
+      const r = await fetch(`https://api.github.com/repos/${user}/${repo}`, { headers:{Authorization:`token ${token}`} });
+      if (r.ok) toast('✅ Kết nối GitHub thành công!','success');
+      else toast('❌ Lỗi: ' + r.status + ' – kiểm tra lại token/repo','error');
+    } catch(e) { toast('❌ Không kết nối được','error'); }
+  }
+
+  // ── COLLECT DATA ──────────────────────────────────────
+  function collectData() {
+    D.profile = {
+      name:     document.getElementById('p_name').value.trim(),
+      studio:   document.getElementById('p_studio').value.trim(),
+      role:     document.getElementById('p_role').value.trim(),
+      bio:      document.getElementById('p_bio').value.trim(),
+      email:    document.getElementById('p_email').value.trim(),
+      linkedin: document.getElementById('p_linkedin').value.trim()||'#',
+      github:   document.getElementById('p_github').value.trim()||'#',
+    };
+    // stats, skills, experience, ads, games already mutated in-place via oninput
+    return D;
+  }
+
+  // ── SAVE ──────────────────────────────────────────────
+  async function saveAll() {
+    const btn = document.getElementById('saveBtn');
+    const status = document.getElementById('saveStatus');
+    btn.disabled = true;
+    status.className = 'save-status saving'; status.textContent = 'Đang lưu...';
+
+    collectData();
+    const json = JSON.stringify(D, null, 2);
+
+    const user  = localStorage.getItem('gh_user');
+    const token = localStorage.getItem('gh_token');
+    const repo  = localStorage.getItem('gh_repo')||'portfolio';
+    const branch= localStorage.getItem('gh_branch')||'main';
+
+    if (user && token) {
+      // Save via GitHub API
+      try {
+        // Get current file SHA
+        const getR = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/data.json`,
+          { headers:{Authorization:`token ${token}`,'Accept':'application/vnd.github.v3+json'} });
+
+        let sha = null;
+        if (getR.ok) { const gd = await getR.json(); sha = gd.sha; }
+
+        const body = { message:'Update portfolio data', content: btoa(unescape(encodeURIComponent(json))), branch };
+        if (sha) body.sha = sha;
+
+        const putR = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/data.json`, {
+          method: 'PUT',
+          headers:{Authorization:`token ${token}`,  'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+          body: JSON.stringify(body)
+        });
+
+        if (putR.ok) {
+          status.className='save-status saved'; status.textContent='✅ Đã lưu lên GitHub';
+          toast('✅ Đã lưu! Website sẽ cập nhật sau ~1 phút.','success');
+        } else {
+          const err = await putR.json();
+          throw new Error(err.message||putR.status);
+        }
+      } catch(e) {
+        status.className='save-status error'; status.textContent='❌ Lỗi GitHub';
+        toast('❌ Lỗi lưu GitHub: '+e.message,'error');
+        downloadJson(json); // fallback
+      }
+    } else {
+      // No GitHub config – download file
+      downloadJson(json);
+      status.className='save-status saved'; status.textContent='📥 Đã tải xuống data.json';
+      toast('📥 Tải data.json thành công. Cấu hình GitHub để sync tự động.','success');
+    }
+
+    btn.disabled = false;
+    setTimeout(()=>{ if(status.textContent) { status.textContent=''; } }, 4000);
+  }
+
+  function downloadJson(json) {
+    const a = document.createElement('a');
+    a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+    a.download = 'data.json'; a.click();
+  }
+
+  // ── TOAST ─────────────────────────────────────────────
+  function toast(msg, type='success') {
+    const el = document.getElementById('toast');
+    el.textContent = msg; el.className = 'toast show ' + type;
+    setTimeout(()=>el.className='toast', 3000);
+  }
+</script>
+</body>
+</html>

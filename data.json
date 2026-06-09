@@ -1,0 +1,115 @@
+{
+  "profile": {
+    "name": "Nguyễn Tới",
+    "role": "Game Developer · Playable Ads Specialist · Unity",
+    "bio": "Chuyên phát triển Playable Ads cho mobile games với Unity. Có kinh nghiệm tạo ra các trải nghiệm tương tác ngắn gọn, hấp dẫn giúp tăng chuyển đổi quảng cáo. Đam mê tối ưu hiệu suất và trải nghiệm người dùng.",
+    "email": "dev@metagamejsc.com",
+    "linkedin": "#",
+    "github": "#",
+    "playstore": "#",
+    "studio": "Meta Game"
+  },
+  "stats": [
+    { "num": "50+",  "label": "Playable Ads đã làm" },
+    { "num": "11+",  "label": "Games trên Store" },
+    { "num": "3+",   "label": "Năm kinh nghiệm" },
+    { "num": "10M+", "label": "Lượt tải xuống" }
+  ],
+  "skills": [
+    { "name": "Unity",               "color": "#7c6af7" },
+    { "name": "C#",                  "color": "#22d3a5" },
+    { "name": "Playable Ads",        "color": "#f77c6a" },
+    { "name": "UnityPlayworks",      "color": "#f7c06a" },
+    { "name": "HTML5 / JS",          "color": "#6af7d4" },
+    { "name": "Shader / VFX",        "color": "#a78bfa" },
+    { "name": "UI/UX Design",        "color": "#f76a9f" },
+    { "name": "Mobile Optimization", "color": "#6aabf7" },
+    { "name": "Git",                 "color": "#7cf76a" }
+  ],
+  "experience": [
+    {
+      "icon": "🎮",
+      "title": "Game Developer & Playable Ads Specialist",
+      "company": "Meta Game JSC",
+      "period": "2022 – Hiện tại",
+      "desc": "Phát triển Playable Ads cho mobile games, tối ưu creative performance. Xây dựng và publish 11+ games lên Google Play với tổng 10M+ downloads."
+    },
+    {
+      "icon": "🕹️",
+      "title": "Unity Developer",
+      "company": "Freelance",
+      "period": "2020 – 2022",
+      "desc": "Nhận dự án game mobile, mini-game, prototype cho các indie studio và startup game Việt Nam."
+    }
+  ],
+  "playableAds": [
+    {
+      "id": 1,
+      "title": "Craft Explore: Block Builder",
+      "genre": "Simulation",
+      "genreKey": "casual",
+      "desc": "Sandbox & Survival trong thế giới 3D block mở. Creative Mode & Survival Mode.",
+      "tags": ["Sandbox", "Survival", "Pixel", "Offline"],
+      "icon": "https://play-lh.googleusercontent.com/YFHDvFUFlCreDkvR1NRPr1KkeF3OdKCZPVmSLzPXs96jHbAxUf4LjFOaWA0WkmTdIK4A2K2G8ZnnKeLimAFM2Q=w240-h480",
+      "playUrl": "https://playground.lunalabs.io/preview/439724/597380/6e4b615fb4897e3397adc52be4d5a34e8a68d961d4a78d2fc26f9abf51b79d7f",
+      "playStore": "https://play.google.com/store/apps/details?id=com.craft.city.blockbuilder.pro",
+      "appStore": ""
+    }
+  ],
+  "games": [
+    {
+      "title": "Craft Explore: Block Builder",
+      "emoji": "🧱",
+      "color": "linear-gradient(135deg,#1e2a3a,#2a1e3a)",
+      "tags": ["Simulation", "Sandbox", "Unity"],
+      "desc": "Sandbox game 3D block với Creative & Survival mode. 10M+ downloads trên Google Play.",
+      "storeUrl": "https://play.google.com/store/apps/details?id=com.craft.city.blockbuilder.pro",
+      "demoUrl": ""
+    },
+    {
+      "title": "Emoji Keyboard: Font & Themes",
+      "emoji": "😊",
+      "color": "linear-gradient(135deg,#1a2e1e,#2e1a2e)",
+      "tags": ["Utility", "Keyboard", "Android"],
+      "desc": "Custom keyboard với hàng nghìn emoji, font chữ và theme đa dạng.",
+      "storeUrl": "",
+      "demoUrl": ""
+    },
+    {
+      "title": "WilderCraft: Mystic Lands",
+      "emoji": "🌿",
+      "color": "linear-gradient(135deg,#1a2a1a,#2a2a1a)",
+      "tags": ["Adventure", "Craft", "RPG"],
+      "desc": "Khám phá vùng đất huyền bí, crafting và sinh tồn trong thế giới open-world.",
+      "storeUrl": "",
+      "demoUrl": ""
+    },
+    {
+      "title": "ShinCraft: Speed Awakens",
+      "emoji": "⚡",
+      "color": "linear-gradient(135deg,#2a2a1a,#1a1a2a)",
+      "tags": ["Action", "Racing", "Hyper-casual"],
+      "desc": "Game đua xe tốc độ cao kết hợp craft elements. Fast-paced gameplay.",
+      "storeUrl": "",
+      "demoUrl": ""
+    },
+    {
+      "title": "Forest Puzzle: Dream Escape",
+      "emoji": "🌲",
+      "color": "linear-gradient(135deg,#1a2e1a,#1a1e2e)",
+      "tags": ["Puzzle", "Casual", "Relaxing"],
+      "desc": "Giải đố trong khu rừng mơ mộng. Relaxing puzzle game với 200+ levels.",
+      "storeUrl": "",
+      "demoUrl": ""
+    },
+    {
+      "title": "Monster Craft Shooter",
+      "emoji": "👾",
+      "color": "linear-gradient(135deg,#2e1a1a,#1a1a2e)",
+      "tags": ["Shooter", "Action", "Tower Defense"],
+      "desc": "Xây dựng phòng thủ và tiêu diệt quái vật. Kết hợp craft + shooting.",
+      "storeUrl": "",
+      "demoUrl": ""
+    }
+  ]
+}

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio – Game Developer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sidebar-w: 220px; --sidebar-collapsed: 60px;
+      --bg: #0e0f14; --surface: #161820; --card: #1c1e2a; --border: #272a38;
+      --accent: #7c6af7; --accent-dim: rgba(124,106,247,.12); --accent-border: rgba(124,106,247,.3);
+      --green: #22d3a5; --text: #e2e4f0; --muted: #636680; --radius: 12px;
+      --sidebar-bg: #11121a;
+    }
+    html, body { height: 100%; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; display: flex; }
+
+    /* SIDEBAR */
+    #sidebar { width: var(--sidebar-w); background: var(--sidebar-bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; left:0; top:0; bottom:0; z-index:100; overflow: hidden; }
+    .sidebar-logo { display:flex; align-items:center; gap:10px; padding:18px 14px; border-bottom:1px solid var(--border); text-decoration:none; color:var(--text); white-space:nowrap; overflow:hidden; min-height:60px; }
+    .logo-icon { width:32px; height:32px; flex-shrink:0; background:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+    .logo-text { font-weight:800; font-size:.9rem; letter-spacing:-.3px; }
+    .logo-sub  { font-size:.68rem; color:var(--muted); }
+    nav { flex:1; padding:10px 8px; overflow-y:auto; }
+    .nav-sec { font-size:.62rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); padding:10px 8px 5px; }
+    .nav-item { display:flex; align-items:center; gap:11px; padding:8px 8px; border-radius:8px; cursor:pointer; white-space:nowrap; overflow:hidden; color:var(--muted); border:none; background:none; width:100%; text-align:left; font-size:.85rem; font-family:inherit; transition:background .15s,color .15s; text-decoration:none; }
+    .nav-item:hover { background:rgba(255,255,255,.05); color:var(--text); }
+    .nav-item.active { background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent-border); }
+    .nav-icon { width:30px; height:30px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:16px; border-radius:6px; }
+    .nav-badge { background:var(--accent); color:#fff; border-radius:999px; padding:1px 7px; font-size:.65rem; font-weight:700; margin-left:auto; }
+    .sidebar-footer { border-top:1px solid var(--border); padding:12px; display:flex; align-items:center; gap:10px; white-space:nowrap; overflow:hidden; }
+    .avatar { width:32px; height:32px; flex-shrink:0; border-radius:50%; background:linear-gradient(135deg,#7c6af7,#22d3a5); display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:700; color:#fff; }
+    .footer-name { font-size:.8rem; font-weight:600; }
+    .footer-role { font-size:.67rem; color:var(--muted); }
+
+    /* MAIN */
+    #main { margin-left: var(--sidebar-w); flex:1; min-height:100vh; display:flex; flex-direction:column; }
+    .topbar { position:sticky; top:0; z-index:50; background:rgba(14,15,20,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); padding:0 26px; height:50px; display:flex; align-items:center; justify-content:space-between; }
+    .topbar-title { font-size:.86rem; font-weight:600; color:var(--muted); }
+    .topbar-title span { color:var(--text); }
+    .topbar-avatar { width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#7c6af7,#22d3a5); display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:#fff; }
+    .topbar-admin { font-size:.75rem; color:var(--muted); text-decoration:none; padding:5px 10px; border:1px solid var(--border); border-radius:6px; transition:color .2s,border-color .2s; }
+    .topbar-admin:hover { color:var(--accent); border-color:var(--accent); }
+
+    .page { display:none; flex:1; }
+    .page.active { display:block; }
+
+    /* HOME */
+    .hero-section { display:flex; gap:28px; align-items:flex-start; padding:36px 26px 0; max-width:960px; }
+    .hero-avatar { width:88px; height:88px; flex-shrink:0; border-radius:18px; background:linear-gradient(135deg,#7c6af7,#22d3a5); display:flex; align-items:center; justify-content:center; font-size:2.2rem; font-weight:800; color:#fff; box-shadow:0 8px 28px rgba(124,106,247,.3); }
+    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(34,211,165,.1); border:1px solid rgba(34,211,165,.25); color:var(--green); border-radius:999px; padding:4px 12px; font-size:.7rem; font-weight:600; margin-bottom:8px; }
+    .hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); }
+    .hero-name { font-size:1.9rem; font-weight:800; letter-spacing:-.5px; margin-bottom:3px; }
+    .hero-role { color:var(--muted); font-size:.88rem; margin-bottom:12px; }
+    .hero-bio  { color:#9ea0b0; font-size:.87rem; max-width:500px; line-height:1.75; }
+    .hero-links { display:flex; gap:9px; margin-top:18px; flex-wrap:wrap; }
+    .hero-link { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:8px; font-size:.8rem; font-weight:600; text-decoration:none; transition:all .2s; cursor:pointer; border:none; font-family:inherit; }
+    .hero-link-primary { background:var(--accent); color:#fff; }
+    .hero-link-primary:hover { background:#6a58e0; }
+    .hero-link-outline { background:transparent; color:var(--text); border:1px solid var(--border); }
+    .hero-link-outline:hover { border-color:var(--accent); color:var(--accent); }
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:22px 26px 0; max-width:960px; }
+    .stat-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
+    .stat-num { font-size:1.7rem; font-weight:800; color:var(--accent); }
+    .stat-lbl { font-size:.75rem; color:var(--muted); margin-top:2px; }
+    .section { padding:22px 26px 0; max-width:960px; }
+    .section-title { font-size:.65rem; text-transform:uppercase; letter-spacing:2px; color:var(--muted); margin-bottom:14px; }
+    .skills-wrap { display:flex; flex-wrap:wrap; gap:7px; }
+    .skill-chip { display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--border); border-radius:7px; padding:6px 13px; font-size:.8rem; }
+    .skill-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+    .exp-list { display:flex; flex-direction:column; gap:10px; }
+    .exp-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; display:flex; gap:14px; align-items:flex-start; }
+    .exp-icon { width:38px; height:38px; flex-shrink:0; border-radius:8px; background:var(--accent-dim); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; font-size:1.15rem; }
+    .exp-title { font-weight:700; font-size:.88rem; }
+    .exp-company { color:var(--accent); font-size:.8rem; }
+    .exp-period { color:var(--muted); font-size:.75rem; margin-top:1px; }
+    .exp-desc { color:#9ea0b0; font-size:.81rem; margin-top:5px; line-height:1.6; }
+    .contact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px; }
+    .contact-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--text); transition:border-color .2s,transform .2s; }
+    .contact-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .contact-icon { font-size:1.3rem; }
+    .contact-label { font-size:.68rem; color:var(--muted); }
+    .contact-value { font-size:.82rem; font-weight:600; }
+
+    /* PLAYABLE ADS */
+    .page-header { padding:30px 26px 0; }
+    .page-header h2 { font-size:1.3rem; font-weight:800; letter-spacing:-.3px; }
+    .page-header p  { color:var(--muted); font-size:.82rem; margin-top:4px; }
+    .filter-bar { display:flex; gap:7px; flex-wrap:wrap; padding:16px 26px 0; }
+    .filter-btn { padding:5px 15px; border-radius:999px; font-size:.76rem; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all .2s; font-family:inherit; }
+    .filter-btn.active,.filter-btn:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .ads-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px; padding:16px 26px 40px; max-width:960px; }
+    .ad-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:transform .22s,border-color .22s,box-shadow .22s; display:flex; flex-direction:column; }
+    .ad-card:hover { transform:translateY(-4px); border-color:var(--accent); box-shadow:0 10px 30px rgba(124,106,247,.18); }
+    .ad-thumb { position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--surface); }
+    .ad-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .35s; display:block; }
+    .ad-card:hover .ad-thumb img { transform:scale(1.07); }
+    .ad-play-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0); transition:background .22s; }
+    .ad-card:hover .ad-play-overlay { background:rgba(0,0,0,.5); }
+    .ad-play-btn { width:46px; height:46px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(.65); transition:opacity .22s,transform .22s; box-shadow:0 0 18px rgba(124,106,247,.5); }
+    .ad-card:hover .ad-play-btn { opacity:1; transform:scale(1); }
+    .ad-play-btn svg { width:18px; height:18px; fill:#fff; margin-left:3px; }
+    .ad-body { padding:12px 13px; flex:1; display:flex; flex-direction:column; gap:4px; }
+    .ad-genre { font-size:.66rem; text-transform:uppercase; letter-spacing:1px; color:var(--green); }
+    .ad-title { font-size:.86rem; font-weight:700; line-height:1.3; }
+    .ad-desc  { font-size:.75rem; color:var(--muted); flex:1; line-height:1.5; }
+    .ad-footer { padding:0 13px 11px; display:flex; gap:6px; }
+    .store-badge { display:inline-flex; align-items:center; gap:3px; font-size:.66rem; color:var(--muted); border:1px solid var(--border); border-radius:5px; padding:3px 8px; text-decoration:none; transition:color .2s,border-color .2s; }
+    .store-badge:hover { color:var(--text); border-color:var(--muted); }
+
+    /* GAME DEV */
+    .dev-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; padding:16px 26px 40px; max-width:960px; }
+    .dev-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:transform .22s,border-color .22s; }
+    .dev-card:hover { transform:translateY(-3px); border-color:var(--accent); }
+    .dev-banner { height:120px; display:flex; align-items:center; justify-content:center; font-size:2.8rem; }
+    .dev-body { padding:16px 16px 13px; }
+    .dev-tags { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:9px; }
+    .dev-tag { font-size:.66rem; padding:2px 9px; border-radius:999px; background:var(--accent-dim); border:1px solid var(--accent-border); color:#a99dff; }
+    .dev-title { font-size:.95rem; font-weight:700; margin-bottom:5px; }
+    .dev-desc  { font-size:.8rem; color:var(--muted); line-height:1.6; margin-bottom:12px; }
+    .dev-links { display:flex; gap:7px; }
+    .dev-link { font-size:.76rem; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:4px; padding:5px 11px; border:1px solid var(--accent-border); border-radius:6px; transition:background .2s; }
+    .dev-link:hover { background:var(--accent-dim); }
+
+    /* MODAL */
+    .modal-overlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.82); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; padding:20px; }
+    .modal-overlay.open { opacity:1; pointer-events:all; }
+    .modal { position:relative; display:flex; gap:26px; align-items:flex-start; max-width:680px; width:100%; transform:scale(.92) translateY(14px); transition:transform .3s; }
+    .modal-overlay.open .modal { transform:scale(1) translateY(0); }
+    .phone-wrap { flex-shrink:0; width:170px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+    .phone-shell { width:146px; background:#12131c; border-radius:24px; border:3px solid #2e3040; box-shadow:0 0 0 1px #0a0a12,0 18px 44px rgba(0,0,0,.6); overflow:hidden; }
+    .phone-notch { height:16px; background:#12131c; display:flex; align-items:center; justify-content:center; border-bottom:1px solid #1e1f2a; }
+    .phone-pill { width:48px; height:5px; background:#0a0a12; border-radius:999px; }
+    .phone-thumb { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; }
+    .phone-bar { height:16px; background:#12131c; display:flex; align-items:center; justify-content:center; border-top:1px solid #1e1f2a; }
+    .phone-bar-pill { width:55px; height:3px; background:#333; border-radius:999px; }
+    .play-popup-btn { width:100%; display:flex; align-items:center; justify-content:center; gap:7px; background:var(--accent); color:#fff; border:none; border-radius:9px; padding:10px 0; font-size:.85rem; font-weight:700; cursor:pointer; transition:background .2s; font-family:inherit; box-shadow:0 4px 16px rgba(124,106,247,.35); }
+    .play-popup-btn:hover { background:#6a58e0; }
+    .play-popup-btn svg { width:15px; height:15px; fill:#fff; }
+    .popup-hint { font-size:.66rem; color:var(--muted); text-align:center; line-height:1.5; }
+    .modal-info { flex:1; min-width:0; }
+    .modal-genre { font-size:.68rem; text-transform:uppercase; letter-spacing:1px; color:var(--green); margin-bottom:7px; }
+    .modal-title { font-size:1.35rem; font-weight:800; letter-spacing:-.3px; margin-bottom:9px; }
+    .modal-desc  { color:#9ea0b0; font-size:.83rem; line-height:1.7; margin-bottom:16px; }
+    .modal-tags  { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+    .modal-tag   { background:var(--accent-dim); border:1px solid var(--accent-border); color:#a99dff; border-radius:999px; padding:3px 10px; font-size:.7rem; }
+    .modal-actions { display:flex; flex-direction:column; gap:8px; }
+    .modal-store-btn { display:flex; align-items:center; gap:11px; background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:10px 13px; text-decoration:none; color:var(--text); font-size:.8rem; transition:border-color .2s; }
+    .modal-store-btn:hover { border-color:var(--accent); }
+    .modal-store-icon { font-size:1.2rem; }
+    .modal-store-lbl  { font-size:.62rem; color:var(--muted); }
+    .modal-store-name { font-weight:700; font-size:.82rem; }
+    .modal-close { position:absolute; top:-12px; right:-12px; width:30px; height:30px; border-radius:50%; background:var(--surface); border:1px solid var(--border); color:var(--muted); font-size:.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; z-index:10; }
+    .modal-close:hover { color:var(--text); background:#252836; }
+
+    /* LOADING */
+    #loadingScreen { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:999; flex-direction:column; gap:16px; }
+    .loader-logo { width:48px; height:48px; background:var(--accent); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; animation:pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.7;transform:scale(.95)} }
+    .loader-text { font-size:.8rem; color:var(--muted); }
+
+    @media(max-width:680px) {
+      #sidebar { width:var(--sidebar-collapsed); }
+      #main { margin-left:var(--sidebar-collapsed); }
+      .stats-row { grid-template-columns:repeat(2,1fr); }
+      .modal { flex-direction:column; align-items:center; }
+      .hero-section { flex-direction:column; }
+      .nav-badge,.logo-text,.logo-sub,.footer-name,.footer-role { display:none; }
+    }
+    @media(max-width:480px) {
+      .ads-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+      .ads-grid,.dev-grid,.filter-bar,.section,.stats-row,.hero-section,.page-header { padding-left:12px; padding-right:12px; }
+      .topbar { padding:0 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loadingScreen">
+  <div class="loader-logo">🎮</div>
+  <div class="loader-text">Đang tải...</div>
+</div>
+
+<aside id="sidebar">
+  <a class="sidebar-logo" href="#" onclick="navigate('home');return false;">
+    <div class="logo-icon">🎮</div>
+    <div>
+      <div class="logo-text" id="studioName">Meta Game</div>
+      <div class="logo-sub">Studio</div>
+    </div>
+  </a>
+  <nav>
+    <div class="nav-sec">Menu</div>
+    <button class="nav-item active" data-page="home" onclick="navigate('home')">
+      <div class="nav-icon">🏠</div><span>Trang chủ</span>
+    </button>
+    <button class="nav-item" data-page="playable" onclick="navigate('playable')">
+      <div class="nav-icon">🎯</div><span>Playable Ads</span>
+      <span class="nav-badge" id="adsBadge">0</span>
+    </button>
+    <button class="nav-item" data-page="gamedev" onclick="navigate('gamedev')">
+      <div class="nav-icon">🕹️</div><span>Game Portfolio</span>
+    </button>
+    <div class="nav-sec" style="margin-top:8px">Liên hệ</div>
+    <a id="linkEmail"    class="nav-item" href="#" target="_blank"><div class="nav-icon">📧</div><span>Email</span></a>
+    <a id="linkLinkedin" class="nav-item" href="#" target="_blank"><div class="nav-icon">💼</div><span>LinkedIn</span></a>
+    <a id="linkGithub"   class="nav-item" href="#" target="_blank"><div class="nav-icon">🐙</div><span>GitHub</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="avatar" id="sidebarAvatar">NT</div>
+    <div>
+      <div class="footer-name" id="sidebarName">...</div>
+      <div class="footer-role">Game Developer</div>
+    </div>
+  </div>
+</aside>
+
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-title"><span id="studioLabel">Meta Game</span> · <span id="topbarTitle">Trang chủ</span></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="topbar-admin" href="admin.html">⚙ Admin</a>
+      <div class="topbar-avatar" id="topbarAvatar">NT</div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <div class="hero-section">
+      <div class="hero-avatar" id="heroAvatar">NT</div>
+      <div class="hero-text">
+        <div class="hero-badge">Sẵn sàng nhận dự án</div>
+        <div class="hero-name" id="heroName">...</div>
+        <div class="hero-role" id="heroRole">...</div>
+        <div class="hero-bio"  id="heroBio">...</div>
+        <div class="hero-links">
+          <button class="hero-link hero-link-primary" onclick="navigate('playable')">🎯 Xem Playable Ads</button>
+          <button class="hero-link hero-link-outline" onclick="navigate('gamedev')">🕹️ Game Portfolio</button>
+          <a class="hero-link hero-link-outline" id="heroEmail" href="#">📧 Liên hệ</a>
+        </div>
+      </div>
+    </div>
+    <div class="stats-row" id="statsRow"></div>
+    <div class="section" style="padding-top:22px">
+      <div class="section-title">Kỹ năng</div>
+      <div class="skills-wrap" id="skillsWrap"></div>
+    </div>
+    <div class="section" style="padding-top:20px">
+      <div class="section-title">Kinh nghiệm</div>
+      <div class="exp-list" id="expList"></div>
+    </div>
+    <div class="section" style="padding-top:20px;padding-bottom:40px">
+      <div class="section-title">Liên hệ</div>
+      <div class="contact-grid" id="contactGrid"></div>
+    </div>
+  </div>
+
+  <!-- PLAYABLE ADS -->
+  <div id="page-playable" class="page">
+    <div class="page-header">
+      <h2>🎯 Playable Ads Portfolio</h2>
+      <p>Click vào game để xem gameplay tương tác trực tiếp</p>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterAds('all',this)">Tất cả</button>
+      <button class="filter-btn" onclick="filterAds('casual',this)">Casual</button>
+      <button class="filter-btn" onclick="filterAds('puzzle',this)">Puzzle</button>
+      <button class="filter-btn" onclick="filterAds('action',this)">Action</button>
+      <button class="filter-btn" onclick="filterAds('hyper',this)">Hyper-casual</button>
+    </div>
+    <div class="ads-grid" id="adsGrid"></div>
+  </div>
+
+  <!-- GAME DEV -->
+  <div id="page-gamedev" class="page">
+    <div class="page-header">
+      <h2>🕹️ Game Developer Portfolio</h2>
+      <p>Các game đã publish và dự án nổi bật</p>
+    </div>
+    <div class="dev-grid" id="devGrid"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="phone-wrap">
+      <div class="phone-shell">
+        <div class="phone-notch"><div class="phone-pill"></div></div>
+        <img class="phone-thumb" id="modalThumb" src="" alt="" />
+        <div class="phone-bar"><div class="phone-bar-pill"></div></div>
+      </div>
+      <button class="play-popup-btn" onclick="launchGame()">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Chơi ngay
+      </button>
+      <div class="popup-hint">Mở cửa sổ 390×700px</div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-genre"   id="modalGenre"></div>
+      <div class="modal-title"   id="modalTitle"></div>
+      <div class="modal-desc"    id="modalDesc"></div>
+      <div class="modal-tags"    id="modalTags"></div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── CONFIG: đổi URL này khi chuyển sang hosting riêng ──
+  const DATA_URL = './data.json';
+
+  let D = {}; // data loaded from JSON
+  let currentPlayUrl = '';
+  const overlay = document.getElementById('modalOverlay');
+
+  // ── LOAD DATA ──────────────────────────────────────────
+  async function loadData() {
+    try {
+      const r = await fetch(DATA_URL + '?v=' + Date.now());
+      D = await r.json();
+    } catch(e) {
+      console.warn('Could not load data.json, using defaults');
+      D = { profile:{name:'Portfolio',role:'',bio:'',email:'',linkedin:'#',github:'#',studio:'Studio'},
+            stats:[], skills:[], experience:[], playableAds:[], games:[] };
+    }
+    renderAll();
+    document.getElementById('loadingScreen').style.display = 'none';
+  }
+
+  function renderAll() {
+    const p = D.profile || {};
+    const initials = (p.name||'?').split(' ').map(w=>w[0]).slice(-2).join('').toUpperCase();
+
+    // Sidebar / topbar
+    document.getElementById('studioName').textContent  = p.studio || 'Studio';
+    document.getElementById('studioLabel').textContent = p.studio || 'Studio';
+    document.getElementById('sidebarName').textContent = p.name || '';
+    document.getElementById('sidebarAvatar').textContent = initials;
+    document.getElementById('topbarAvatar').textContent  = initials;
+
+    // Sidebar links
+    if(p.email)    document.getElementById('linkEmail').href    = 'mailto:'+p.email;
+    if(p.linkedin) document.getElementById('linkLinkedin').href = p.linkedin;
+    if(p.github)   document.getElementById('linkGithub').href   = p.github;
+
+    // Hero
+    document.getElementById('heroAvatar').textContent = initials;
+    document.getElementById('heroName').textContent   = p.name || '';
+    document.getElementById('heroRole').textContent   = p.role || '';
+    document.getElementById('heroBio').textContent    = p.bio  || '';
+    document.getElementById('heroEmail').href = p.email ? 'mailto:'+p.email : '#';
+    document.title = (p.name || 'Portfolio') + ' – Game Developer';
+
+    // Stats
+    document.getElementById('statsRow').innerHTML = (D.stats||[]).map(s=>
+      `<div class="stat-card"><div class="stat-num">${s.num}</div><div class="stat-lbl">${s.label}</div></div>`
+    ).join('');
+
+    // Skills
+    document.getElementById('skillsWrap').innerHTML = (D.skills||[]).map(s=>
+      `<div class="skill-chip"><span class="skill-dot" style="background:${s.color}"></span>${s.name}</div>`
+    ).join('');
+
+    // Experience
+    document.getElementById('expList').innerHTML = (D.experience||[]).map(e=>
+      `<div class="exp-card">
+        <div class="exp-icon">${e.icon||'💼'}</div>
+        <div>
+          <div class="exp-title">${e.title}</div>
+          <div class="exp-company">${e.company}</div>
+          <div class="exp-period">${e.period}</div>
+          <div class="exp-desc">${e.desc}</div>
+        </div>
+      </div>`
+    ).join('');
+
+    // Contact
+    document.getElementById('contactGrid').innerHTML = [
+      p.email    ? `<a class="contact-card" href="mailto:${p.email}"><span class="contact-icon">📧</span><div><div class="contact-label">Email</div><div class="contact-value">${p.email}</div></div></a>` : '',
+      p.linkedin && p.linkedin!='#' ? `<a class="contact-card" href="${p.linkedin}" target="_blank"><span class="contact-icon">💼</span><div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com</div></div></a>` : '',
+      p.github   && p.github!='#'   ? `<a class="contact-card" href="${p.github}"   target="_blank"><span class="contact-icon">🐙</span><div><div class="contact-label">GitHub</div><div class="contact-value">github.com</div></div></a>` : '',
+    ].join('');
+
+    // Ads badge
+    document.getElementById('adsBadge').textContent = (D.playableAds||[]).length;
+
+    renderAds('all');
+    renderGames();
+  }
+
+  // ── ADS ───────────────────────────────────────────────
+  function renderAds(filter) {
+    const items = filter==='all' ? D.playableAds : (D.playableAds||[]).filter(p=>p.genreKey===filter);
+    document.getElementById('adsGrid').innerHTML = (items||[]).map(p=>
+      `<div class="ad-card" onclick="openModal(${p.id})">
+        <div class="ad-thumb">
+          <img src="${p.icon}" alt="${p.title}" onerror="this.style.display='none'"/>
+          <div class="ad-play-overlay"><div class="ad-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        </div>
+        <div class="ad-body">
+          <div class="ad-genre">${p.genre}</div>
+          <div class="ad-title">${p.title}</div>
+          <div class="ad-desc">${p.desc}</div>
+        </div>
+        <div class="ad-footer">
+          ${p.playStore?`<a href="${p.playStore}" target="_blank" class="store-badge" onclick="event.stopPropagation()">▶ Play Store</a>`:''}
+        </div>
+      </div>`
+    ).join('') || `<div style="color:var(--muted);padding:20px;grid-column:1/-1">Chưa có sản phẩm nào.</div>`;
+  }
+
+  function filterAds(genre, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAds(genre);
+  }
+
+  // ── GAMES ─────────────────────────────────────────────
+  function renderGames() {
+    document.getElementById('devGrid').innerHTML = (D.games||[]).map(g=>
+      `<div class="dev-card">
+        <div class="dev-banner" style="background:${g.color}">${g.emoji}</div>
+        <div class="dev-body">
+          <div class="dev-tags">${(g.tags||[]).map(t=>`<span class="dev-tag">${t}</span>`).join('')}</div>
+          <div class="dev-title">${g.title}</div>
+          <div class="dev-desc">${g.desc}</div>
+          <div class="dev-links">
+            ${g.storeUrl?`<a href="${g.storeUrl}" target="_blank" class="dev-link">▶ Play Store</a>`:''}
+            ${g.demoUrl ?`<a href="${g.demoUrl}"  target="_blank" class="dev-link">🔗 Demo</a>`:''}
+          </div>
+        </div>
+      </div>`
+    ).join('');
+  }
+
+  // ── MODAL ─────────────────────────────────────────────
+  function openModal(id) {
+    const p = (D.playableAds||[]).find(x=>x.id===id); if(!p) return;
+    currentPlayUrl = p.playUrl;
+    document.getElementById('modalThumb').src  = p.icon;
+    document.getElementById('modalThumb').alt  = p.title;
+    document.getElementById('modalGenre').textContent = p.genre;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalDesc').textContent  = p.desc;
+    document.getElementById('modalTags').innerHTML = (p.tags||[]).map(t=>`<span class="modal-tag">${t}</span>`).join('');
+    document.getElementById('modalActions').innerHTML = p.playStore
+      ? `<a href="${p.playStore}" target="_blank" class="modal-store-btn"><span class="modal-store-icon">▶</span><span><div class="modal-store-lbl">Tải trên</div><div class="modal-store-name">Google Play</div></span></a>` : '';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function launchGame() {
+    if(!currentPlayUrl) return;
+    const w=390,h=700,l=Math.round((screen.width-w)/2),t=Math.round((screen.height-h)/2);
+    window.open(currentPlayUrl,'playable_ad',`width=${w},height=${h},left=${l},top=${t},resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no`);
+  }
+  function closeModal(e) {
+    if(e && e.target!==overlay) return;
+    overlay.classList.remove('open'); document.body.style.overflow='';
+  }
+
+  // ── NAVIGATION ────────────────────────────────────────
+  const pageTitles = { home:'Trang chủ', playable:'Playable Ads Portfolio', gamedev:'Game Developer Portfolio' };
+  function navigate(page) {
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    document.getElementById('page-'+page).classList.add('active');
+    document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
+    document.getElementById('topbarTitle').textContent = pageTitles[page]||page;
+  }
+
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ overlay.classList.remove('open'); document.body.style.overflow=''; }});
+
+  loadData();
+</script>
+</body>
+</html>
