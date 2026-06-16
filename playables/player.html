@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Playable Player</title>
+<!--
+  ==========================================================
+  PLAYABLE PLAYER — giả lập môi trường ad network
+  Cách dùng: player.html#ten-file-playable.html
+  - Đặt file HTML playable (bản build inline 1 file) vào CÙNG
+    thư mục playables/ này.
+  - Player sẽ tải playable, tiêm stub MRAID 2.0 + DAPI +
+    FbPlayableAd để playable nhận tín hiệu "ready/viewable"
+    và tự khởi động như khi chạy trong ad network thật.
+  ==========================================================
+-->
+<style>
+  html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+  iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .msg {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.6em;
+    color: #8b95ab; font-family: monospace; font-size: 14px;
+    text-align: center; padding: 0 2em; background: #0d1220;
+  }
+  .msg b { color: #ffb454; }
+</style>
+</head>
+<body>
+<iframe id="f" allow="autoplay; fullscreen"></iframe>
+<script>
+(function () {
+  // Ưu tiên đọc từ hash (#ten-file.html) — không bị server nào cắt mất.
+  // Vẫn hỗ trợ ?src= làm dự phòng.
+  var params = new URLSearchParams(location.search);
+  var src = decodeURIComponent((location.hash || '').replace(/^#/, '')) || params.get('src') || '';
+
+  function showMsg(html) {
+    var d = document.createElement('div');
+    d.className = 'msg';
+    d.innerHTML = html;
+    document.body.appendChild(d);
+  }
+
+  // Chỉ cho phép file cùng thư mục / thư mục con — chặn URL ngoài
+  if (!src || src.indexOf(':') !== -1 || src.indexOf('//') === 0) {
+    showMsg('<b>Trang này không mở trực tiếp được — thiếu tên file playable</b><br><br>' +
+      'Hãy mở <b>personal-website.html</b> và bấm nút "▶ Chơi ngay",<br>' +
+      'hoặc bấm thử: <a href="player.html#worm-puzzle.html" style="color:#6ee7d8">player.html#worm-puzzle.html</a>');
+    return;
+  }
+
+  // Đổi hash thì tải lại playable tương ứng
+  window.addEventListener('hashchange', function () { location.reload(); });
+
+  // ===== Stub giả lập ad network, tiêm vào trước script của playable =====
+  var STUB = '<scr' + 'ipt>(function(){' +
+    'function now(){return{width:window.innerWidth,height:window.innerHeight};}' +
+    // ---- MRAID 2.0 (AppLovin, Unity Ads, Vungle...) ----
+    'var L={};var mraid={' +
+      'getState:function(){return"default"},' +
+      'isViewable:function(){return true},' +
+      'getVersion:function(){return"2.0"},' +
+      'getPlacementType:function(){return"interstitial"},' +
+      'getMaxSize:now,getScreenSize:now,' +
+      'getCurrentPosition:function(){var s=now();return{x:0,y:0,width:s.width,height:s.height}},' +
+      'getDefaultPosition:function(){var s=now();return{x:0,y:0,width:s.width,height:s.height}},' +
+      'getExpandProperties:function(){return now()},setExpandProperties:function(){},' +
+      'getOrientationProperties:function(){return{allowOrientationChange:true,forceOrientation:"none"}},' +
+      'setOrientationProperties:function(){},useCustomClose:function(){},' +
+      'expand:function(){},resize:function(){},close:function(){},unload:function(){},' +
+      'supports:function(){return false},' +
+      'open:function(u){try{window.open(u,"_blank")}catch(e){}},' +
+      'addEventListener:function(ev,fn){(L[ev]=L[ev]||[]).push(fn);' +
+        'if(ev==="ready")setTimeout(function(){fn()},50);' +
+        'if(ev==="viewableChange")setTimeout(function(){fn(true)},80);},' +
+      'removeEventListener:function(ev,fn){if(L[ev])L[ev]=L[ev].filter(function(f){return f!==fn})}' +
+    '};window.mraid=mraid;' +
+    // ---- DAPI (ironSource) ----
+    'var DL={};window.dapi={' +
+      'isReady:function(){return true},isViewable:function(){return true},' +
+      'getScreenSize:now,getAudioVolume:function(){return 1},' +
+      'openStoreUrl:function(u){try{window.open(u,"_blank")}catch(e){}},' +
+      'addEventListener:function(ev,fn){(DL[ev]=DL[ev]||[]).push(fn);' +
+        'if(ev==="ready")setTimeout(function(){fn()},50);' +
+        'if(ev==="viewableChange")setTimeout(function(){fn({isViewable:true})},80);},' +
+      'removeEventListener:function(){}' +
+    '};' +
+    // ---- Facebook / Google ----
+    'window.FbPlayableAd=window.FbPlayableAd||{onCTAClick:function(){}};' +
+    'window.ExitApi=window.ExitApi||{exit:function(){}};' +
+    // ---- Tín hiệu start dạng postMessage (Luna & một số builder) ----
+    'window.addEventListener("load",function(){' +
+      'try{window.postMessage({type:"start"},"*")}catch(e){}' +
+      'try{window.postMessage("start","*")}catch(e){}' +
+    '});' +
+  '})();</scr' + 'ipt>';
+
+  fetch(src)
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (html) {
+      // <base> để playable chưa inline 100% vẫn tìm được tài nguyên tương đối
+      var dir = src.substring(0, src.lastIndexOf('/') + 1);
+      var inject = (dir ? '<base href="' + dir + '">' : '') + STUB;
+      var out;
+      if (/<head[^>]*>/i.test(html)) {
+        out = html.replace(/<head[^>]*>/i, function (m) { return m + inject; });
+      } else if (/<html[^>]*>/i.test(html)) {
+        out = html.replace(/<html[^>]*>/i, function (m) { return m + inject; });
+      } else {
+        out = inject + html;
+      }
+      document.getElementById('f').srcdoc = out;
+    })
+    .catch(function () {
+      showMsg('<b>Không tải được "' + src.replace(/</g, '&lt;') + '"</b><br>' +
+        'Hãy chắc chắn file playable nằm trong thư mục <b>playables/</b><br>' +
+        'và bạn đang mở website qua http (vd: GitHub Pages / Live Server),<br>' +
+        'không phải mở file trực tiếp (file://).');
+    });
+})();
+</script>
+</body>
+</html>

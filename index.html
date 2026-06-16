@@ -1,478 +1,2155 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio – Game Developer</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --sidebar-w: 220px; --sidebar-collapsed: 60px;
-      --bg: #0e0f14; --surface: #161820; --card: #1c1e2a; --border: #272a38;
-      --accent: #7c6af7; --accent-dim: rgba(124,106,247,.12); --accent-border: rgba(124,106,247,.3);
-      --green: #22d3a5; --text: #e2e4f0; --muted: #636680; --radius: 12px;
-      --sidebar-bg: #11121a;
-    }
-    html, body { height: 100%; }
-    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; display: flex; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nguyễn Văn An — Game Developer & Playable Ads Developer</title>
+<!--
+  ==========================================================
+  PORTFOLIO — GAME DEVELOPER / PLAYABLE ADS DEVELOPER
+  Cách tùy chỉnh nhanh:
+  1. Tìm "Nguyễn Văn An" → thay bằng tên bạn
+  2. Sửa ảnh đại diện trong .profile-img
+  3. Sửa link Email / GitHub / LinkedIn / itch.io
+  4. Mỗi dự án là 1 khối .project-card — copy/paste để thêm
+  5. Thumbnail dự án: thay thẻ .thumb bằng <img> ảnh thật
+  ==========================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1220;
+    --surface: #151c2e;
+    --surface-2: #1b2438;
+    --border: #263049;
+    --text: #d7deec;
+    --muted: #8b95ab;
+    --accent: #ffb454;        /* cam hổ phách — màu chủ đạo */
+    --accent-soft: rgba(255, 180, 84, 0.12);
+    --accent-2: #6ee7d8;      /* xanh ngọc — điểm nhấn phụ */
+    --accent-2-soft: rgba(110, 231, 216, 0.1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    font-size: var(--base-font, 16px); line-height: 1.65;
+  }
+  h1, h2, h3, .site-title { font-family: "Space Grotesk", sans-serif; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-    /* SIDEBAR */
-    #sidebar { width: var(--sidebar-w); background: var(--sidebar-bg); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; left:0; top:0; bottom:0; z-index:100; overflow: hidden; }
-    .sidebar-logo { display:flex; align-items:center; gap:10px; padding:18px 14px; border-bottom:1px solid var(--border); text-decoration:none; color:var(--text); white-space:nowrap; overflow:hidden; min-height:60px; }
-    .logo-icon { width:32px; height:32px; flex-shrink:0; background:var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; }
-    .logo-text { font-weight:800; font-size:.9rem; letter-spacing:-.3px; }
-    .logo-sub  { font-size:.68rem; color:var(--muted); }
-    nav { flex:1; padding:10px 8px; overflow-y:auto; }
-    .nav-sec { font-size:.62rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); padding:10px 8px 5px; }
-    .nav-item { display:flex; align-items:center; gap:11px; padding:8px 8px; border-radius:8px; cursor:pointer; white-space:nowrap; overflow:hidden; color:var(--muted); border:none; background:none; width:100%; text-align:left; font-size:.85rem; font-family:inherit; transition:background .15s,color .15s; text-decoration:none; }
-    .nav-item:hover { background:rgba(255,255,255,.05); color:var(--text); }
-    .nav-item.active { background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent-border); }
-    .nav-icon { width:30px; height:30px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:16px; border-radius:6px; }
-    .nav-badge { background:var(--accent); color:#fff; border-radius:999px; padding:1px 7px; font-size:.65rem; font-weight:700; margin-left:auto; }
-    .sidebar-footer { border-top:1px solid var(--border); padding:12px; display:flex; align-items:center; gap:10px; white-space:nowrap; overflow:hidden; }
-    .avatar { width:32px; height:32px; flex-shrink:0; border-radius:50%; background:linear-gradient(135deg,#7c6af7,#22d3a5); display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:700; color:#fff; }
-    .footer-name { font-size:.8rem; font-weight:600; }
-    .footer-role { font-size:.67rem; color:var(--muted); }
+  /* ===== Thanh điều hướng ===== */
+  .masthead {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(13, 18, 32, 0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .masthead-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 1.5em;
+    display: flex; align-items: center; gap: 0.5em; flex-wrap: wrap;
+  }
+  .site-title {
+    color: var(--text); font-weight: 700; font-size: 1.05em;
+    padding: 0.9em 1em 0.9em 0; white-space: nowrap;
+  }
+  .site-title .lvl {
+    font-family: "JetBrains Mono", monospace; font-size: 0.7em;
+    color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 4px; padding: 0.05em 0.4em; margin-left: 0.5em;
+    vertical-align: 2px;
+  }
+  .site-title:hover { text-decoration: none; }
+  .nav { display: flex; flex-wrap: wrap; margin-left: auto; }
+  .nav a {
+    display: block; padding: 1em 0.9em; color: var(--muted);
+    font-size: calc(0.92em * var(--nav-scale, 1)); position: relative; transition: color 0.15s;
+  }
+  .nav a:hover { color: var(--text); text-decoration: none; }
+  .nav a.active { color: var(--accent); }
+  .nav a::after {
+    content: ""; position: absolute; left: 0.9em; right: 0.9em; bottom: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.2s;
+  }
+  .nav a.active::after, .nav a:hover::after { transform: scaleX(1); }
 
-    /* MAIN */
-    #main { margin-left: var(--sidebar-w); flex:1; min-height:100vh; display:flex; flex-direction:column; }
-    .topbar { position:sticky; top:0; z-index:50; background:rgba(14,15,20,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); padding:0 26px; height:50px; display:flex; align-items:center; justify-content:space-between; }
-    .topbar-title { font-size:.86rem; font-weight:600; color:var(--muted); }
-    .topbar-title span { color:var(--text); }
-    .topbar-avatar { width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#7c6af7,#22d3a5); display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:#fff; }
-    .topbar-admin { font-size:.75rem; color:var(--muted); text-decoration:none; padding:5px 10px; border:1px solid var(--border); border-radius:6px; transition:color .2s,border-color .2s; }
-    .topbar-admin:hover { color:var(--accent); border-color:var(--accent); }
+  /* ===== Bố cục ===== */
+  .layout {
+    max-width: 1200px; margin: 0 auto; padding: 2.5em 1.5em;
+    display: grid; grid-template-columns: 230px 1fr; gap: 3em;
+  }
 
-    .page { display:none; flex:1; }
-    .page.active { display:block; }
+  /* ===== Sidebar ===== */
+  .sidebar { font-size: 0.88em; }
+  .sidebar-sticky { position: sticky; top: 5.5em; }
+  .profile-img {
+    width: var(--avatar-size, 120px); height: var(--avatar-size, 120px); border-radius: 18px;
+    object-fit: cover; display: block; margin-bottom: 0.8em;
+    border: 2px solid var(--accent);
+    box-shadow: 6px 6px 0 var(--accent-soft);
+  }
+  .author-name { font-size: 1.3em; margin-bottom: 0.15em; }
+  .author-bio { color: var(--muted); margin-bottom: 0.4em; }
+  .status {
+    display: inline-flex; align-items: center; gap: 0.45em;
+    font-family: "JetBrains Mono", monospace; font-size: 0.8em;
+    color: var(--accent-2); margin-bottom: 1.2em;
+  }
+  .status::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-2); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.3; } }
+  .author-links { list-style: none; }
+  .author-links li { margin-bottom: 0.55em; }
+  .author-links a {
+    color: var(--muted); display: inline-flex; align-items: center; gap: 0.55em;
+  }
+  .author-links a:hover { color: var(--accent); text-decoration: none; }
+  .author-links svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
 
-    /* HOME */
-    .hero-section { display:flex; gap:28px; align-items:flex-start; padding:36px 26px 0; max-width:960px; }
-    .hero-avatar { width:88px; height:88px; flex-shrink:0; border-radius:18px; background:linear-gradient(135deg,#7c6af7,#22d3a5); display:flex; align-items:center; justify-content:center; font-size:2.2rem; font-weight:800; color:#fff; box-shadow:0 8px 28px rgba(124,106,247,.3); }
-    .hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(34,211,165,.1); border:1px solid rgba(34,211,165,.25); color:var(--green); border-radius:999px; padding:4px 12px; font-size:.7rem; font-weight:600; margin-bottom:8px; }
-    .hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); }
-    .hero-name { font-size:1.9rem; font-weight:800; letter-spacing:-.5px; margin-bottom:3px; }
-    .hero-role { color:var(--muted); font-size:.88rem; margin-bottom:12px; }
-    .hero-bio  { color:#9ea0b0; font-size:.87rem; max-width:500px; line-height:1.75; }
-    .hero-links { display:flex; gap:9px; margin-top:18px; flex-wrap:wrap; }
-    .hero-link { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:8px; font-size:.8rem; font-weight:600; text-decoration:none; transition:all .2s; cursor:pointer; border:none; font-family:inherit; }
-    .hero-link-primary { background:var(--accent); color:#fff; }
-    .hero-link-primary:hover { background:#6a58e0; }
-    .hero-link-outline { background:transparent; color:var(--text); border:1px solid var(--border); }
-    .hero-link-outline:hover { border-color:var(--accent); color:var(--accent); }
-    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:22px 26px 0; max-width:960px; }
-    .stat-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
-    .stat-num { font-size:1.7rem; font-weight:800; color:var(--accent); }
-    .stat-lbl { font-size:.75rem; color:var(--muted); margin-top:2px; }
-    .section { padding:22px 26px 0; max-width:960px; }
-    .section-title { font-size:.65rem; text-transform:uppercase; letter-spacing:2px; color:var(--muted); margin-bottom:14px; }
-    .skills-wrap { display:flex; flex-wrap:wrap; gap:7px; }
-    .skill-chip { display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--border); border-radius:7px; padding:6px 13px; font-size:.8rem; }
-    .skill-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-    .exp-list { display:flex; flex-direction:column; gap:10px; }
-    .exp-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; display:flex; gap:14px; align-items:flex-start; }
-    .exp-icon { width:38px; height:38px; flex-shrink:0; border-radius:8px; background:var(--accent-dim); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; font-size:1.15rem; }
-    .exp-title { font-weight:700; font-size:.88rem; }
-    .exp-company { color:var(--accent); font-size:.8rem; }
-    .exp-period { color:var(--muted); font-size:.75rem; margin-top:1px; }
-    .exp-desc { color:#9ea0b0; font-size:.81rem; margin-top:5px; line-height:1.6; }
-    .contact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px; }
-    .contact-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--text); transition:border-color .2s,transform .2s; }
-    .contact-card:hover { border-color:var(--accent); transform:translateY(-2px); }
-    .contact-icon { font-size:1.3rem; }
-    .contact-label { font-size:.68rem; color:var(--muted); }
-    .contact-value { font-size:.82rem; font-weight:600; }
+  /* ===== Nội dung & tab ===== */
+  .content section { display: none; animation: fadeIn 0.25s ease; }
+  .content section.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .content section { animation: none; }
+    .status::before { animation: none; }
+    .cursor { animation: none !important; }
+  }
 
-    /* PLAYABLE ADS */
-    .page-header { padding:30px 26px 0; }
-    .page-header h2 { font-size:1.3rem; font-weight:800; letter-spacing:-.3px; }
-    .page-header p  { color:var(--muted); font-size:.82rem; margin-top:4px; }
-    .filter-bar { display:flex; gap:7px; flex-wrap:wrap; padding:16px 26px 0; }
-    .filter-btn { padding:5px 15px; border-radius:999px; font-size:.76rem; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all .2s; font-family:inherit; }
-    .filter-btn.active,.filter-btn:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
-    .ads-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px; padding:16px 26px 40px; max-width:960px; }
-    .ad-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:transform .22s,border-color .22s,box-shadow .22s; display:flex; flex-direction:column; }
-    .ad-card:hover { transform:translateY(-4px); border-color:var(--accent); box-shadow:0 10px 30px rgba(124,106,247,.18); }
-    .ad-thumb { position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--surface); }
-    .ad-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .35s; display:block; }
-    .ad-card:hover .ad-thumb img { transform:scale(1.07); }
-    .ad-play-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0); transition:background .22s; }
-    .ad-card:hover .ad-play-overlay { background:rgba(0,0,0,.5); }
-    .ad-play-btn { width:46px; height:46px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(.65); transition:opacity .22s,transform .22s; box-shadow:0 0 18px rgba(124,106,247,.5); }
-    .ad-card:hover .ad-play-btn { opacity:1; transform:scale(1); }
-    .ad-play-btn svg { width:18px; height:18px; fill:#fff; margin-left:3px; }
-    .ad-body { padding:12px 13px; flex:1; display:flex; flex-direction:column; gap:4px; }
-    .ad-genre { font-size:.66rem; text-transform:uppercase; letter-spacing:1px; color:var(--green); }
-    .ad-title { font-size:.86rem; font-weight:700; line-height:1.3; }
-    .ad-desc  { font-size:.75rem; color:var(--muted); flex:1; line-height:1.5; }
-    .ad-footer { padding:0 13px 11px; display:flex; gap:6px; }
-    .store-badge { display:inline-flex; align-items:center; gap:3px; font-size:.66rem; color:var(--muted); border:1px solid var(--border); border-radius:5px; padding:3px 8px; text-decoration:none; transition:color .2s,border-color .2s; }
-    .store-badge:hover { color:var(--text); border-color:var(--muted); }
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace; font-size: 0.75em;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.6em;
+  }
+  .content h1 { font-size: 2em; line-height: 1.2; margin-bottom: 0.6em; }
+  .content h2 { font-size: 1.25em; margin: 1.8em 0 0.8em; color: var(--text); }
+  .content p { margin-bottom: 1em; color: var(--text); }
+  .lead { font-size: 1.08em; color: var(--muted); }
+  .cursor { display: inline-block; width: 0.55em; height: 1em; background: var(--accent);
+    vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
 
-    /* GAME DEV */
-    .dev-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; padding:16px 26px 40px; max-width:960px; }
-    .dev-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:transform .22s,border-color .22s; }
-    .dev-card:hover { transform:translateY(-3px); border-color:var(--accent); }
-    .dev-banner { height:120px; display:flex; align-items:center; justify-content:center; font-size:2.8rem; }
-    .dev-body { padding:16px 16px 13px; }
-    .dev-tags { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:9px; }
-    .dev-tag { font-size:.66rem; padding:2px 9px; border-radius:999px; background:var(--accent-dim); border:1px solid var(--accent-border); color:#a99dff; }
-    .dev-title { font-size:.95rem; font-weight:700; margin-bottom:5px; }
-    .dev-desc  { font-size:.8rem; color:var(--muted); line-height:1.6; margin-bottom:12px; }
-    .dev-links { display:flex; gap:7px; }
-    .dev-link { font-size:.76rem; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:4px; padding:5px 11px; border:1px solid var(--accent-border); border-radius:6px; transition:background .2s; }
-    .dev-link:hover { background:var(--accent-dim); }
+  /* Thẻ thống kê trang chủ */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin: 1.8em 0; }
+  .stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.1em 1.2em;
+  }
+  .stat .num {
+    font-family: "Space Grotesk", sans-serif; font-size: 1.9em; font-weight: 700;
+    color: var(--accent); line-height: 1.1;
+  }
+  .stat .label { color: var(--muted); font-size: 0.85em; }
 
-    /* MODAL */
-    .modal-overlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.82); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; padding:20px; }
-    .modal-overlay.open { opacity:1; pointer-events:all; }
-    .modal { position:relative; display:flex; gap:26px; align-items:flex-start; max-width:680px; width:100%; transform:scale(.92) translateY(14px); transition:transform .3s; }
-    .modal-overlay.open .modal { transform:scale(1) translateY(0); }
-    .phone-wrap { flex-shrink:0; width:170px; display:flex; flex-direction:column; align-items:center; gap:12px; }
-    .phone-shell { width:146px; background:#12131c; border-radius:24px; border:3px solid #2e3040; box-shadow:0 0 0 1px #0a0a12,0 18px 44px rgba(0,0,0,.6); overflow:hidden; }
-    .phone-notch { height:16px; background:#12131c; display:flex; align-items:center; justify-content:center; border-bottom:1px solid #1e1f2a; }
-    .phone-pill { width:48px; height:5px; background:#0a0a12; border-radius:999px; }
-    .phone-thumb { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; }
-    .phone-bar { height:16px; background:#12131c; display:flex; align-items:center; justify-content:center; border-top:1px solid #1e1f2a; }
-    .phone-bar-pill { width:55px; height:3px; background:#333; border-radius:999px; }
-    .play-popup-btn { width:100%; display:flex; align-items:center; justify-content:center; gap:7px; background:var(--accent); color:#fff; border:none; border-radius:9px; padding:10px 0; font-size:.85rem; font-weight:700; cursor:pointer; transition:background .2s; font-family:inherit; box-shadow:0 4px 16px rgba(124,106,247,.35); }
-    .play-popup-btn:hover { background:#6a58e0; }
-    .play-popup-btn svg { width:15px; height:15px; fill:#fff; }
-    .popup-hint { font-size:.66rem; color:var(--muted); text-align:center; line-height:1.5; }
-    .modal-info { flex:1; min-width:0; }
-    .modal-genre { font-size:.68rem; text-transform:uppercase; letter-spacing:1px; color:var(--green); margin-bottom:7px; }
-    .modal-title { font-size:1.35rem; font-weight:800; letter-spacing:-.3px; margin-bottom:9px; }
-    .modal-desc  { color:#9ea0b0; font-size:.83rem; line-height:1.7; margin-bottom:16px; }
-    .modal-tags  { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
-    .modal-tag   { background:var(--accent-dim); border:1px solid var(--accent-border); color:#a99dff; border-radius:999px; padding:3px 10px; font-size:.7rem; }
-    .modal-actions { display:flex; flex-direction:column; gap:8px; }
-    .modal-store-btn { display:flex; align-items:center; gap:11px; background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:10px 13px; text-decoration:none; color:var(--text); font-size:.8rem; transition:border-color .2s; }
-    .modal-store-btn:hover { border-color:var(--accent); }
-    .modal-store-icon { font-size:1.2rem; }
-    .modal-store-lbl  { font-size:.62rem; color:var(--muted); }
-    .modal-store-name { font-weight:700; font-size:.82rem; }
-    .modal-close { position:absolute; top:-12px; right:-12px; width:30px; height:30px; border-radius:50%; background:var(--surface); border:1px solid var(--border); color:var(--muted); font-size:.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; z-index:10; }
-    .modal-close:hover { color:var(--text); background:#252836; }
+  /* Chip kỹ năng */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5em; margin-bottom: 1em; }
+  .chip {
+    font-family: "JetBrains Mono", monospace; font-size: 0.78em;
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--text); border-radius: 6px; padding: 0.25em 0.7em;
+  }
+  .chip.hot { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
-    /* LOADING */
-    #loadingScreen { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:999; flex-direction:column; gap:16px; }
-    .loader-logo { width:48px; height:48px; background:var(--accent); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; animation:pulse 1.5s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.7;transform:scale(.95)} }
-    .loader-text { font-size:.8rem; color:var(--muted); }
+  /* ===== Timeline kinh nghiệm ===== */
+  .timeline { position: relative; padding-left: 1.6em; }
+  .timeline::before {
+    content: ""; position: absolute; left: 0.32em; top: 0.4em; bottom: 0.4em;
+    width: 2px; background: var(--border);
+  }
+  .job { position: relative; margin-bottom: 2em; }
+  .job::before {
+    content: ""; position: absolute; left: -1.6em; top: 0.45em;
+    width: 12px; height: 12px; border-radius: 3px; transform: rotate(45deg);
+    background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .job h3 { font-size: 1.1em; }
+  .job .meta { font-family: "JetBrains Mono", monospace; font-size: 0.8em; color: var(--muted); margin-bottom: 0.5em; }
+  .job ul { margin: 0.4em 0 0.8em 1.3em; color: var(--text); }
+  .job li { margin-bottom: 0.35em; }
 
-    @media(max-width:680px) {
-      #sidebar { width:var(--sidebar-collapsed); }
-      #main { margin-left:var(--sidebar-collapsed); }
-      .stats-row { grid-template-columns:repeat(2,1fr); }
-      .modal { flex-direction:column; align-items:center; }
-      .hero-section { flex-direction:column; }
-      .nav-badge,.logo-text,.logo-sub,.footer-name,.footer-role { display:none; }
-    }
-    @media(max-width:480px) {
-      .ads-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
-      .ads-grid,.dev-grid,.filter-bar,.section,.stats-row,.hero-section,.page-header { padding-left:12px; padding-right:12px; }
-      .topbar { padding:0 12px; }
-    }
-  </style>
+  /* Dự án con trong mục kinh nghiệm */
+  .job-projects { margin-top: 0.9em; display: flex; flex-direction: column; gap: 0.8em; }
+  .jp {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 0.75em 0.95em;
+  }
+  .jp h4 {
+    font-family: "Space Grotesk", sans-serif; color: var(--text);
+    font-size: 1em; margin-bottom: 0.15em;
+  }
+  .jp .jp-type {
+    font-family: "JetBrains Mono", monospace; font-size: 0.72em;
+    color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 0.5em;
+  }
+  .jp p { font-size: 0.88em; color: var(--muted); margin-bottom: 0.5em; }
+  .jp .jp-label {
+    font-family: "JetBrains Mono", monospace; font-size: 0.7em;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 0.3em;
+  }
+  .jp ul { margin: 0 0 0 1.1em; }
+  .jp li { font-size: 0.85em; margin-bottom: 0.2em; }
+  .solo-badge {
+    display: inline-block; font-family: "JetBrains Mono", monospace;
+    font-size: 0.68em; color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 999px; padding: 0.05em 0.6em; margin-left: 0.5em; vertical-align: 2px;
+  }
+
+  /* Thanh XP kỹ năng */
+  .xp-list { margin-top: 0.5em; }
+  .xp { margin-bottom: 0.9em; }
+  .xp .xp-label {
+    display: flex; justify-content: space-between;
+    font-family: "JetBrains Mono", monospace; font-size: 0.8em; margin-bottom: 0.3em;
+  }
+  .xp .xp-label .pct { color: var(--accent); }
+  .xp-bar { height: 9px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 99px; overflow: hidden; }
+  .xp-bar > i {
+    display: block; height: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--accent), #ff8a5c);
+  }
+
+  /* ===== Lưới dự án ===== */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2em; margin-top: 1.2em; }
+  .project-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--card-radius, 14px); overflow: hidden; display: flex; flex-direction: column;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+  .project-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .thumb {
+    position: relative; aspect-ratio: 16 / 10; display: flex;
+    align-items: center; justify-content: center;
+    font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 1.1em;
+    color: rgba(255,255,255,0.85); text-align: center; padding: 0 1em;
+  }
+  /* Playable ads: thumbnail dọc như màn hình điện thoại */
+  .thumb.phone { aspect-ratio: 16 / 11; }
+  a.thumb { text-decoration: none; }
+  a.thumb:hover { text-decoration: none; }
+  .thumb .play {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(13, 18, 32, 0); transition: background 0.2s; opacity: 0;
+  }
+  .project-card:hover .play { opacity: 1; background: rgba(13, 18, 32, 0.45); }
+  .thumb .play span {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent); color: #1a1205;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2em;
+  }
+  .thumb img.shot {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .card-head { display: flex; align-items: center; gap: 0.7em; }
+  .card-head img.app-icon {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+  .card-head .dev { font-size: 0.75em; color: var(--muted); font-family: "JetBrains Mono", monospace; }
+  .g1 { background: linear-gradient(135deg, #f97362, #b33b8e); }
+  .g2 { background: linear-gradient(135deg, #4f7cf0, #36c3b9); }
+  .g3 { background: linear-gradient(135deg, #f0a93f, #e6603a); }
+  .g4 { background: linear-gradient(135deg, #7b5cf0, #4f9df0); }
+  .g5 { background: linear-gradient(135deg, #2fae72, #1f7a8c); }
+  .g6 { background: linear-gradient(135deg, #e05c7a, #8a3ab9); }
+  .card-body { padding: 1em 1.1em 1.2em; display: flex; flex-direction: column; gap: 0.5em; flex: 1; }
+  .card-body h3 { font-size: 1.05em; }
+  .card-body p { font-size: 0.9em; color: var(--muted); margin: 0; flex: 1; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 0.4em; }
+  .tag {
+    font-family: "JetBrains Mono", monospace; font-size: 0.7em;
+    color: var(--accent-2); background: var(--accent-2-soft);
+    border-radius: 5px; padding: 0.15em 0.55em;
+  }
+  .tag.net { color: var(--accent); background: var(--accent-soft); }
+  .metric {
+    font-family: "JetBrains Mono", monospace; font-size: 0.75em; color: var(--muted);
+  }
+  .metric b { color: var(--accent-2); font-weight: 700; }
+  .card-links { display: flex; gap: 0.9em; font-size: 0.85em; flex-wrap: wrap; }
+
+  /* Khối "Nhiệm vụ của tôi" trong thẻ dự án game */
+  .role { margin: 0.2em 0; }
+  .role-title {
+    font-family: "JetBrains Mono", monospace; font-size: 0.72em;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.3em;
+  }
+  .role ul { list-style: none; margin: 0; padding: 0; }
+  .role li {
+    font-size: 0.85em; color: var(--text); padding-left: 1.1em;
+    position: relative; margin-bottom: 0.25em;
+  }
+  .role li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); }
+
+  /* Nút store */
+  .store-btn {
+    display: inline-flex; align-items: center; gap: 0.45em;
+    font-size: calc(0.78em * var(--btn-scale, 1)); color: var(--text);
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.4em 0.8em;
+  }
+  .store-btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .store-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+  /* ===== Modal chơi thử playable ===== */
+  .playable-modal {
+    position: fixed; inset: 0; z-index: 100;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(7, 10, 18, 0.85); backdrop-filter: blur(6px);
+    padding: 1em;
+  }
+  .playable-modal.open { display: flex; }
+  .phone-frame {
+    position: relative; background: #05070d;
+    border: 3px solid #2b3650;
+    border-radius: 28px; padding: 10px;
+    width: min(92vw, 380px); height: min(88vh, 760px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+    display: flex; flex-direction: column;
+    transition: width 0.25s ease, height 0.25s ease;
+  }
+  .phone-frame.landscape {
+    width: min(94vw, 800px); height: min(88vh, 430px);
+  }
+  .phone-frame.landscape .phone-notch { width: 8px; height: 60px; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); margin: 0; }
+  .phone-frame.landscape iframe { border-radius: 16px; }
+  .modal-rotate {
+    position: absolute; top: -14px; right: 30px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent-2); color: #062420; border: 0;
+    font-size: 1em; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  .modal-rotate:hover { transform: scale(1.08); }
+  .phone-notch {
+    width: 90px; height: 8px; background: #1c2538; border-radius: 99px;
+    margin: 2px auto 8px; flex-shrink: 0;
+  }
+  .phone-frame iframe {
+    flex: 1; width: 100%; border: 0; border-radius: 16px; background: #000;
+  }
+  .modal-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1em; margin-top: 8px; flex-shrink: 0;
+  }
+  .modal-bar .pm-title {
+    font-family: "JetBrains Mono", monospace; font-size: 0.72em;
+    color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .modal-bar a { font-size: 0.78em; white-space: nowrap; }
+  .modal-close {
+    position: absolute; top: -14px; right: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: #1a1205; border: 0;
+    font-size: 1.1em; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  .modal-close:hover { transform: scale(1.08); }
+
+  /* ===== Footer ===== */
+  .footer { border-top: 1px solid var(--border); margin-top: 3em; color: var(--muted); font-size: 0.82em; }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto; padding: 1.5em;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1em;
+  }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--accent); }
+
+  /* ===== Bảng Admin (mở bằng #admin hoặc Ctrl+Shift+A) ===== */
+  .admin-panel {
+    position: fixed; right: 0; top: 0; bottom: 0; width: 300px;
+    background: var(--surface); border-left: 1px solid var(--border);
+    z-index: 300; padding: 1.1em; overflow-y: auto; display: none;
+    font-size: 0.85em; box-shadow: -12px 0 36px rgba(0,0,0,0.45);
+  }
+  body.admin-on .admin-panel { display: block; }
+  .admin-panel h3 {
+    font-family: "Space Grotesk", sans-serif; color: var(--accent);
+    margin-bottom: 0.2em;
+  }
+  .admin-panel h4 {
+    font-family: "JetBrains Mono", monospace; font-size: 0.78em;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent-2); margin: 1.3em 0 0.6em;
+    border-bottom: 1px solid var(--border); padding-bottom: 0.3em;
+  }
+  .admin-row { margin-bottom: 0.8em; }
+  .admin-row label {
+    display: flex; justify-content: space-between;
+    color: var(--muted); font-size: 0.88em; margin-bottom: 0.3em;
+  }
+  .admin-row label output { color: var(--text); font-family: "JetBrains Mono", monospace; }
+  .admin-row input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .admin-row input[type="color"] {
+    width: 100%; height: 34px; border: 1px solid var(--border);
+    background: var(--surface-2); border-radius: 8px; padding: 2px; cursor: pointer;
+  }
+  .admin-btn {
+    display: block; width: 100%; padding: 0.6em; margin-bottom: 0.5em;
+    border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text);
+    cursor: pointer; font-size: 0.92em; font-family: inherit; text-align: center;
+  }
+  .admin-btn:hover { border-color: var(--accent); }
+  .admin-btn.primary { background: var(--accent); color: #1a1205; font-weight: 700; border: 0; }
+  .admin-btn.primary:hover { filter: brightness(1.1); }
+  .admin-btn.on { border-color: var(--accent-2); color: var(--accent-2); }
+  .admin-hint { font-size: 0.8em; color: var(--muted); line-height: 1.5; margin-bottom: 0.6em; }
+  .admin-close {
+    float: right; background: none; border: 0; color: var(--muted);
+    cursor: pointer; font-size: 1.15em; padding: 0 0.2em;
+  }
+  .admin-close:hover { color: var(--accent); }
+  /* Chế độ chỉnh sửa: viền nét đứt quanh vùng sửa được, ảnh phát sáng khi rê chuột */
+  body.editing [contenteditable="true"] { outline: 1px dashed rgba(110,231,216,0.5); outline-offset: 4px; }
+  body.editing img:hover { box-shadow: 0 0 0 3px var(--accent-2); cursor: pointer; }
+
+  /* Trình quản lý dự án trong Admin */
+  .ptype-row { display: flex; gap: 0.4em; margin-bottom: 0.6em; }
+  .admin-mini {
+    flex: 1; padding: 0.4em; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--muted); font-size: 0.85em; font-family: inherit;
+  }
+  .admin-mini.on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .proj-row {
+    display: flex; align-items: center; gap: 0.4em;
+    padding: 0.45em 0.55em; margin-bottom: 0.35em;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 7px;
+  }
+  .proj-row .pname {
+    flex: 1; font-size: 0.85em; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .proj-row button {
+    background: none; border: 0; color: var(--muted); cursor: pointer;
+    font-size: 0.95em; padding: 0.1em 0.25em;
+  }
+  .proj-row button:hover { color: var(--accent); }
+  .proj-row button.del:hover { color: #ff6b6b; }
+
+  /* Form thêm/sửa dự án */
+  .proj-form-overlay {
+    position: fixed; inset: 0; z-index: 400; display: none;
+    align-items: center; justify-content: center;
+    background: rgba(7,10,18,0.85); backdrop-filter: blur(5px); padding: 1em;
+  }
+  .proj-form-overlay.open { display: flex; }
+  .proj-form {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    width: min(94vw, 520px); max-height: 90vh; overflow-y: auto; padding: 1.4em;
+  }
+  .proj-form h3 { font-family: "Space Grotesk", sans-serif; color: var(--accent); margin-bottom: 0.8em; }
+  .pf-row { margin-bottom: 0.75em; }
+  .pf-row label { display: block; font-size: 0.8em; color: var(--muted); margin-bottom: 0.25em; }
+  .pf-row input[type="text"], .pf-row textarea, .pf-row select {
+    width: 100%; box-sizing: border-box; padding: 0.5em 0.65em;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 7px;
+    color: var(--text); font-family: inherit; font-size: 0.9em;
+  }
+  .pf-row textarea { min-height: 64px; resize: vertical; }
+  .pf-row input:focus, .pf-row textarea:focus { outline: 1px solid var(--accent); }
+  .pf-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7em; }
+  .pf-actions { display: flex; gap: 0.6em; margin-top: 1em; }
+  .pf-actions .admin-btn { margin-bottom: 0; }
+  .pf-hint { font-size: 0.74em; color: var(--muted); margin-top: 0.2em; }
+  .autofill-box {
+    border: 1px dashed var(--accent); border-radius: 10px;
+    padding: 0.85em; margin-bottom: 1.1em; background: var(--accent-soft);
+  }
+  .autofill-box label { display: block; font-size: 0.8em; color: var(--accent); margin-bottom: 0.45em; }
+  .autofill-box input {
+    width: 100%; box-sizing: border-box; padding: 0.5em 0.65em; margin-bottom: 0.45em;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 7px;
+    color: var(--text); font-family: inherit; font-size: 0.85em;
+  }
+  .autofill-box .admin-btn { margin-bottom: 0.2em; }
+
+  /* Nút upload ảnh đi kèm ô URL */
+  .img-input { display: flex; gap: 0.4em; }
+  .img-input input[type="text"] { flex: 1; }
+  .img-input .upload-btn {
+    padding: 0 0.7em; border-radius: 7px; cursor: pointer;
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--text); font-size: 0.85em; white-space: nowrap;
+    font-family: inherit;
+  }
+  .img-input .upload-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .img-input .upload-btn:disabled { opacity: 0.5; cursor: default; }
+  .img-preview {
+    margin-top: 0.35em; max-width: 80px; max-height: 80px;
+    border-radius: 6px; border: 1px solid var(--border); display: none;
+  }
+  .img-preview.show { display: inline-block; }
+
+  /* ===== Kéo thả thẻ dự án (khi bảng Admin mở) ===== */
+  body.admin-on .project-card { cursor: grab; }
+  body.admin-on .project-card:active { cursor: grabbing; }
+  .project-card.dragging { opacity: 0.45; outline: 2px dashed var(--accent); }
+  .project-card.drag-over { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+
+  /* ===== Trình chỉnh phần tử ===== */
+  .el-hover { outline: 2px dashed var(--accent-2) !important; outline-offset: 2px; cursor: crosshair !important; }
+  .el-selected { outline: 2px solid var(--accent) !important; outline-offset: 2px; }
+  body.inspecting { cursor: crosshair; }
+  .inspector {
+    position: fixed; left: 14px; bottom: 14px; z-index: 350;
+    width: 280px; background: var(--surface); border: 1px solid var(--accent);
+    border-radius: 12px; padding: 1em; display: none;
+    box-shadow: 0 16px 44px rgba(0,0,0,0.55); font-size: 0.85em;
+    max-height: 80vh; overflow-y: auto;
+  }
+  .inspector.open { display: block; }
+  .inspector .insp-tag {
+    font-family: "JetBrains Mono", monospace; font-size: 0.8em;
+    color: var(--accent); margin-bottom: 0.7em; word-break: break-all;
+  }
+  .insp-row { margin-bottom: 0.65em; }
+  .insp-row label {
+    display: flex; justify-content: space-between;
+    font-size: 0.82em; color: var(--muted); margin-bottom: 0.2em;
+  }
+  .insp-row label output { color: var(--text); font-family: "JetBrains Mono", monospace; }
+  .insp-row input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .insp-row input[type="color"] {
+    width: 100%; height: 30px; border: 1px solid var(--border);
+    background: var(--surface-2); border-radius: 7px; padding: 2px; cursor: pointer;
+  }
+  .insp-row input[type="text"] {
+    width: 100%; box-sizing: border-box; padding: 0.4em 0.55em;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 7px;
+    color: var(--text); font-family: "JetBrains Mono", monospace; font-size: 0.82em;
+  }
+  .insp-actions { display: flex; flex-wrap: wrap; gap: 0.4em; margin-top: 0.7em; }
+  .insp-actions button {
+    flex: 1; min-width: 30%; padding: 0.45em 0.3em; border-radius: 7px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text); font-size: 0.82em; font-family: inherit;
+  }
+  .insp-actions button:hover { border-color: var(--accent); }
+  .insp-actions button.danger:hover { border-color: #ff6b6b; color: #ff6b6b; }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 820px) {
+    .layout { grid-template-columns: 1fr; gap: 1.8em; }
+    .sidebar-sticky { position: static; display: flex; align-items: center; gap: 1.2em; flex-wrap: wrap; }
+    .profile-img { width: 84px; height: 84px; margin-bottom: 0; }
+    .author-links { display: flex; flex-wrap: wrap; gap: 0.9em; width: 100%; }
+    .author-links li { margin-bottom: 0; }
+    .stats { grid-template-columns: 1fr; }
+    .nav { margin-left: 0; }
+    .content h1 { font-size: 1.6em; }
+  }
+</style>
+<!-- Ghi đè giao diện do Admin tạo — đừng xóa thẻ này -->
+<style id="customStyle"></style>
 </head>
 <body>
 
-<div id="loadingScreen">
-  <div class="loader-logo">🎮</div>
-  <div class="loader-text">Đang tải...</div>
-</div>
-
-<aside id="sidebar">
-  <a class="sidebar-logo" href="#" onclick="navigate('home');return false;">
-    <div class="logo-icon">🎮</div>
-    <div>
-      <div class="logo-text" id="studioName">Meta Game</div>
-      <div class="logo-sub">Studio</div>
-    </div>
-  </a>
-  <nav>
-    <div class="nav-sec">Menu</div>
-    <button class="nav-item active" data-page="home" onclick="navigate('home')">
-      <div class="nav-icon">🏠</div><span>Trang chủ</span>
-    </button>
-    <button class="nav-item" data-page="playable" onclick="navigate('playable')">
-      <div class="nav-icon">🎯</div><span>Playable Ads</span>
-      <span class="nav-badge" id="adsBadge">0</span>
-    </button>
-    <button class="nav-item" data-page="gamedev" onclick="navigate('gamedev')">
-      <div class="nav-icon">🕹️</div><span>Game Portfolio</span>
-    </button>
-    <div class="nav-sec" style="margin-top:8px">Liên hệ</div>
-    <a id="linkEmail"    class="nav-item" href="#" target="_blank"><div class="nav-icon">📧</div><span>Email</span></a>
-    <a id="linkLinkedin" class="nav-item" href="#" target="_blank"><div class="nav-icon">💼</div><span>LinkedIn</span></a>
-    <a id="linkGithub"   class="nav-item" href="#" target="_blank"><div class="nav-icon">🐙</div><span>GitHub</span></a>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="avatar" id="sidebarAvatar">NT</div>
-    <div>
-      <div class="footer-name" id="sidebarName">...</div>
-      <div class="footer-role">Game Developer</div>
-    </div>
+<!-- ===== Thanh điều hướng — 4 tab ===== -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="#trang-chu" class="site-title" data-nav="trang-chu">Nguyễn Văn An<span class="lvl">DEV</span></a>
+    <nav class="nav">
+      <a href="#trang-chu" data-nav="trang-chu" class="active">Trang chủ</a>
+      <a href="#kinh-nghiem" data-nav="kinh-nghiem">Kinh nghiệm</a>
+      <a href="#playable-ads" data-nav="playable-ads">Playable Ads</a>
+      <a href="#game-dev" data-nav="game-dev">Game Dev</a>
+    </nav>
   </div>
-</aside>
+</header>
 
-<div id="main">
-  <div class="topbar">
-    <div class="topbar-title"><span id="studioLabel">Meta Game</span> · <span id="topbarTitle">Trang chủ</span></div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <a class="topbar-admin" href="admin.html">⚙ Admin</a>
-      <div class="topbar-avatar" id="topbarAvatar">NT</div>
-    </div>
-  </div>
-
-  <!-- HOME -->
-  <div id="page-home" class="page active">
-    <div class="hero-section">
-      <div class="hero-avatar" id="heroAvatar">NT</div>
-      <div class="hero-text">
-        <div class="hero-badge">Sẵn sàng nhận dự án</div>
-        <div class="hero-name" id="heroName">...</div>
-        <div class="hero-role" id="heroRole">...</div>
-        <div class="hero-bio"  id="heroBio">...</div>
-        <div class="hero-links">
-          <button class="hero-link hero-link-primary" onclick="navigate('playable')">🎯 Xem Playable Ads</button>
-          <button class="hero-link hero-link-outline" onclick="navigate('gamedev')">🕹️ Game Portfolio</button>
-          <a class="hero-link hero-link-outline" id="heroEmail" href="#">📧 Liên hệ</a>
-        </div>
+<div class="layout">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-sticky">
+      <!-- Thay link ảnh đại diện của bạn tại đây -->
+      <img class="profile-img" src="https://ui-avatars.com/api/?name=Nguyen+Van+An&size=240&background=151c2e&color=ffb454" alt="Ảnh đại diện">
+      <div>
+        <h3 class="author-name">Nguyễn Văn An</h3>
+        <p class="author-bio">Game Developer ·<br>Playable Ads Developer</p>
+        <span class="status">sẵn sàng nhận dự án</span>
       </div>
+      <ul class="author-links">
+        <li><a href="mailto:an.nguyen@example.com">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email</a></li>
+        <li><a href="https://github.com/username" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.74.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.15c0 .3.21.66.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+          GitHub</a></li>
+        <li><a href="https://linkedin.com/in/username" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V10.3H5.67v8.05h2.67zM7 9.13a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.21v-4.4c0-2.36-1.26-3.46-2.94-3.46-1.36 0-1.96.75-2.3 1.27V10.3H10.4c.04.76 0 8.05 0 8.05h2.7v-4.5c0-.24.02-.48.09-.65.2-.48.64-.98 1.38-.98.97 0 1.36.74 1.36 1.83v4.3h2.41z"/></svg>
+          LinkedIn</a></li>
+        <li><a href="https://username.itch.io" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M3.13 2C2.32 2.67 1 4.1 1 5.07v1.5c0 1.25 1.17 2.35 2.4 2.35 1.18 0 2.13-.95 2.13-2.1 0 1.15.93 2.1 2.1 2.1 1.18 0 2.1-.95 2.1-2.1 0 1.15.94 2.1 2.12 2.1h.3c1.18 0 2.12-.95 2.12-2.1 0 1.15.92 2.1 2.1 2.1 1.17 0 2.1-.95 2.1-2.1 0 1.15.95 2.1 2.13 2.1 1.23 0 2.4-1.1 2.4-2.35v-1.5c0-.97-1.32-2.4-2.13-3.07H3.13zM10 10.13c-.5.9-1.5 1.5-2.55 1.55a3.16 3.16 0 0 1-2.3-.93c-.13.1-.27.2-.42.28v6.4c0 2.05.04 3.57.6 4.07.84.74 6.46.5 6.67.5.2 0 5.83.24 6.66-.5.57-.5.61-2.02.61-4.07v-6.4a3.4 3.4 0 0 1-.42-.28 3.16 3.16 0 0 1-2.3.93A3.18 3.18 0 0 1 14 10.13a3.2 3.2 0 0 1-2 1.55 3.2 3.2 0 0 1-2-1.55zm-1.18 3.34c.82 0 1.55.4 2.18 1.45l1-.05 1-.05c.63-.96 1.36-1.35 2.18-1.35 1.4 0 2.82 1.36 2.82 4.1 0 1.78-.66 2.43-1.78 2.43-.86 0-1.42-.5-1.96-1.18-.2.03-1.5.1-2.26.1-.77 0-2.05-.07-2.26-.1-.54.68-1.1 1.18-1.96 1.18-1.12 0-1.78-.65-1.78-2.43 0-2.74 1.42-4.1 2.82-4.1z"/></svg>
+          itch.io</a></li>
+      </ul>
     </div>
-    <div class="stats-row" id="statsRow"></div>
-    <div class="section" style="padding-top:22px">
-      <div class="section-title">Kỹ năng</div>
-      <div class="skills-wrap" id="skillsWrap"></div>
-    </div>
-    <div class="section" style="padding-top:20px">
-      <div class="section-title">Kinh nghiệm</div>
-      <div class="exp-list" id="expList"></div>
-    </div>
-    <div class="section" style="padding-top:20px;padding-bottom:40px">
-      <div class="section-title">Liên hệ</div>
-      <div class="contact-grid" id="contactGrid"></div>
-    </div>
-  </div>
+  </aside>
 
-  <!-- PLAYABLE ADS -->
-  <div id="page-playable" class="page">
-    <div class="page-header">
-      <h2>🎯 Playable Ads Portfolio</h2>
-      <p>Click vào game để xem gameplay tương tác trực tiếp</p>
-    </div>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterAds('all',this)">Tất cả</button>
-      <button class="filter-btn" onclick="filterAds('casual',this)">Casual</button>
-      <button class="filter-btn" onclick="filterAds('puzzle',this)">Puzzle</button>
-      <button class="filter-btn" onclick="filterAds('action',this)">Action</button>
-      <button class="filter-btn" onclick="filterAds('hyper',this)">Hyper-casual</button>
-    </div>
-    <div class="ads-grid" id="adsGrid"></div>
-  </div>
+  <!-- ===== Nội dung chính ===== -->
+  <main class="content">
 
-  <!-- GAME DEV -->
-  <div id="page-gamedev" class="page">
-    <div class="page-header">
-      <h2>🕹️ Game Developer Portfolio</h2>
-      <p>Các game đã publish và dự án nổi bật</p>
-    </div>
-    <div class="dev-grid" id="devGrid"></div>
-  </div>
-</div>
+    <!-- ===== TAB 1: TRANG CHỦ ===== -->
+    <section id="trang-chu" class="visible">
+      <p class="eyebrow">// xin chào, tôi là</p>
+      <h1>Nguyễn Văn An — tôi biến ý tưởng thành game, và game thành playable ads chuyển đổi cao<span class="cursor"></span></h1>
+      <p class="lead">5 năm phát triển game mobile và playable ads bằng Unity. Tôi làm việc xuyên suốt từ lập trình gameplay, tích hợp quảng cáo, tối ưu hiệu năng, đến phát hành sản phẩm lên cả Google Play và App Store.</p>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="phone-wrap">
-      <div class="phone-shell">
-        <div class="phone-notch"><div class="phone-pill"></div></div>
-        <img class="phone-thumb" id="modalThumb" src="" alt="" />
-        <div class="phone-bar"><div class="phone-bar-pill"></div></div>
+      <div class="stats">
+        <div class="stat"><div class="num">10+</div><div class="label">Game mobile đã tham gia</div></div>
+        <div class="stat"><div class="num">2</div><div class="label">Nền tảng: iOS & Android</div></div>
+        <div class="stat"><div class="num">5</div><div class="label">Năm kinh nghiệm (2021–2026)</div></div>
       </div>
-      <button class="play-popup-btn" onclick="launchGame()">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Chơi ngay
-      </button>
-      <div class="popup-hint">Mở cửa sổ 390×700px</div>
-    </div>
-    <div class="modal-info">
-      <div class="modal-genre"   id="modalGenre"></div>
-      <div class="modal-title"   id="modalTitle"></div>
-      <div class="modal-desc"    id="modalDesc"></div>
-      <div class="modal-tags"    id="modalTags"></div>
-      <div class="modal-actions" id="modalActions"></div>
-    </div>
-  </div>
-</div>
 
-<script>
-  // ── CONFIG: đổi URL này khi chuyển sang hosting riêng ──
-  const DATA_URL = './data.json';
+      <h2>Công nghệ tôi sử dụng</h2>
+      <div class="chips">
+        <span class="chip hot">Unity / C#</span>
+        <span class="chip hot">Playable Ads</span>
+        <span class="chip hot">Game Puzzle</span>
+        <span class="chip hot">Android & iOS</span>
+        <span class="chip">Tích hợp Ads / SDK</span>
+        <span class="chip">IAP</span>
+        <span class="chip">A/B Testing</span>
+        <span class="chip">Effect & Sound</span>
+        <span class="chip">Tối ưu hiệu năng</span>
+      </div>
 
-  let D = {}; // data loaded from JSON
-  let currentPlayUrl = '';
-  const overlay = document.getElementById('modalOverlay');
+      <h2>Tôi có thể giúp gì cho bạn?</h2>
+      <p><strong style="color: var(--accent)">Playable Ads:</strong> chuyển thể gameplay thành playable HTML5 nhẹ, mượt, đạt chuẩn AppLovin, Unity Ads, ironSource, Mintegral, Google Ads, Facebook — kèm A/B test nhiều phiên bản để tối ưu CTR và CVR.</p>
+      <p><strong style="color: var(--accent)">Game Development:</strong> phát triển game mobile hoàn chỉnh từ ý tưởng đến phát hành — gameplay, UI/UX, tích hợp ads & IAP, tối ưu hiệu năng cho thiết bị cấu hình thấp, và đưa sản phẩm lên cả Google Play lẫn App Store.</p>
+      <p>Xem chi tiết tại tab <a href="#playable-ads" data-nav-link="playable-ads">Playable Ads</a> và <a href="#game-dev" data-nav-link="game-dev">Game Dev</a>, hoặc <a href="mailto:an.nguyen@example.com">gửi email cho tôi</a>.</p>
+    </section>
 
-  // ── LOAD DATA ──────────────────────────────────────────
-  async function loadData() {
-    try {
-      const r = await fetch(DATA_URL + '?v=' + Date.now());
-      D = await r.json();
-    } catch(e) {
-      console.warn('Could not load data.json, using defaults');
-      D = { profile:{name:'Portfolio',role:'',bio:'',email:'',linkedin:'#',github:'#',studio:'Studio'},
-            stats:[], skills:[], experience:[], playableAds:[], games:[] };
-    }
-    renderAll();
-    document.getElementById('loadingScreen').style.display = 'none';
-  }
+    <!-- ===== TAB 2: KINH NGHIỆM ===== -->
+    <section id="kinh-nghiem">
+      <p class="eyebrow">// hành trình</p>
+      <h1>Kinh nghiệm làm việc</h1>
 
-  function renderAll() {
-    const p = D.profile || {};
-    const initials = (p.name||'?').split(' ').map(w=>w[0]).slice(-2).join('').toUpperCase();
-
-    // Sidebar / topbar
-    document.getElementById('studioName').textContent  = p.studio || 'Studio';
-    document.getElementById('studioLabel').textContent = p.studio || 'Studio';
-    document.getElementById('sidebarName').textContent = p.name || '';
-    document.getElementById('sidebarAvatar').textContent = initials;
-    document.getElementById('topbarAvatar').textContent  = initials;
-
-    // Sidebar links
-    if(p.email)    document.getElementById('linkEmail').href    = 'mailto:'+p.email;
-    if(p.linkedin) document.getElementById('linkLinkedin').href = p.linkedin;
-    if(p.github)   document.getElementById('linkGithub').href   = p.github;
-
-    // Hero
-    document.getElementById('heroAvatar').textContent = initials;
-    document.getElementById('heroName').textContent   = p.name || '';
-    document.getElementById('heroRole').textContent   = p.role || '';
-    document.getElementById('heroBio').textContent    = p.bio  || '';
-    document.getElementById('heroEmail').href = p.email ? 'mailto:'+p.email : '#';
-    document.title = (p.name || 'Portfolio') + ' – Game Developer';
-
-    // Stats
-    document.getElementById('statsRow').innerHTML = (D.stats||[]).map(s=>
-      `<div class="stat-card"><div class="stat-num">${s.num}</div><div class="stat-lbl">${s.label}</div></div>`
-    ).join('');
-
-    // Skills
-    document.getElementById('skillsWrap').innerHTML = (D.skills||[]).map(s=>
-      `<div class="skill-chip"><span class="skill-dot" style="background:${s.color}"></span>${s.name}</div>`
-    ).join('');
-
-    // Experience
-    document.getElementById('expList').innerHTML = (D.experience||[]).map(e=>
-      `<div class="exp-card">
-        <div class="exp-icon">${e.icon||'💼'}</div>
-        <div>
-          <div class="exp-title">${e.title}</div>
-          <div class="exp-company">${e.company}</div>
-          <div class="exp-period">${e.period}</div>
-          <div class="exp-desc">${e.desc}</div>
+      <div class="timeline">
+        <div class="job">
+          <h3>Playable Ads Developer — MetaGame</h3>
+          <p class="meta">2024 → nay · Hà Nội</p>
+          <ul>
+            <li>Phát triển Playable Ads bằng Unity cho các tựa game của công ty, đảm nhận trọn vẹn từ dựng gameplay rút gọn đến đóng gói xuất bản.</li>
+            <li>Tối ưu dung lượng quảng cáo (nén texture, atlas, rút gọn asset) để đạt giới hạn dung lượng của từng ad network.</li>
+            <li>Tối ưu hiệu năng đảm bảo playable chạy mượt, tải nhanh trên thiết bị di động cấu hình thấp.</li>
+            <li>A/B testing nhiều phiên bản creative để cải thiện chỉ số CTR/CVR.</li>
+            <li>Tự làm hiệu ứng effect (particle, animation, transition) và xử lý âm thanh trong playable.</li>
+            <li>Phối hợp với marketing, artist và UA team trong quá trình sản xuất và đánh giá quảng cáo.</li>
+          </ul>
         </div>
-      </div>`
-    ).join('');
 
-    // Contact
-    document.getElementById('contactGrid').innerHTML = [
-      p.email    ? `<a class="contact-card" href="mailto:${p.email}"><span class="contact-icon">📧</span><div><div class="contact-label">Email</div><div class="contact-value">${p.email}</div></div></a>` : '',
-      p.linkedin && p.linkedin!='#' ? `<a class="contact-card" href="${p.linkedin}" target="_blank"><span class="contact-icon">💼</span><div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com</div></div></a>` : '',
-      p.github   && p.github!='#'   ? `<a class="contact-card" href="${p.github}"   target="_blank"><span class="contact-icon">🐙</span><div><div class="contact-label">GitHub</div><div class="contact-value">github.com</div></div></a>` : '',
-    ].join('');
-
-    // Ads badge
-    document.getElementById('adsBadge').textContent = (D.playableAds||[]).length;
-
-    renderAds('all');
-    renderGames();
-  }
-
-  // ── ADS ───────────────────────────────────────────────
-  function renderAds(filter) {
-    const items = filter==='all' ? D.playableAds : (D.playableAds||[]).filter(p=>p.genreKey===filter);
-    document.getElementById('adsGrid').innerHTML = (items||[]).map(p=>
-      `<div class="ad-card" onclick="openModal(${p.id})">
-        <div class="ad-thumb">
-          <img src="${p.icon}" alt="${p.title}" onerror="this.style.display='none'"/>
-          <div class="ad-play-overlay"><div class="ad-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-        </div>
-        <div class="ad-body">
-          <div class="ad-genre">${p.genre}</div>
-          <div class="ad-title">${p.title}</div>
-          <div class="ad-desc">${p.desc}</div>
-        </div>
-        <div class="ad-footer">
-          ${p.playStore?`<a href="${p.playStore}" target="_blank" class="store-badge" onclick="event.stopPropagation()">▶ Play Store</a>`:''}
-        </div>
-      </div>`
-    ).join('') || `<div style="color:var(--muted);padding:20px;grid-column:1/-1">Chưa có sản phẩm nào.</div>`;
-  }
-
-  function filterAds(genre, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    renderAds(genre);
-  }
-
-  // ── GAMES ─────────────────────────────────────────────
-  function renderGames() {
-    document.getElementById('devGrid').innerHTML = (D.games||[]).map(g=>
-      `<div class="dev-card">
-        <div class="dev-banner" style="background:${g.color}">${g.emoji}</div>
-        <div class="dev-body">
-          <div class="dev-tags">${(g.tags||[]).map(t=>`<span class="dev-tag">${t}</span>`).join('')}</div>
-          <div class="dev-title">${g.title}</div>
-          <div class="dev-desc">${g.desc}</div>
-          <div class="dev-links">
-            ${g.storeUrl?`<a href="${g.storeUrl}" target="_blank" class="dev-link">▶ Play Store</a>`:''}
-            ${g.demoUrl ?`<a href="${g.demoUrl}"  target="_blank" class="dev-link">🔗 Demo</a>`:''}
+        <div class="job">
+          <h3>Game Developer — MetaGame</h3>
+          <p class="meta">03/2022 → 01/2025 · Hà Nội</p>
+          <ul>
+            <li>Lập trình và phát triển các tựa game Puzzle/Casual bằng Unity (C#). <strong>Nhiệm vụ trọng tâm:</strong> bảo trì và cập nhật game sau phát hành, tích hợp SDK bên thứ ba, chỉnh sửa & tối ưu logic quảng cáo.</li>
+            <li>Xây dựng và phát hành sản phẩm trên <strong>cả hai nền tảng Android và iOS</strong>: build, ký số, quản lý chứng chỉ/provisioning, và đưa game qua quy trình kiểm duyệt của Google Play lẫn App Store.</li>
+            <li>Kiểm thử, sửa lỗi, tối ưu hiệu suất và phối hợp với các bộ phận khác để hoàn thiện sản phẩm.</li>
+          </ul>
+          <div class="job-projects">
+            <div class="jp">
+              <h4>Fruit Drop Master / Fruit Fusion Fun / Juicy Merge<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">Merge Puzzle · kiểu 2048 thả trái cây</div>
+              <p>Dòng game merge vật lý: người chơi chạm để thả trái cây, hai quả giống nhau va vào nhau sẽ hợp thành quả lớn hơn, mục tiêu tạo ra quả dưa hấu lớn nhất và leo bảng xếp hạng toàn cầu.</p>
+              <div class="jp-label">Tôi đã code</div>
+              <ul>
+                <li>Hệ thống vật lý va chạm & hợp nhất trái cây, tính toán điểm và combo.</li>
+                <li>Vòng lặp gameplay, điều kiện thua (đầy khung) và hệ thống booster.</li>
+                <li>Bảng xếp hạng toàn cầu (leaderboard) và lưu tiến trình người chơi.</li>
+                <li>Tích hợp quảng cáo (rewarded/interstitial) và IAP; tinh chỉnh logic hiển thị Ads.</li>
+                <li>Hiệu ứng va chạm, nổ trái cây và phản hồi hình ảnh mượt mà.</li>
+              </ul>
+            </div>
+            <div class="jp">
+              <h4>Phát hành đa nền tảng — Android & iOS<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">Publishing · Google Play & App Store</div>
+              <p>Đưa nhiều tựa game ra thị trường trên cả hai hệ điều hành, đảm nhận toàn bộ quy trình từ build đến lên store và cập nhật phiên bản.</p>
+              <div class="jp-label">Tôi đã làm</div>
+              <ul>
+                <li>Build, ký số và cấu hình release cho Android (Google Play Console) và iOS (App Store Connect / TestFlight).</li>
+                <li>Quản lý chứng chỉ, provisioning profile, bundle ID và quyền truy cập trên iOS.</li>
+                <li>Xử lý khác biệt giữa hai nền tảng: API quảng cáo, IAP, độ phân giải màn hình và yêu cầu kiểm duyệt.</li>
+                <li>Chuẩn bị thông tin store, screenshot, và xử lý các vấn đề khi app bị từ chối để được duyệt.</li>
+              </ul>
+            </div>
+            <div class="jp">
+              <h4>Bảo trì & vận hành sau phát hành<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">LiveOps · Post-launch</div>
+              <p>Duy trì các tựa game đang vận hành: theo dõi crash, cập nhật nội dung, đảm bảo doanh thu quảng cáo ổn định qua các phiên bản SDK mới.</p>
+              <div class="jp-label">Tôi đã làm</div>
+              <ul>
+                <li>Nâng cấp và tích hợp SDK bên thứ ba (mạng quảng cáo, analytics, mediation).</li>
+                <li>Chỉnh sửa logic Ads: thứ tự gọi quảng cáo, tần suất, điểm hiển thị để tối ưu doanh thu.</li>
+                <li>Sửa lỗi tương thích theo phiên bản Android/iOS và thiết bị mới.</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>`
-    ).join('');
+
+        <div class="job">
+          <h3>Game Developer — Omega Studio</h3>
+          <p class="meta">03/2021 → 03/2022 · Hà Nội</p>
+          <ul>
+            <li>Phát triển nhiều tựa game mobile thuộc các thể loại khác nhau — mỗi game do <strong>một mình tôi lập trình</strong> từ gameplay đến tích hợp monetization.</li>
+          </ul>
+          <div class="job-projects">
+            <div class="jp">
+              <h4>Series Stick vs Titans (1 · 2 · 3)<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">Action / Tower Defense · stickman</div>
+              <p>Game thủ thành phong cách stickman: người chơi triển khai và nâng cấp đội quân/anh hùng để chống lại các đợt titan khổng lồ tấn công, bảo vệ căn cứ qua từng wave với độ khó tăng dần.</p>
+              <div class="jp-label">Tôi đã code</div>
+              <ul>
+                <li>Hệ thống spawn kẻ địch theo wave, AI di chuyển và tấn công của titan.</li>
+                <li>Cơ chế chiến đấu, tính sát thương, máu và hệ thống nâng cấp lính/anh hùng.</li>
+                <li>Hệ thống tiền tệ, mua/nâng cấp trong trận và tiến trình mở khóa.</li>
+                <li>Cân bằng độ khó, boss titan và phát triển nội dung mới qua từng phần (1→2→3).</li>
+                <li>Tích hợp quảng cáo, IAP và tối ưu hiệu năng khi có nhiều kẻ địch trên màn hình.</li>
+              </ul>
+            </div>
+            <div class="jp">
+              <h4>Block Puzzle: Classic Gems<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">Puzzle · xếp khối kiểu Tetris/Block</div>
+              <p>Game xếp khối cổ điển chủ đề đá quý: kéo thả các khối hình lên lưới để lấp đầy hàng/cột và xóa chúng để ghi điểm, chơi đến khi hết chỗ trống.</p>
+              <div class="jp-label">Tôi đã code</div>
+              <ul>
+                <li>Logic lưới, đặt khối, kiểm tra & xóa hàng/cột đầy, tính điểm và combo.</li>
+                <li>Bộ sinh khối ngẫu nhiên, điều kiện kết thúc (game over) và lưu điểm cao.</li>
+                <li>Tích hợp quảng cáo, IAP, hệ thống booster và bảng xếp hạng.</li>
+              </ul>
+            </div>
+            <div class="jp">
+              <h4>Tile Connect: Matching Classic<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">Puzzle · nối ô kiểu Onet/Mahjong</div>
+              <p>Game nối ô cổ điển: tìm và nối hai ô giống nhau bằng đường gấp khúc tối đa ba đoạn để xóa khỏi bàn, hoàn thành màn trước khi hết thời gian.</p>
+              <div class="jp-label">Tôi đã code</div>
+              <ul>
+                <li>Thuật toán tìm đường nối hợp lệ (≤ 3 đoạn) và xác minh cặp ô khớp.</li>
+                <li>Bộ sinh màn đảm bảo luôn có lời giải, hệ thống gợi ý (hint) và xáo bàn.</li>
+                <li>Hệ thống level, đếm giờ, booster; tích hợp quảng cáo và IAP.</li>
+              </ul>
+            </div>
+            <div class="jp">
+              <h4>Punch Wuggy<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">Hyper-casual / Action · đối kháng</div>
+              <p>Game hành động hyper-casual: điều khiển nhân vật co duỗi tay đấm để hạ gục đối thủ và sống sót trên đấu trường, lối chơi nhanh dễ tiếp cận.</p>
+              <div class="jp-label">Tôi đã code</div>
+              <ul>
+                <li>Cơ chế điều khiển đấm theo vật lý, tính sát thương và knock-out.</li>
+                <li>AI đối thủ, vòng lặp trận đấu và hệ thống thắng/thua.</li>
+                <li>Tích hợp quảng cáo, hệ thống nâng cấp và tối ưu cho hyper-casual.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Kỹ năng chính</h2>
+      <div class="xp-list">
+        <div class="xp">
+          <div class="xp-label"><span>Unity / C#</span><span class="pct">95%</span></div>
+          <div class="xp-bar"><i style="width: 95%"></i></div>
+        </div>
+        <div class="xp">
+          <div class="xp-label"><span>Playable Ads (Unity)</span><span class="pct">92%</span></div>
+          <div class="xp-bar"><i style="width: 92%"></i></div>
+        </div>
+        <div class="xp">
+          <div class="xp-label"><span>Tích hợp Ads & SDK bên thứ ba</span><span class="pct">90%</span></div>
+          <div class="xp-bar"><i style="width: 90%"></i></div>
+        </div>
+        <div class="xp">
+          <div class="xp-label"><span>Phát hành Android & iOS (Play / App Store)</span><span class="pct">88%</span></div>
+          <div class="xp-bar"><i style="width: 88%"></i></div>
+        </div>
+        <div class="xp">
+          <div class="xp-label"><span>Tối ưu hiệu năng & dung lượng</span><span class="pct">90%</span></div>
+          <div class="xp-bar"><i style="width: 90%"></i></div>
+        </div>
+        <div class="xp">
+          <div class="xp-label"><span>Effect & âm thanh game</span><span class="pct">82%</span></div>
+          <div class="xp-bar"><i style="width: 82%"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 3: PLAYABLE ADS ===== -->
+    <section id="playable-ads">
+      <p class="eyebrow">// chạm để chơi</p>
+      <h1>Playable Ads</h1>
+      <p class="lead">Playable HTML5 nhẹ, tải nhanh, tương thích mọi ad network. Mỗi dự án dưới đây đều được build một codebase — xuất đa network, kèm nhiều phiên bản A/B test.</p>
+
+      <!-- Thẻ dự án được render tự động từ kho dữ liệu JSON (xem #projectsData cuối file).
+           Thêm/sửa/xóa dự án bằng bảng Admin (#admin) → mục "Dự án". -->
+      <div class="grid" id="gridPlayables"></div>
+
+      <h2>Quy trình làm playable của tôi</h2>
+      <ul style="margin-left: 1.3em;">
+        <li><strong>Phân tích creative</strong> — chọn khoảnh khắc gameplay "ăn tiền" nhất để đưa vào 15–30 giây đầu.</li>
+        <li><strong>Prototype nhanh</strong> — bản chơi được trong 2–3 ngày để duyệt sớm.</li>
+        <li><strong>Tối ưu</strong> — nén tài nguyên, inline toàn bộ asset, đảm bảo dưới 5MB và 60 FPS.</li>
+        <li><strong>Xuất đa network</strong> — một lệnh build ra đủ chuẩn MRAID, DAPI, Google HTML5...</li>
+      </ul>
+    </section>
+
+    <!-- ===== TAB 4: GAME DEV ===== -->
+    <section id="game-dev">
+      <p class="eyebrow">// từ ý tưởng đến phát hành</p>
+      <h1>Game Developer — Dự án</h1>
+      <p class="lead">Các tựa game mobile tôi đã phát triển hoặc tham gia phát triển, từ hyper-casual đến casual puzzle.</p>
+
+      <!-- Thẻ dự án được render tự động từ kho dữ liệu JSON — quản lý qua bảng Admin. -->
+      <div class="grid" id="gridGames"></div>
+
+      <h2>Thế mạnh kỹ thuật</h2>
+      <ul style="margin-left: 1.3em;">
+        <li><strong>Gameplay & hệ thống:</strong> state machine, object pooling, hệ thống level/progression, save system.</li>
+        <li><strong>Tối ưu:</strong> draw call batching, texture atlas, profiling memory & CPU cho thiết bị tầm thấp.</li>
+        <li><strong>LiveOps:</strong> remote config, A/B test, event theo mùa, analytics funnel.</li>
+        <li><strong>Monetization:</strong> tích hợp rewarded/interstitial ads, IAP, đo lường LTV.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===== Modal chơi thử playable ngay trong trang ===== -->
+<div class="playable-modal" id="playableModal" aria-hidden="true">
+  <div class="phone-frame">
+    <button class="modal-close" id="modalClose" aria-label="Đóng">✕</button>
+    <button class="modal-rotate" id="modalRotate" aria-label="Xoay ngang/dọc" title="Xoay ngang/dọc">⟳</button>
+    <div class="phone-notch"></div>
+    <iframe id="playableFrame" src="about:blank" allow="autoplay; fullscreen" title="Chơi thử playable"></iframe>
+    <div class="modal-bar">
+      <span class="pm-title" id="modalTitle"></span>
+      <a id="modalNewTab" href="#" target="_blank" rel="noopener">Mở tab mới ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Bảng Admin — mở bằng cách thêm #admin vào URL hoặc nhấn Ctrl+Shift+A ===== -->
+<aside class="admin-panel" id="adminPanel">
+  <button class="admin-close" id="adminClose" title="Đóng admin">✕</button>
+  <h3>⚙ Admin</h3>
+
+  <!-- Đăng nhập Supabase (chỉ hiện khi đã bật backend) -->
+  <div id="authBox" style="display:none">
+    <div id="authLoggedOut">
+      <p class="admin-hint">Đăng nhập để chỉnh sửa và lưu lên server:</p>
+      <div class="admin-row"><input type="email" id="authEmail" placeholder="email admin"
+        style="width:100%;box-sizing:border-box;padding:0.5em;border-radius:7px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)"></div>
+      <div class="admin-row"><input type="password" id="authPass" placeholder="mật khẩu"
+        style="width:100%;box-sizing:border-box;padding:0.5em;border-radius:7px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)"></div>
+      <button class="admin-btn primary" id="authLogin">Đăng nhập</button>
+      <p class="admin-hint" id="authMsg"></p>
+    </div>
+    <div id="authLoggedIn" style="display:none">
+      <p class="admin-hint">✓ Đã đăng nhập: <b id="authWho"></b><br>Mọi thay đổi tự lưu lên server.</p>
+      <button class="admin-btn" id="authLogout">Đăng xuất</button>
+    </div>
+    <hr style="border:0;border-top:1px solid var(--border);margin:1em 0">
+  </div>
+
+  <p class="admin-hint" id="staticHint">Chỉnh xong bấm <b>Tải HTML để đăng</b> rồi thay file trên host — đó là cách duy nhất để mọi người thấy thay đổi.</p>
+
+  <h4>Nội dung</h4>
+  <button class="admin-btn" id="btnEdit">✏ Bật chỉnh sửa chữ & ảnh</button>
+  <button class="admin-btn" id="btnInspect">🎯 Chọn & chỉnh phần tử</button>
+  <p class="admin-hint">✏ click chữ để gõ sửa, click ảnh để đổi. 🎯 click phần tử bất kỳ để chỉnh size, màu, class, vị trí. Kéo thả thẻ dự án để đổi thứ tự (khi Admin đang mở).</p>
+
+  <h4>Dự án (thêm / sửa / xóa)</h4>
+  <div class="ptype-row">
+    <button class="admin-mini on" id="tabPlayables">Playable Ads</button>
+    <button class="admin-mini" id="tabGames">Game Dev</button>
+  </div>
+  <div id="projList"></div>
+  <button class="admin-btn" id="btnAddProj">➕ Thêm dự án</button>
+  <p class="admin-hint">Dùng ↑↓ đổi thứ tự, ✎ sửa, ✕ xóa. Mọi thay đổi hiện ngay trên trang — nhớ bấm "Tải HTML để đăng" khi xong.</p>
+
+  <h4>Kích thước</h4>
+  <div class="admin-row">
+    <label>Cỡ chữ toàn trang <output id="oFont">16px</output></label>
+    <input type="range" id="vFont" min="13" max="20" step="0.5" value="16">
+  </div>
+  <div class="admin-row">
+    <label>Cỡ tab điều hướng <output id="oNav">100%</output></label>
+    <input type="range" id="vNav" min="80" max="140" step="5" value="100">
+  </div>
+  <div class="admin-row">
+    <label>Cỡ nút (store, link) <output id="oBtn">100%</output></label>
+    <input type="range" id="vBtn" min="80" max="160" step="5" value="100">
+  </div>
+  <div class="admin-row">
+    <label>Bo góc thẻ dự án <output id="oRadius">14px</output></label>
+    <input type="range" id="vRadius" min="0" max="26" step="1" value="14">
+  </div>
+  <div class="admin-row">
+    <label>Cỡ ảnh đại diện <output id="oAvatar">120px</output></label>
+    <input type="range" id="vAvatar" min="80" max="180" step="4" value="120">
+  </div>
+
+  <h4>Màu sắc</h4>
+  <div class="admin-row">
+    <label>Màu chủ đạo (cam)</label>
+    <input type="color" id="vAccent" value="#ffb454">
+  </div>
+  <div class="admin-row">
+    <label>Màu phụ (xanh ngọc)</label>
+    <input type="color" id="vAccent2" value="#6ee7d8">
+  </div>
+  <button class="admin-btn" id="btnResetStyle">↺ Về giao diện gốc</button>
+
+  <h4>Lưu & xuất bản</h4>
+  <p class="admin-hint" id="dbNote" style="display:none; color:var(--accent-2)">✓ Dự án được lưu tự động vào database. Nút dưới chỉ để xuất <b>thay đổi giao diện</b> (màu/size/chữ tĩnh).</p>
+  <button class="admin-btn" id="btnSaveDraft">💾 Lưu nháp (trình duyệt này)</button>
+  <button class="admin-btn" id="btnLoadDraft">↩ Khôi phục nháp</button>
+  <button class="admin-btn primary" id="btnExport">⬇ Tải HTML để đăng</button>
+  <p class="admin-hint">Nháp chỉ lưu trên trình duyệt của bạn. File HTML tải về đã gồm mọi chỉnh sửa — upload thay file cũ là xong.</p>
+</aside>
+
+<!-- ===== Form thêm/sửa dự án ===== -->
+<div class="proj-form-overlay" id="projFormOverlay">
+  <div class="proj-form">
+    <h3 id="pfTitle">Thêm dự án</h3>
+
+    <!-- Tự động điền từ link store -->
+    <div class="autofill-box">
+      <label>🪄 Tự động điền từ link — dán link rồi bấm Lấy thông tin</label>
+      <input type="text" id="pf_store_link" placeholder="Link Google Play hoặc App Store">
+      <input type="text" id="pf_play_link" placeholder="Link chơi thử (Luna preview...) — chỉ với Playable">
+      <button class="admin-btn" id="pfAutofill" type="button">Lấy thông tin</button>
+      <div class="pf-hint" id="pfStatus"></div>
+    </div>
+
+    <div class="pf-row"><label>Tên dự án *</label><input type="text" id="pf_title"></div>
+    <div class="pf-row"><label>Dòng phụ (studio · thể loại)</label><input type="text" id="pf_sub" placeholder="Metagame.Ltd · Puzzle"></div>
+    <div class="pf-row"><label>Mô tả ngắn</label><textarea id="pf_desc"></textarea></div>
+    <div class="pf-two">
+      <div class="pf-row">
+        <label>Icon app</label>
+        <div class="img-input">
+          <input type="text" id="pf_icon" placeholder="URL hoặc upload">
+          <button type="button" class="upload-btn" data-target="pf_icon">📁 Upload</button>
+        </div>
+        <img class="img-preview" id="pf_icon_prev" alt="">
+      </div>
+      <div class="pf-row">
+        <label>Ảnh thumbnail</label>
+        <div class="img-input">
+          <input type="text" id="pf_thumb" placeholder="URL hoặc upload">
+          <button type="button" class="upload-btn" data-target="pf_thumb">📁 Upload</button>
+        </div>
+        <img class="img-preview" id="pf_thumb_prev" alt="">
+      </div>
+    </div>
+    <div class="pf-row"><label>Tag công nghệ (phân cách bằng dấu phẩy)</label><input type="text" id="pf_tags" placeholder="Unity, C#"></div>
+
+    <!-- Riêng Playable -->
+    <div id="pfPlayableFields">
+      <div class="pf-row"><label>Badge cam (network, lượt tải... — phẩy)</label><input type="text" id="pf_badges" placeholder="AppLovin, Unity Ads"></div>
+      <div class="pf-two">
+        <div class="pf-row">
+          <label>File playable trong thư mục playables/</label>
+          <input type="text" id="pf_file" placeholder="worm-puzzle.html">
+          <div class="pf-hint">Để trống nếu chưa có file — thẻ sẽ ẩn nút Chơi ngay</div>
+        </div>
+        <div class="pf-row">
+          <label>Hướng màn hình</label>
+          <select id="pf_orient"><option value="portrait">Dọc</option><option value="landscape">Ngang</option></select>
+        </div>
+      </div>
+      <div class="pf-row"><label>Link dự phòng mở tab mới (preview Luna...)</label><input type="text" id="pf_newtab"></div>
+    </div>
+
+    <!-- Riêng Game -->
+    <div id="pfGameFields">
+      <div class="pf-row">
+        <label>Nhiệm vụ của tôi (mỗi dòng 1 nhiệm vụ)</label>
+        <textarea id="pf_role" placeholder="Lập trình core gameplay&#10;Tích hợp ads và IAP"></textarea>
+      </div>
+      <div class="pf-row"><label>Số liệu nổi bật (cho phép &lt;b&gt;)</label><input type="text" id="pf_metric" placeholder="<b>10M+</b> lượt tải · 4.3★"></div>
+    </div>
+
+    <div class="pf-two">
+      <div class="pf-row"><label>Link Google Play</label><input type="text" id="pf_gp"></div>
+      <div class="pf-row"><label>Link App Store</label><input type="text" id="pf_as"></div>
+    </div>
+    <div class="pf-actions">
+      <button class="admin-btn primary" id="pfSave">Lưu dự án</button>
+      <button class="admin-btn" id="pfCancel">Hủy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Trình chỉnh phần tử ===== -->
+<div class="inspector" id="inspector">
+  <div class="insp-tag" id="inspTag">div.example</div>
+  <div class="insp-row">
+    <label>Cỡ chữ <output id="ioFont">16px</output></label>
+    <input type="range" id="iFont" min="8" max="64" step="1">
+  </div>
+  <div class="insp-row">
+    <label>Padding <output id="ioPad">0px</output></label>
+    <input type="range" id="iPad" min="0" max="60" step="1">
+  </div>
+  <div class="insp-row">
+    <label>Bo góc <output id="ioRad">0px</output></label>
+    <input type="range" id="iRad" min="0" max="48" step="1">
+  </div>
+  <div class="insp-row"><label>Màu chữ</label><input type="color" id="iColor"></div>
+  <div class="insp-row"><label>Màu nền</label><input type="color" id="iBg"></div>
+  <div class="insp-row">
+    <label>Chiều rộng (vd: 100%, 300px — trống = auto)</label>
+    <input type="text" id="iWidth" placeholder="auto">
+  </div>
+  <div class="insp-row">
+    <label>Class (cẩn thận: đổi class có thể mất chức năng)</label>
+    <input type="text" id="iClass">
+  </div>
+  <div class="insp-actions">
+    <button id="iUp" title="Đưa lên trước phần tử anh em">↑ Lên</button>
+    <button id="iDown" title="Đưa xuống sau phần tử anh em">↓ Xuống</button>
+    <button id="iParent" title="Chọn phần tử cha">⬚ Cha</button>
+    <button id="iReset" title="Xóa mọi style đã chỉnh trên phần tử này">↺ Gốc</button>
+    <button id="iDelete" class="danger" title="Xóa phần tử khỏi trang">🗑 Xóa</button>
+    <button id="iClose">✕ Đóng</button>
+  </div>
+  <p class="admin-hint" id="inspWarn" style="display:none; color:#ffb454;">⚠ Phần tử này nằm trong thẻ dự án (render từ dữ liệu) — chỉnh ở đây sẽ mất khi tải lại trang. Hãy sửa qua form Dự án.</p>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 Nguyễn Văn An — Game & Playable Ads Developer.</span>
+    <span class="mono">made with ❤ & lots of FPS</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script type="application/json" id="projectsData">
+{
+ "playables": [
+  {
+   "title": "Worm Puzzle: Snake Apple Game",
+   "sub": "Metagame.Ltd · Puzzle",
+   "desc": "Playable cho game giải đố logic: điều khiển chú sâu ăn táo để dài ra, vượt mê cung và chui vào hố đích. Dễ chơi, khó thành thạo.",
+   "icon": "https://play-lh.googleusercontent.com/dBWRvcfHETIlVASewwmN-9f8oanp9J-6O6SGyuoX_exJNFEHPdkLuLbtiJAL9MAJBl3PeSknlKjsq9va6sBt=w240-h480",
+   "thumb": "https://play-lh.googleusercontent.com/YTqLgXJL6_T924zJUiCE5hpDlVzLhGOXaI2WBTxiuCVm5kqWTNfThntUV7Y75ybGoOiBs8EjjORSsZuvxPfHFQ=w526-h296",
+   "tags": [
+    "HTML5",
+    "Luna Playable"
+   ],
+   "badges": [
+    "10K+ lượt tải"
+   ],
+   "file": "worm-puzzle.html",
+   "newtab": "https://playground.lunalabs.io/preview/315811/422292/6e4b615fb4897e3397adc52be4d5a34e8a68d961d4a78d2fc26f9abf51b79d7f",
+   "orient": "portrait",
+   "gp": "https://play.google.com/store/apps/details?id=com.metas.worm.puzzle.apple.snake.slither.eat",
+   "as": ""
+  },
+  {
+   "title": "Idle Miner Rush (mẫu)",
+   "sub": "Studio ABC · Idle",
+   "desc": "Playable idle-tycoon với tutorial 3 bước, tối ưu first-tap dưới 2 giây. (Thẻ mẫu — xóa bằng Admin)",
+   "icon": "",
+   "thumb": "",
+   "tags": [
+    "Three.js",
+    "GSAP"
+   ],
+   "badges": [
+    "ironSource",
+    "Mintegral"
+   ],
+   "file": "",
+   "newtab": "",
+   "orient": "portrait",
+   "gp": "",
+   "as": ""
+  }
+ ],
+ "games": [
+  {
+   "title": "Fruit Drop Master",
+   "sub": "Metagame.Ltd · Puzzle / Merge",
+   "desc": "Game merge trái cây kiểu Suika: thả và ghép trái cây giống nhau thành quả lớn hơn, chinh phục quả Dưa Hấu Khổng Lồ. Vật lý mượt, leaderboard toàn cầu.",
+   "icon": "https://play-lh.googleusercontent.com/3i_uGI963jT1eGr5yny1IZoFpOoDvCf8qJGA8bOXER6S5uZHc-ZtYTEX0EsJdGufN6EzNKDXAtm-lEgqWwIbHA=w240-h480",
+   "thumb": "https://play-lh.googleusercontent.com/DJGoy7Z8K6B48VNNZG4m3O1r82L2sEtnwKijtFoOVI_cMkCjT_28dHg95Oqouad9wVNgVJ4K25K82N-pVkivQQ=w526-h296",
+   "tags": [
+    "Unity",
+    "Physics"
+   ],
+   "metric": "<b>10M+</b> lượt tải · 4.3★ (81K đánh giá)",
+   "role": [
+    "Lập trình core gameplay vật lý merge",
+    "Tích hợp ads, IAP và leaderboard",
+    "Tối ưu hiệu năng & hiệu ứng va chạm"
+   ],
+   "gp": "https://play.google.com/store/apps/details?id=com.metagame.watermelonmastermergefruit",
+   "as": ""
+  },
+  {
+   "title": "Fruit Fusion Fun",
+   "sub": "Metagame.Ltd · Puzzle / Merge",
+   "desc": "Game merge trái cây nâng tầm 2048 với đồ họa sống động: chạm để thả, ghép hai quả giống nhau thành quả lớn hơn, tạo combo và leo bảng xếp hạng toàn cầu.",
+   "icon": "https://play-lh.googleusercontent.com/Eb2DP0qP8nckGnVmBe2kWqHROEiN_ti8X9LJC7KBchRM5M4l52CpDM9xdKt3JQxOHNKNV-ka_NFdRAEY5uldXw=w240-h240",
+   "thumb": "https://play-lh.googleusercontent.com/g1dnWCg6Vo5FNcNLTg_EgnwG_4yMD2UNmumor-4vJ8_ZgIzblNnBdOMK-aJ_dkQAv9axA-kOjeF_KZNsHPWXhQ=w526-h296",
+   "tags": [
+    "Unity",
+    "Physics"
+   ],
+   "metric": "<b>5M+</b> lượt tải · 4.1★ (16.6K đánh giá)",
+   "role": [
+    "Lập trình gameplay merge & hệ thống combo",
+    "Tích hợp ads, IAP và leaderboard",
+    "Tối ưu hiệu năng & hiệu ứng va chạm"
+   ],
+   "gp": "https://play.google.com/store/apps/details?id=com.fruitdrop.fusion.fun",
+   "as": ""
+  },
+  {
+   "title": "Juicy Merge: Melons Puzzle",
+   "sub": "Metagame.Ltd · Casual / Merge",
+   "desc": "Game merge trái cây dựa trên 2048 cổ điển với đồ họa hoa quả sinh động: chạm để thả, ghép trái cây cùng loại, thi đua bảng xếp hạng toàn cầu để chinh phục quả dưa hấu lớn nhất.",
+   "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/67/3d/59/673d599f-c93b-1413-cf56-b8690287c8b5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/240x240bb.jpg",
+   "thumb": "",
+   "tags": [
+    "Unity",
+    "Physics"
+   ],
+   "metric": "<b>30K+</b> đánh giá · 4.8★ (iOS)",
+   "role": [
+    "Lập trình gameplay merge & hệ thống booster",
+    "Tích hợp IAP và bảng xếp hạng",
+    "Tối ưu hiệu ứng va chạm mượt mà"
+   ],
+   "gp": "",
+   "as": "https://apps.apple.com/us/app/juicy-merge-melons-puzzle/id6475623561"
+  },
+  {
+   "title": "Punch Wuggy",
+   "sub": "Omega Studio · Hyper-casual / Action",
+   "desc": "Game đối kháng hyper-casual: điều khiển nhân vật co duỗi tay đấm, knock-out đối thủ và sống sót trên đấu trường. (Cập nhật icon/ảnh sau)",
+   "icon": "",
+   "thumb": "",
+   "tags": [
+    "Unity",
+    "Physics"
+   ],
+   "metric": "",
+   "role": [
+    "Lập trình gameplay đối kháng & vật lý đấm",
+    "Tích hợp ads và hệ thống nâng cấp"
+   ],
+   "gp": "",
+   "as": ""
+  },
+  {
+   "title": "Block Puzzle: Classic Gems",
+   "sub": "Omega Studio · Puzzle",
+   "desc": "Game xếp khối kiểu Tetris/Block Puzzle cổ điển với chủ đề đá quý: kéo thả khối lấp đầy hàng để ghi điểm. (Cập nhật icon/ảnh sau)",
+   "icon": "",
+   "thumb": "",
+   "tags": [
+    "Unity",
+    "C#"
+   ],
+   "metric": "",
+   "role": [
+    "Lập trình core gameplay xếp khối & tính điểm",
+    "Tích hợp ads, IAP và bảng xếp hạng"
+   ],
+   "gp": "https://play.google.com/store/apps/details?id=com.topfreegame.blockpuzzlejewel.brickclassic.puzzle",
+   "as": ""
+  },
+  {
+   "title": "Stick vs Titans",
+   "sub": "Omega Studio · Action / Strategy",
+   "desc": "Game thủ thành phong cách stickman: chỉ huy đội quân chống lại các titan khổng lồ tấn công. (Cập nhật icon/ảnh sau)",
+   "icon": "",
+   "thumb": "",
+   "tags": [
+    "Unity",
+    "C#"
+   ],
+   "metric": "",
+   "role": [
+    "Lập trình gameplay thủ thành & AI kẻ địch",
+    "Hệ thống nâng cấp lính & combat"
+   ],
+   "gp": "",
+   "as": ""
+  },
+  {
+   "title": "Stick vs Titans 2",
+   "sub": "Omega Studio · Action / Strategy",
+   "desc": "Phần tiếp theo của Stick vs Titans với màn chơi và titan mới, lối chơi thủ thành stickman được mở rộng. (Cập nhật icon/ảnh sau)",
+   "icon": "",
+   "thumb": "",
+   "tags": [
+    "Unity",
+    "C#"
+   ],
+   "metric": "",
+   "role": [
+    "Phát triển gameplay & nội dung phần 2",
+    "Cân bằng độ khó và hệ thống nâng cấp"
+   ],
+   "gp": "",
+   "as": ""
+  },
+  {
+   "title": "Stick vs Titans 3",
+   "sub": "Omega Studio · Action / Strategy",
+   "desc": "Phần thứ ba của series Stick vs Titans, bổ sung cơ chế chiến đấu và titan boss mới. (Cập nhật icon/ảnh sau)",
+   "icon": "",
+   "thumb": "",
+   "tags": [
+    "Unity",
+    "C#"
+   ],
+   "metric": "",
+   "role": [
+    "Phát triển gameplay & boss mới cho phần 3",
+    "Tối ưu hiệu năng combat đông kẻ địch"
+   ],
+   "gp": "",
+   "as": ""
+  },
+  {
+   "title": "Tile Connect: Matching Classic",
+   "sub": "Omega Studio · Puzzle / Match",
+   "desc": "Game nối ô kiểu Onet/Mahjong cổ điển: tìm và nối các ô giống nhau để xóa khỏi bàn chơi. (Cập nhật icon/ảnh sau)",
+   "icon": "",
+   "thumb": "",
+   "tags": [
+    "Unity",
+    "C#"
+   ],
+   "metric": "",
+   "role": [
+    "Lập trình thuật toán nối ô & sinh màn",
+    "Tích hợp ads, booster và level system"
+   ],
+   "gp": "",
+   "as": ""
+  }
+ ]
+}
+</script>
+
+<script>
+  // ============================================================
+  // ===== RENDER DỰ ÁN TỪ KHO DỮ LIỆU JSON =====
+  // ============================================================
+  const projTag = document.getElementById('projectsData');
+  let PDATA = { playables: [], games: [] };
+
+  // ============================================================
+  // ===== LỚP ĐỒNG BỘ SUPABASE =====
+  // ============================================================
+  // Bật khi đã điền config; nếu không thì website chạy ở chế độ "offline"
+  // dùng dữ liệu JSON nhúng trong file (giữ tương thích ngược).
+  const SB_ON = window.SUPABASE_URL && !String(window.SUPABASE_URL).includes('DÁN_');
+  let sb = null;
+  let isAdmin = false;       // đã đăng nhập admin chưa
+  const rowMap = { playables: [], games: [] }; // map index → id dòng trong DB
+
+  if (SB_ON) sb = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_KEY);
+
+  // Đọc toàn bộ dự án từ database, đổ vào PDATA
+  async function loadFromDB() {
+    const { data, error } = await sb.from('projects')
+      .select('id, kind, sort_order, data')
+      .order('kind').order('sort_order');
+    if (error) { console.error('[Supabase] đọc lỗi:', error.message); return false; }
+    PDATA = { playables: [], games: [] };
+    rowMap.playables = []; rowMap.games = [];
+    data.forEach(row => {
+      const key = row.kind === 'playable' ? 'playables' : 'games';
+      PDATA[key].push(row.data);
+      rowMap[key].push(row.id);
+    });
+    return true;
   }
 
-  // ── MODAL ─────────────────────────────────────────────
-  function openModal(id) {
-    const p = (D.playableAds||[]).find(x=>x.id===id); if(!p) return;
-    currentPlayUrl = p.playUrl;
-    document.getElementById('modalThumb').src  = p.icon;
-    document.getElementById('modalThumb').alt  = p.title;
-    document.getElementById('modalGenre').textContent = p.genre;
-    document.getElementById('modalTitle').textContent = p.title;
-    document.getElementById('modalDesc').textContent  = p.desc;
-    document.getElementById('modalTags').innerHTML = (p.tags||[]).map(t=>`<span class="modal-tag">${t}</span>`).join('');
-    document.getElementById('modalActions').innerHTML = p.playStore
-      ? `<a href="${p.playStore}" target="_blank" class="modal-store-btn"><span class="modal-store-icon">▶</span><span><div class="modal-store-lbl">Tải trên</div><div class="modal-store-name">Google Play</div></span></a>` : '';
-    overlay.classList.add('open');
+  // Đẩy MỘT dự án mới lên DB, trả về id
+  async function dbInsert(kind, sortOrder, data) {
+    const { data: r, error } = await sb.from('projects')
+      .insert({ kind, sort_order: sortOrder, data }).select('id').single();
+    if (error) throw error;
+    return r.id;
+  }
+  async function dbUpdate(id, data, sortOrder) {
+    const patch = { data };
+    if (sortOrder != null) patch.sort_order = sortOrder;
+    const { error } = await sb.from('projects').update(patch).eq('id', id);
+    if (error) throw error;
+  }
+  async function dbDelete(id) {
+    const { error } = await sb.from('projects').delete().eq('id', id);
+    if (error) throw error;
+  }
+  // Ghi lại sort_order cho cả nhóm sau khi sắp xếp/kéo thả
+  async function dbReorder(kind) {
+    const key = kind === 'playable' ? 'playables' : 'games';
+    const updates = rowMap[key].map((id, i) =>
+      sb.from('projects').update({ sort_order: i }).eq('id', id));
+    await Promise.all(updates);
+  }
+
+  // --- Upload ảnh lên Supabase Storage, trả về URL công khai ---
+  async function uploadImage(file) {
+    if (!sb) throw new Error('Supabase chưa cấu hình');
+    if (!file.type.startsWith('image/')) throw new Error('File không phải ảnh');
+    if (file.size > 5 * 1024 * 1024) throw new Error('Ảnh quá 5MB');
+    // Tên file: timestamp + random + đuôi gốc, tránh trùng và ký tự lạ
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const path = Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+    const { error } = await sb.storage.from('project-images').upload(path, file, {
+      cacheControl: '3600', upsert: false
+    });
+    if (error) throw error;
+    const { data } = sb.storage.from('project-images').getPublicUrl(path);
+    return data.publicUrl;
+  }
+
+  // --- Đăng nhập / đăng xuất admin ---
+  function refreshAuthUI() {
+    const box = document.getElementById('authBox');
+    if (!SB_ON) { box.style.display = 'none'; return; }
+    box.style.display = 'block';
+    document.getElementById('authLoggedOut').style.display = isAdmin ? 'none' : 'block';
+    document.getElementById('authLoggedIn').style.display = isAdmin ? 'block' : 'none';
+    document.getElementById('staticHint').style.display = isAdmin ? 'none' : 'block';
+    const dbNote = document.getElementById('dbNote');
+    if (dbNote) dbNote.style.display = SB_ON ? 'block' : 'none';
+  }
+  async function initAuth() {
+    if (!SB_ON) return;
+    const { data } = await sb.auth.getSession();
+    isAdmin = !!(data && data.session);
+    if (isAdmin && data.session.user) document.getElementById('authWho').textContent = data.session.user.email;
+    refreshAuthUI();
+  }
+  function wireAuth() {
+    if (!SB_ON) return;
+    document.getElementById('authLogin').addEventListener('click', async () => {
+      const email = document.getElementById('authEmail').value.trim();
+      const password = document.getElementById('authPass').value;
+      const msg = document.getElementById('authMsg');
+      msg.textContent = 'Đang đăng nhập...';
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) { msg.textContent = '✗ ' + error.message; return; }
+      isAdmin = true;
+      document.getElementById('authWho').textContent = data.user.email;
+      msg.textContent = '';
+      refreshAuthUI();
+    });
+    document.getElementById('authLogout').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      isAdmin = false;
+      refreshAuthUI();
+    });
+
+    // Upload ảnh — gắn cho mọi nút .upload-btn trong form
+    document.querySelectorAll('.upload-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!isAdmin) { alert('Hãy đăng nhập trước khi upload ảnh.'); return; }
+        const targetId = btn.dataset.target;
+        const inp = document.createElement('input');
+        inp.type = 'file'; inp.accept = 'image/*';
+        inp.onchange = async () => {
+          const file = inp.files[0]; if (!file) return;
+          const origText = btn.textContent;
+          btn.disabled = true; btn.textContent = '⏳ Đang upload...';
+          try {
+            const url = await uploadImage(file);
+            const targetInput = document.getElementById(targetId);
+            targetInput.value = url;
+            updateImgPreview(targetId);
+          } catch (err) {
+            alert('Upload thất bại: ' + (err.message || err));
+          }
+          btn.disabled = false; btn.textContent = origText;
+        };
+        inp.click();
+      });
+    });
+    // Cập nhật preview khi gõ URL thủ công
+    ['pf_icon', 'pf_thumb'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', () => updateImgPreview(id));
+    });
+  }
+  function updateImgPreview(inputId) {
+    const inp = document.getElementById(inputId);
+    const prev = document.getElementById(inputId + '_prev');
+    if (!inp || !prev) return;
+    const url = inp.value.trim();
+    if (url) { prev.src = url; prev.classList.add('show'); }
+    else prev.classList.remove('show');
+  }
+
+  const GRADS = ['g1','g2','g3','g4','g5','g6'];
+  const SVG_GP = '<svg viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.36-.24-.6-.66-.6-1.2V3c0-.54.24-.96.6-1.2zm11.4 9 2.7-2.7 2.94 1.68c.96.54.96 1.9 0 2.44L17.7 13.9 15 11.2v-.4zm-1.2 1.2 2.46 2.46-9.6 5.5 7.14-7.96zm0-2.4L6.66 3.64l9.6 5.5-2.46 2.46z"/></svg>';
+  const SVG_AS = '<svg viewBox="0 0 24 24"><path d="M17.05 12.54c-.03-2.89 2.36-4.28 2.47-4.35-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.73 1.13-4.72 2.86-2.02 3.5-.52 8.67 1.45 11.51.96 1.39 2.1 2.95 3.6 2.89 1.45-.06 1.99-.93 3.74-.93s2.24.93 3.77.9c1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.04-.02-3.03-1.16-3.06-4.6zM14.16 4.06c.8-.97 1.34-2.31 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.85-1.39 2.23-1.22 3.54 1.29.1 2.6-.65 3.41-1.62z"/></svg>';
+
+  function esc(s) {
+    return String(s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+  function thumbHTML(p, i, isPlayable) {
+    const grad = GRADS[i % GRADS.length];
+    const inner = p.thumb
+      ? '<img class="shot" src="' + esc(p.thumb) + '" alt="' + esc(p.title) + '">'
+      : esc(p.title);
+    const playBtn = '<div class="play"><span>▶</span></div>';
+    if (isPlayable && p.file) {
+      return '<a class="thumb phone js-play ' + (p.thumb ? '' : grad) + '" href="#"' +
+        ' data-playable="playables/player.html#' + esc(p.file) + '"' +
+        (p.newtab ? ' data-newtab="' + esc(p.newtab) + '"' : '') +
+        (p.orient === 'landscape' ? ' data-orient="landscape"' : '') +
+        ' data-title="' + esc(p.title) + '">' + inner + playBtn + '</a>';
+    }
+    return '<div class="thumb ' + (isPlayable ? 'phone ' : '') + (p.thumb ? '' : grad) + '">' + inner + (isPlayable ? playBtn : '') + '</div>';
+  }
+  function headHTML(p) {
+    const icon = p.icon ? '<img class="app-icon" src="' + esc(p.icon) + '" alt="">' : '';
+    return '<div class="card-head">' + icon + '<div><h3>' + esc(p.title) + '</h3>' +
+      (p.sub ? '<span class="dev">' + esc(p.sub) + '</span>' : '') + '</div></div>';
+  }
+  function tagsHTML(p) {
+    let t = (p.tags || []).map(x => '<span class="tag">' + esc(x) + '</span>').join('');
+    t += (p.badges || []).map(x => '<span class="tag net">' + esc(x) + '</span>').join('');
+    return t ? '<div class="card-tags">' + t + '</div>' : '';
+  }
+  function storeBtns(p) {
+    let s = '';
+    if (p.gp) s += '<a class="store-btn" href="' + esc(p.gp) + '" target="_blank" rel="noopener">' + SVG_GP + 'Google Play</a>';
+    if (p.as) s += '<a class="store-btn" href="' + esc(p.as) + '" target="_blank" rel="noopener">' + SVG_AS + 'App Store</a>';
+    return s;
+  }
+  function renderPlayables() {
+    const grid = document.getElementById('gridPlayables');
+    grid.innerHTML = PDATA.playables.map((p, i) => {
+      let links = '';
+      if (p.file) {
+        links += '<a href="#" class="js-play" data-playable="playables/player.html#' + esc(p.file) + '"' +
+          (p.newtab ? ' data-newtab="' + esc(p.newtab) + '"' : '') +
+          (p.orient === 'landscape' ? ' data-orient="landscape"' : '') +
+          ' data-title="' + esc(p.title) + '">▶ Chơi ngay</a>';
+      }
+      links += storeBtns(p);
+      return '<article class="project-card">' + thumbHTML(p, i, true) +
+        '<div class="card-body">' + headHTML(p) +
+        '<p>' + esc(p.desc) + '</p>' + tagsHTML(p) +
+        (links ? '<div class="card-links">' + links + '</div>' : '') +
+        '</div></article>';
+    }).join('');
+  }
+  function renderGames() {
+    const grid = document.getElementById('gridGames');
+    grid.innerHTML = PDATA.games.map((p, i) => {
+      const role = (p.role && p.role.length)
+        ? '<div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul>' +
+          p.role.map(r => '<li>' + esc(r) + '</li>').join('') + '</ul></div>'
+        : '';
+      const metric = p.metric ? '<span class="metric">' + p.metric + '</span>' : '';
+      const links = storeBtns(p);
+      return '<article class="project-card">' + thumbHTML(p, i, false) +
+        '<div class="card-body">' + headHTML(p) +
+        '<p>' + esc(p.desc) + '</p>' + role + tagsHTML(p) + metric +
+        (links ? '<div class="card-links">' + links + '</div>' : '') +
+        '</div></article>';
+    }).join('');
+  }
+  function renderAll() { renderPlayables(); renderGames(); }
+  function commitData() {
+    if (projTag) projTag.textContent = JSON.stringify(PDATA, null, 1);
+    renderAll();
+    renderProjList();
+    refreshDraggable();
+  }
+  function syncErr(err) {
+    console.error('[Supabase] ghi lỗi:', err.message || err);
+    alert('⚠ Lưu lên server thất bại: ' + (err.message || err) + '\nThay đổi vẫn hiển thị tạm nhưng CHƯA lưu. Kiểm tra kết nối / đăng nhập rồi thử lại.');
+  }
+
+  // Khởi tạo: ưu tiên tải từ Supabase; nếu tắt/không được thì dùng JSON nhúng
+  async function initData() {
+    if (SB_ON) {
+      const ok = await loadFromDB();
+      if (ok) { renderAll(); renderProjList && renderProjList(); refreshDraggable && refreshDraggable(); return; }
+    }
+    // Fallback: JSON nhúng trong file (nếu có)
+    try { if (projTag && projTag.textContent.trim()) PDATA = JSON.parse(projTag.textContent); } catch(e){}
+    renderAll();
+  }
+  initData();
+  initAuth();
+  wireAuth();
+
+  // ===== Chuyển tab (dùng event delegation để nội dung sửa bằng Admin vẫn hoạt động) =====
+  function show(id) {
+    document.querySelectorAll('.content section').forEach(s => s.classList.toggle('visible', s.id === id));
+    document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('active', a.dataset.nav === id));
+    window.scrollTo({ top: 0 });
+  }
+
+  // Mở đúng tab nếu URL có hash
+  const initial = location.hash.replace('#', '');
+  if (initial && document.getElementById(initial)) show(initial);
+
+  // ===== Chơi thử playable ngay trong trang =====
+  const modal = document.getElementById('playableModal');
+  const frame = document.getElementById('playableFrame');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalNewTab = document.getElementById('modalNewTab');
+  const phoneFrame = document.querySelector('.phone-frame');
+
+  function openPlayable(url, title, newTabUrl, orient) {
+    frame.src = url;
+    modalTitle.textContent = title || 'Playable';
+    modalNewTab.href = newTabUrl || url;
+    phoneFrame.classList.toggle('landscape', orient === 'landscape');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
-  function launchGame() {
-    if(!currentPlayUrl) return;
-    const w=390,h=700,l=Math.round((screen.width-w)/2),t=Math.round((screen.height-h)/2);
-    window.open(currentPlayUrl,'playable_ad',`width=${w},height=${h},left=${l},top=${t},resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no`);
-  }
-  function closeModal(e) {
-    if(e && e.target!==overlay) return;
-    overlay.classList.remove('open'); document.body.style.overflow='';
+  function closePlayable() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    frame.src = 'about:blank'; // dừng game & âm thanh khi đóng
+    document.body.style.overflow = '';
   }
 
-  // ── NAVIGATION ────────────────────────────────────────
-  const pageTitles = { home:'Trang chủ', playable:'Playable Ads Portfolio', gamedev:'Game Developer Portfolio' };
-  function navigate(page) {
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    document.getElementById('page-'+page).classList.add('active');
-    document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
-    document.getElementById('topbarTitle').textContent = pageTitles[page]||page;
+  // ===== Một bộ xử lý click chung cho cả trang =====
+  document.addEventListener('click', e => {
+    // Chế độ chọn phần tử: click để chọn, chặn hành vi mặc định
+    if (inspecting && !e.target.closest('.admin-panel, .inspector, .proj-form-overlay')) {
+      e.preventDefault(); e.stopPropagation();
+      selectEl(e.target);
+      return;
+    }
+    // Chế độ chỉnh sửa: click ảnh để đổi, chặn link để gõ sửa chữ
+    if (editing && !e.target.closest('.admin-panel')) {
+      const img = e.target.closest('img');
+      if (img) { e.preventDefault(); e.stopPropagation(); changeImage(img); return; }
+      if (e.target.closest('a')) { e.preventDefault(); return; }
+      return;
+    }
+    const nav = e.target.closest('[data-nav]');
+    if (nav) { e.preventDefault(); history.replaceState(null, '', '#' + nav.dataset.nav); show(nav.dataset.nav); return; }
+    const nl = e.target.closest('[data-nav-link]');
+    if (nl) { e.preventDefault(); show(nl.dataset.navLink); history.replaceState(null, '', '#' + nl.dataset.navLink); return; }
+    const p = e.target.closest('.js-play');
+    if (p) { e.preventDefault(); openPlayable(p.dataset.playable, p.dataset.title, p.dataset.newtab, p.dataset.orient); return; }
+  }, true);
+
+  // Nút xoay ngang/dọc — sau khi xoay, báo cho playable biết kích thước đã đổi
+  document.getElementById('modalRotate').addEventListener('click', () => {
+    phoneFrame.classList.toggle('landscape');
+    setTimeout(() => {
+      try {
+        const w = frame.contentWindow;
+        w.dispatchEvent(new Event('resize'));
+        w.dispatchEvent(new Event('orientationchange'));
+        const inner = w.document && w.document.getElementById('f');
+        if (inner && inner.contentWindow) {
+          inner.contentWindow.dispatchEvent(new Event('resize'));
+          inner.contentWindow.dispatchEvent(new Event('orientationchange'));
+        }
+      } catch (err) { /* iframe khác nguồn gốc thì bỏ qua */ }
+    }, 300);
+  });
+  document.getElementById('modalClose').addEventListener('click', closePlayable);
+  modal.addEventListener('click', e => { if (e.target === modal) closePlayable(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closePlayable();
+  });
+
+  // ============================================================
+  // ===== ADMIN — mở bằng #admin trên URL hoặc Ctrl+Shift+A =====
+  // ============================================================
+  const customStyle = document.getElementById('customStyle');
+  const EDIT_AREAS = ['.masthead-inner', '.sidebar-sticky', '.content', '.footer-inner'];
+  const DRAFT_KEY = 'pw_admin_draft';
+  let editing = false;
+
+  function adminOpen()  { document.body.classList.add('admin-on'); refreshDraggable(); }
+  function adminClose() { document.body.classList.remove('admin-on'); setEditing(false); setInspecting(false); refreshDraggable(); }
+  if (location.hash === '#admin') adminOpen();
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+      e.preventDefault();
+      document.body.classList.contains('admin-on') ? adminClose() : adminOpen();
+    }
+  });
+  document.getElementById('adminClose').addEventListener('click', adminClose);
+
+  // --- Chỉnh sửa chữ & ảnh ---
+  const btnEdit = document.getElementById('btnEdit');
+  function setEditing(on) {
+    editing = on;
+    document.body.classList.toggle('editing', on);
+    btnEdit.classList.toggle('on', on);
+    btnEdit.textContent = on ? '✔ Đang chỉnh sửa — bấm để tắt' : '✏ Bật chỉnh sửa chữ & ảnh';
+    EDIT_AREAS.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) on ? el.setAttribute('contenteditable', 'true') : el.removeAttribute('contenteditable');
+    });
+  }
+  btnEdit.addEventListener('click', () => { if (!editing) setInspecting(false); setEditing(!editing); });
+
+  function changeImage(img) {
+    const url = prompt('Dán URL ảnh mới (để TRỐNG rồi OK nếu muốn chọn ảnh từ máy):', '');
+    if (url === null) return;            // bấm Hủy
+    if (url.trim()) { img.src = url.trim(); return; }
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = () => {
+      const f = inp.files[0]; if (!f) return;
+      const r = new FileReader();
+      r.onload = () => { img.src = r.result; }; // nhúng base64 — ảnh nằm luôn trong file HTML
+      r.readAsDataURL(f);
+    };
+    inp.click();
   }
 
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ overlay.classList.remove('open'); document.body.style.overflow=''; }});
+  // --- Kích thước & màu sắc (ghi vào <style id="customStyle"> để xuất file giữ nguyên) ---
+  const styleVars = {};
+  function applyVars() {
+    const body = Object.entries(styleVars).map(([k, v]) => k + ':' + v).join(';');
+    customStyle.textContent = body ? ':root{' + body + '}' : '';
+  }
+  function bindRange(inputId, outputId, varName, fmt) {
+    const inp = document.getElementById(inputId);
+    const out = document.getElementById(outputId);
+    inp.addEventListener('input', () => {
+      const v = fmt(inp.value);
+      out.textContent = v.label;
+      styleVars[varName] = v.css;
+      applyVars();
+    });
+  }
+  bindRange('vFont',   'oFont',   '--base-font',   v => ({ css: v + 'px',     label: v + 'px' }));
+  bindRange('vNav',    'oNav',    '--nav-scale',   v => ({ css: v / 100,      label: v + '%' }));
+  bindRange('vBtn',    'oBtn',    '--btn-scale',   v => ({ css: v / 100,      label: v + '%' }));
+  bindRange('vRadius', 'oRadius', '--card-radius', v => ({ css: v + 'px',     label: v + 'px' }));
+  bindRange('vAvatar', 'oAvatar', '--avatar-size', v => ({ css: v + 'px',     label: v + 'px' }));
+  document.getElementById('vAccent').addEventListener('input', e => {
+    styleVars['--accent'] = e.target.value;
+    styleVars['--accent-soft'] = e.target.value + '1f';
+    applyVars();
+  });
+  document.getElementById('vAccent2').addEventListener('input', e => {
+    styleVars['--accent-2'] = e.target.value;
+    styleVars['--accent-2-soft'] = e.target.value + '1a';
+    applyVars();
+  });
+  document.getElementById('btnResetStyle').addEventListener('click', () => {
+    Object.keys(styleVars).forEach(k => delete styleVars[k]);
+    applyVars();
+    // trả các thanh trượt về mặc định
+    [['vFont',16,'oFont','16px'],['vNav',100,'oNav','100%'],['vBtn',100,'oBtn','100%'],
+     ['vRadius',14,'oRadius','14px'],['vAvatar',120,'oAvatar','120px']].forEach(([i,v,o,l]) => {
+      document.getElementById(i).value = v; document.getElementById(o).textContent = l;
+    });
+    document.getElementById('vAccent').value = '#ffb454';
+    document.getElementById('vAccent2').value = '#6ee7d8';
+  });
 
-  loadData();
+
+  // --- Quản lý dự án: thêm / sửa / xóa / sắp xếp ---
+  let curType = 'playables', editIndex = -1;
+  const tabP = document.getElementById('tabPlayables');
+  const tabG = document.getElementById('tabGames');
+  const pfOverlay = document.getElementById('projFormOverlay');
+
+  function setType(t) {
+    curType = t;
+    tabP.classList.toggle('on', t === 'playables');
+    tabG.classList.toggle('on', t === 'games');
+    renderProjList();
+  }
+  tabP.addEventListener('click', () => setType('playables'));
+  tabG.addEventListener('click', () => setType('games'));
+
+  function renderProjList() {
+    const list = document.getElementById('projList');
+    const arr = PDATA[curType];
+    list.innerHTML = arr.map((p, i) =>
+      '<div class="proj-row">' +
+        '<span class="pname" title="' + esc(p.title) + '">' + esc(p.title) + '</span>' +
+        '<button data-act="up" data-i="' + i + '" title="Lên">↑</button>' +
+        '<button data-act="down" data-i="' + i + '" title="Xuống">↓</button>' +
+        '<button data-act="edit" data-i="' + i + '" title="Sửa">✎</button>' +
+        '<button class="del" data-act="del" data-i="' + i + '" title="Xóa">✕</button>' +
+      '</div>'
+    ).join('') || '<p class="admin-hint">Chưa có dự án nào.</p>';
+  }
+  document.getElementById('projList').addEventListener('click', async e => {
+    const btn = e.target.closest('button[data-act]');
+    if (!btn) return;
+    const i = +btn.dataset.i, arr = PDATA[curType], ids = rowMap[curType];
+    const dbKind = curType === 'playables' ? 'playable' : 'game';
+    if (btn.dataset.act === 'up' && i > 0) {
+      [arr[i-1], arr[i]] = [arr[i], arr[i-1]];
+      if (ids.length) [ids[i-1], ids[i]] = [ids[i], ids[i-1]];
+      commitData(); if (SB_ON && isAdmin) { try { await dbReorder(dbKind); } catch(err){ syncErr(err); } }
+    }
+    if (btn.dataset.act === 'down' && i < arr.length - 1) {
+      [arr[i+1], arr[i]] = [arr[i], arr[i+1]];
+      if (ids.length) [ids[i+1], ids[i]] = [ids[i], ids[i+1]];
+      commitData(); if (SB_ON && isAdmin) { try { await dbReorder(dbKind); } catch(err){ syncErr(err); } }
+    }
+    if (btn.dataset.act === 'del' && confirm('Xóa dự án "' + arr[i].title + '"?')) {
+      const delId = ids[i];
+      arr.splice(i, 1); ids.splice(i, 1);
+      commitData();
+      if (SB_ON && isAdmin && delId != null) { try { await dbDelete(delId); } catch(err){ syncErr(err); } }
+    }
+    if (btn.dataset.act === 'edit') openProjForm(i);
+  });
+  document.getElementById('btnAddProj').addEventListener('click', () => openProjForm(-1));
+
+  const PF = id => document.getElementById(id);
+  function openProjForm(i) {
+    editIndex = i;
+    const isP = curType === 'playables';
+    PF('pfTitle').textContent = (i < 0 ? 'Thêm ' : 'Sửa ') + (isP ? 'Playable Ad' : 'dự án Game');
+    PF('pfPlayableFields').style.display = isP ? '' : 'none';
+    PF('pfGameFields').style.display = isP ? 'none' : '';
+    const p = i >= 0 ? PDATA[curType][i] : {};
+    PF('pf_title').value = p.title || '';
+    PF('pf_sub').value = p.sub || '';
+    PF('pf_desc').value = p.desc || '';
+    PF('pf_icon').value = p.icon || '';
+    PF('pf_thumb').value = p.thumb || '';
+    updateImgPreview('pf_icon');
+    updateImgPreview('pf_thumb');
+    PF('pf_tags').value = (p.tags || []).join(', ');
+    PF('pf_badges').value = (p.badges || []).join(', ');
+    PF('pf_file').value = p.file || '';
+    PF('pf_orient').value = p.orient || 'portrait';
+    PF('pf_newtab').value = p.newtab || '';
+    PF('pf_role').value = (p.role || []).join('\n');
+    PF('pf_metric').value = p.metric || '';
+    PF('pf_store_link').value = '';
+    PF('pf_play_link').value = '';
+    PF('pf_play_link').style.display = isP ? '' : 'none';
+    setStatus('');
+    PF('pf_gp').value = p.gp || '';
+    PF('pf_as').value = p.as || '';
+    pfOverlay.classList.add('open');
+  }
+  function closeProjForm() { pfOverlay.classList.remove('open'); }
+  PF('pfCancel').addEventListener('click', closeProjForm);
+  pfOverlay.addEventListener('click', e => { if (e.target === pfOverlay) closeProjForm(); });
+  PF('pfSave').addEventListener('click', async () => {
+    const title = PF('pf_title').value.trim();
+    if (!title) { alert('Vui lòng nhập tên dự án.'); return; }
+    const splitList = v => v.split(',').map(s => s.trim()).filter(Boolean);
+    const p = {
+      title,
+      sub: PF('pf_sub').value.trim(),
+      desc: PF('pf_desc').value.trim(),
+      icon: PF('pf_icon').value.trim(),
+      thumb: PF('pf_thumb').value.trim(),
+      tags: splitList(PF('pf_tags').value),
+      gp: PF('pf_gp').value.trim(),
+      as: PF('pf_as').value.trim()
+    };
+    if (curType === 'playables') {
+      p.badges = splitList(PF('pf_badges').value);
+      p.file = PF('pf_file').value.trim();
+      p.orient = PF('pf_orient').value;
+      p.newtab = PF('pf_newtab').value.trim();
+    } else {
+      p.role = PF('pf_role').value.split('\n').map(s => s.trim()).filter(Boolean);
+      p.metric = PF('pf_metric').value.trim();
+    }
+    if (editIndex < 0) {
+      PDATA[curType].push(p);
+      commitData();
+      if (SB_ON && isAdmin) {
+        try {
+          const dbKind = curType === 'playables' ? 'playable' : 'game';
+          const newId = await dbInsert(dbKind, PDATA[curType].length - 1, p);
+          rowMap[curType].push(newId);
+        } catch (err) { syncErr(err); }
+      }
+    } else {
+      PDATA[curType][editIndex] = p;
+      commitData();
+      if (SB_ON && isAdmin) {
+        try { await dbUpdate(rowMap[curType][editIndex], p); } catch (err) { syncErr(err); }
+      }
+    }
+    closeProjForm();
+  });
+  renderProjList();
+
+
+  // --- Tự động điền từ link store / link chơi thử ---
+  const pfStatus = document.getElementById('pfStatus');
+  function setStatus(msg) { pfStatus.textContent = msg; }
+
+  // Timeout tương thích mọi trình duyệt (AbortSignal.timeout chưa phổ biến)
+  function fetchTimeout(url, ms) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), ms);
+    return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(t));
+  }
+
+  // Google Play chặn đọc trực tiếp từ trình duyệt (CORS) → đi qua proxy công cộng.
+  // Thử lần lượt 5 đường; đường nào lỗi sẽ ghi vào Console (F12) để dò bệnh.
+  async function proxyFetch(url) {
+    const routes = [
+      { name: 'allorigins-raw', make: u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u), type: 'text' },
+      { name: 'allorigins-json', make: u => 'https://api.allorigins.win/get?url=' + encodeURIComponent(u), type: 'json' },
+      { name: 'corsproxy.io', make: u => 'https://corsproxy.io/?url=' + encodeURIComponent(u), type: 'text' },
+      { name: 'codetabs', make: u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u), type: 'text' },
+      { name: 'jina-reader', make: u => 'https://r.jina.ai/' + u, type: 'text' }
+    ];
+    const errors = [];
+    for (const route of routes) {
+      try {
+        setStatus('Đang thử qua ' + route.name + '…');
+        const r = await fetchTimeout(route.make(url), 25000);
+        if (!r.ok) { errors.push(route.name + ': HTTP ' + r.status); continue; }
+        let t;
+        if (route.type === 'json') {
+          const j = await r.json();
+          t = j && j.contents;
+        } else {
+          t = await r.text();
+        }
+        if (t && t.length > 800) return t;
+        errors.push(route.name + ': phản hồi rỗng');
+      } catch (e) {
+        errors.push(route.name + ': ' + (e.name === 'AbortError' ? 'quá 25s' : e.message));
+      }
+    }
+    console.warn('[Auto-fill] Tất cả proxy thất bại:\n' + errors.join('\n'));
+    throw new Error(errors.join(' | '));
+  }
+
+  function shortDesc(s, max = 150) {
+    s = String(s || '').replace(/\s+/g, ' ').trim();
+    if (s.length <= max) return s;
+    const cut = s.slice(0, max);
+    const dot = cut.lastIndexOf('. ');
+    return (dot > 60 ? cut.slice(0, dot + 1) : cut.trim() + '…');
+  }
+
+  // Đọc được cả HTML gốc lẫn markdown từ Jina Reader
+  function parseGooglePlay(raw) {
+    const isHTML = raw.indexOf('<meta') !== -1;
+    let title = '', desc = '', icon = '';
+    if (isHTML) {
+      const meta = prop => {
+        const m = raw.match(new RegExp('<meta[^>]+(?:property|name)="' + prop + '"[^>]+content="([^"]*)"'));
+        return m ? m[1] : '';
+      };
+      title = meta('og:title');
+      desc = meta('description') || meta('og:description');
+      icon = meta('og:image').split('=')[0];
+    } else {
+      const tm = raw.match(/^Title:\s*(.+)$/m);
+      title = tm ? tm[1] : '';
+      const am = raw.match(/About this game[^]*?\n\n([^\n#*!\[][^\n]{30,})/);
+      desc = am ? am[1] : '';
+      const im = raw.match(/https:\/\/play-lh\.googleusercontent\.com\/[\w\-]+(?==w240-h480)/);
+      icon = im ? im[0] : '';
+    }
+    title = title.replace(/\s*[-–—]\s*(Apps|Android Apps|Ứng dụng)\s*(on|trên)\s*Google Play.*$/i, '').trim();
+    const shots = Array.from(raw.matchAll(/https:\/\/play-lh\.googleusercontent\.com\/[\w\-]+=w526-h296/g), m => m[0]);
+    const thumb = shots.find(s => !icon || !s.startsWith(icon)) || '';
+    const dlm = raw.match(/([\d.,]+\s?[KMB]\+)[^]{0,250}?Downloads/i);
+    const rtm = raw.match(/Rated ([\d.]+) stars out of five/i) || raw.match(/([\d.]{3})\s*\*?star/i);
+    return {
+      title, desc: shortDesc(desc),
+      icon: icon ? icon + '=w240-h240' : '',
+      thumb,
+      downloads: dlm ? dlm[1].replace(/\s/g, '') : '',
+      rating: rtm ? rtm[1] : ''
+    };
+  }
+
+  async function fetchAppStore(link) {
+    const idm = link.match(/id(\d+)/);
+    if (!idm) throw new Error('Link App Store không hợp lệ');
+    const ccm = link.match(/apple\.com\/([a-z]{2})\//i);
+    const cc = ccm ? ccm[1] : 'us';
+    // API chính thức của Apple — cho phép gọi thẳng từ trình duyệt
+    const r = await fetchTimeout('https://itunes.apple.com/lookup?id=' + idm[1] + '&country=' + cc, 15000);
+    const j = await r.json();
+    if (!j.results || !j.results.length) throw new Error('Không tìm thấy app trên App Store');
+    const a = j.results[0];
+    return {
+      title: a.trackName || '',
+      sub: [a.artistName, a.primaryGenreName].filter(Boolean).join(' · '),
+      desc: shortDesc(a.description),
+      icon: a.artworkUrl512 || a.artworkUrl100 || '',
+      thumb: (a.screenshotUrls && a.screenshotUrls[0]) || '',
+      rating: a.averageUserRating ? a.averageUserRating.toFixed(1) : '',
+      ratingCount: a.userRatingCount || 0,
+      url: a.trackViewUrl || link
+    };
+  }
+
+  // Điền vào form — chỉ ghi đè khi có dữ liệu, giữ nguyên ô mà nguồn không có
+  function fillIf(id, val) { if (val) PF(id).value = val; }
+
+  document.getElementById('pfAutofill').addEventListener('click', async () => {
+    const storeLink = PF('pf_store_link').value.trim();
+    const playLink = PF('pf_play_link').value.trim();
+    if (!storeLink && !playLink) { setStatus('Hãy dán ít nhất một link.'); return; }
+    if (playLink) fillIf('pf_newtab', playLink);
+
+    if (!storeLink) { setStatus('✓ Đã điền link chơi thử.'); return; }
+    const btn = document.getElementById('pfAutofill');
+    btn.disabled = true;
+    try {
+      if (/apps\.apple\.com|itunes\.apple\.com/.test(storeLink)) {
+        setStatus('Đang lấy từ App Store…');
+        const d = await fetchAppStore(storeLink);
+        fillIf('pf_title', d.title);
+        fillIf('pf_sub', d.sub);
+        fillIf('pf_desc', d.desc);
+        fillIf('pf_icon', d.icon);
+        fillIf('pf_thumb', d.thumb);
+        fillIf('pf_as', d.url);
+        if (curType === 'games' && d.rating) {
+          fillIf('pf_metric', d.rating + '★ (' + d.ratingCount.toLocaleString() + ' đánh giá)');
+        }
+        setStatus('✓ Đã điền từ App Store — kiểm tra và sửa lại nếu cần.');
+      } else if (/play\.google\.com/.test(storeLink)) {
+        const raw = await proxyFetch(storeLink);
+        const d = parseGooglePlay(raw);
+        if (!d.title) throw new Error('Không đọc được dữ liệu trang store');
+        fillIf('pf_title', d.title);
+        fillIf('pf_desc', d.desc);
+        fillIf('pf_icon', d.icon);
+        fillIf('pf_thumb', d.thumb);
+        fillIf('pf_gp', storeLink.split('&hl=')[0]);
+        if (curType === 'games') {
+          const parts = [];
+          if (d.downloads) parts.push('<b>' + d.downloads + '</b> lượt tải');
+          if (d.rating) parts.push(d.rating + '★');
+          if (parts.length) fillIf('pf_metric', parts.join(' · '));
+        } else if (d.downloads) {
+          fillIf('pf_badges', d.downloads + ' lượt tải');
+        }
+        setStatus('✓ Đã điền từ Google Play — kiểm tra và sửa lại nếu cần.');
+      } else {
+        setStatus('Chỉ hỗ trợ link Google Play hoặc App Store.');
+      }
+    } catch (err) {
+      setStatus('⚠ Không lấy được. Mở Console (F12) xem chi tiết từng proxy. Bạn vẫn có thể điền tay.');
+    }
+    btn.disabled = false;
+  });
+
+
+  // --- Trình chỉnh phần tử: click để chọn, chỉnh size/màu/class/vị trí ---
+  let inspecting = false, selEl = null, hoverEl = null;
+  const inspector = document.getElementById('inspector');
+  const btnInspect = document.getElementById('btnInspect');
+  const I = id => document.getElementById(id);
+
+  function setInspecting(on) {
+    inspecting = on;
+    document.body.classList.toggle('inspecting', on);
+    btnInspect.classList.toggle('on', on);
+    btnInspect.textContent = on ? '✔ Đang chọn phần tử — bấm để tắt' : '🎯 Chọn & chỉnh phần tử';
+    if (!on) deselectEl();
+    if (on && editing) setEditing(false); // hai chế độ không dùng cùng lúc
+  }
+  btnInspect.addEventListener('click', () => setInspecting(!inspecting));
+
+  document.addEventListener('mouseover', e => {
+    if (!inspecting) return;
+    if (e.target.closest('.admin-panel, .inspector, .proj-form-overlay')) {
+      if (hoverEl) { hoverEl.classList.remove('el-hover'); hoverEl = null; }
+      return;
+    }
+    if (hoverEl) hoverEl.classList.remove('el-hover');
+    hoverEl = e.target;
+    if (hoverEl !== document.body && hoverEl !== document.documentElement) hoverEl.classList.add('el-hover');
+  });
+
+  function rgbToHex(rgb) {
+    const m = String(rgb).match(/\d+/g);
+    if (!m || m.length < 3) return '#000000';
+    return '#' + m.slice(0, 3).map(n => (+n).toString(16).padStart(2, '0')).join('');
+  }
+
+  function selectEl(el) {
+    if (!el || el === document.body || el === document.documentElement) return;
+    deselectEl();
+    selEl = el;
+    el.classList.add('el-selected');
+    el.classList.remove('el-hover');
+    const cs = getComputedStyle(el);
+    const cls = Array.from(el.classList).filter(c => c !== 'el-selected' && c !== 'el-hover');
+    I('inspTag').textContent = '<' + el.tagName.toLowerCase() + '>' + (cls.length ? ' .' + cls.join(' .') : '');
+    I('iFont').value = parseInt(cs.fontSize) || 16;  I('ioFont').textContent = I('iFont').value + 'px';
+    I('iPad').value = parseInt(cs.paddingTop) || 0;  I('ioPad').textContent = I('iPad').value + 'px';
+    I('iRad').value = parseInt(cs.borderRadius) || 0; I('ioRad').textContent = I('iRad').value + 'px';
+    I('iColor').value = rgbToHex(cs.color);
+    I('iBg').value = rgbToHex(cs.backgroundColor);
+    I('iWidth').value = el.style.width || '';
+    I('iClass').value = cls.join(' ');
+    I('inspWarn').style.display = el.closest('#gridPlayables, #gridGames') ? '' : 'none';
+    inspector.classList.add('open');
+  }
+  function deselectEl() {
+    if (selEl) selEl.classList.remove('el-selected');
+    selEl = null;
+    inspector.classList.remove('open');
+  }
+
+  // Áp style khi người dùng kéo/chọn — chỉ ghi inline style lúc thao tác
+  I('iFont').addEventListener('input', () => { if (selEl) { selEl.style.fontSize = I('iFont').value + 'px'; I('ioFont').textContent = I('iFont').value + 'px'; } });
+  I('iPad').addEventListener('input', () => { if (selEl) { selEl.style.padding = I('iPad').value + 'px'; I('ioPad').textContent = I('iPad').value + 'px'; } });
+  I('iRad').addEventListener('input', () => { if (selEl) { selEl.style.borderRadius = I('iRad').value + 'px'; I('ioRad').textContent = I('iRad').value + 'px'; } });
+  I('iColor').addEventListener('input', () => { if (selEl) selEl.style.color = I('iColor').value; });
+  I('iBg').addEventListener('input', () => { if (selEl) selEl.style.background = I('iBg').value; });
+  I('iWidth').addEventListener('change', () => { if (selEl) selEl.style.width = I('iWidth').value.trim(); });
+  I('iClass').addEventListener('change', () => {
+    if (!selEl) return;
+    selEl.className = I('iClass').value.trim();
+    selEl.classList.add('el-selected');
+  });
+  I('iUp').addEventListener('click', () => {
+    if (selEl && selEl.previousElementSibling) selEl.parentNode.insertBefore(selEl, selEl.previousElementSibling);
+  });
+  I('iDown').addEventListener('click', () => {
+    if (selEl && selEl.nextElementSibling) selEl.parentNode.insertBefore(selEl.nextElementSibling, selEl);
+  });
+  I('iParent').addEventListener('click', () => {
+    if (selEl && selEl.parentElement && selEl.parentElement !== document.body) selectEl(selEl.parentElement);
+  });
+  I('iReset').addEventListener('click', () => { if (selEl) selEl.removeAttribute('style'); });
+  I('iDelete').addEventListener('click', () => {
+    if (selEl && confirm('Xóa phần tử <' + selEl.tagName.toLowerCase() + '> khỏi trang?')) {
+      selEl.remove(); selEl = null; inspector.classList.remove('open');
+    }
+  });
+  I('iClose').addEventListener('click', deselectEl);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && inspecting) { selEl ? deselectEl() : setInspecting(false); }
+  });
+
+  // --- Kéo thả thẻ dự án để đổi thứ tự (khi bảng Admin mở) ---
+  let dragIdx = -1, dragType = null;
+  function refreshDraggable() {
+    const on = document.body.classList.contains('admin-on');
+    document.querySelectorAll('#gridPlayables .project-card, #gridGames .project-card')
+      .forEach(c => c.setAttribute('draggable', on ? 'true' : 'false'));
+  }
+  function setupCardDrag(gridId, type) {
+    const grid = document.getElementById(gridId);
+    grid.addEventListener('dragstart', e => {
+      const c = e.target.closest('.project-card');
+      if (!c || !document.body.classList.contains('admin-on')) return;
+      dragIdx = Array.prototype.indexOf.call(grid.children, c);
+      dragType = type;
+      c.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    grid.addEventListener('dragend', () => {
+      grid.querySelectorAll('.dragging, .drag-over').forEach(c => c.classList.remove('dragging', 'drag-over'));
+      dragIdx = -1; dragType = null;
+    });
+    grid.addEventListener('dragover', e => {
+      if (dragType !== type) return;
+      e.preventDefault();
+      const c = e.target.closest('.project-card');
+      grid.querySelectorAll('.drag-over').forEach(x => x.classList.remove('drag-over'));
+      if (c && !c.classList.contains('dragging')) c.classList.add('drag-over');
+    });
+    grid.addEventListener('drop', async e => {
+      if (dragType !== type) return;
+      e.preventDefault();
+      const c = e.target.closest('.project-card');
+      if (!c) return;
+      const to = Array.prototype.indexOf.call(grid.children, c);
+      if (to >= 0 && dragIdx >= 0 && to !== dragIdx) {
+        const arr = PDATA[type], ids = rowMap[type];
+        const [moved] = arr.splice(dragIdx, 1);
+        arr.splice(to, 0, moved);
+        if (ids.length) { const [mid] = ids.splice(dragIdx, 1); ids.splice(to, 0, mid); }
+        commitData();
+        if (SB_ON && isAdmin) { try { await dbReorder(type === 'playables' ? 'playable' : 'game'); } catch(err){ syncErr(err); } }
+      }
+    });
+  }
+  setupCardDrag('gridPlayables', 'playables');
+  setupCardDrag('gridGames', 'games');
+  refreshDraggable();
+
+  // --- Lưu nháp vào trình duyệt ---
+  document.getElementById('btnSaveDraft').addEventListener('click', () => {
+    const draft = { style: customStyle.textContent, projects: projTag.textContent, areas: {} };
+    EDIT_AREAS.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) draft.areas[sel] = el.innerHTML;
+    });
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    alert('Đã lưu nháp vào trình duyệt này.\nLưu ý: khách truy cập KHÔNG thấy nháp — muốn xuất bản hãy bấm "Tải HTML để đăng".');
+  });
+  document.getElementById('btnLoadDraft').addEventListener('click', () => {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) { alert('Chưa có nháp nào được lưu.'); return; }
+    const draft = JSON.parse(raw);
+    customStyle.textContent = draft.style || '';
+    if (draft.projects) { projTag.textContent = draft.projects; PDATA = JSON.parse(draft.projects); renderAll(); renderProjList(); }
+    Object.entries(draft.areas || {}).forEach(([sel, htmlStr]) => {
+      const el = document.querySelector(sel);
+      if (el) el.innerHTML = htmlStr;
+    });
+    if (editing) setEditing(true); // gắn lại contenteditable cho nội dung mới
+    alert('Đã khôi phục nháp.');
+  });
+
+  // --- Xuất file HTML hoàn chỉnh để upload lên host ---
+  document.getElementById('btnExport').addEventListener('click', () => {
+    setEditing(false);
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    const cBody = clone.querySelector('body');
+    cBody.classList.remove('admin-on', 'editing');
+    cBody.style.overflow = '';
+    const cModal = clone.querySelector('#playableModal');
+    if (cModal) { cModal.classList.remove('open'); cModal.setAttribute('aria-hidden', 'true'); }
+    const cFrame = clone.querySelector('#playableFrame');
+    if (cFrame) cFrame.setAttribute('src', 'about:blank');
+    const out = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([out], { type: 'text/html' }));
+    a.download = 'personal-website.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
 </script>
+
 </body>
 </html>
