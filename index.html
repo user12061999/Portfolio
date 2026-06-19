@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="vi">
-<head>
+<html lang="vi"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nguyễn Văn An — Game Developer & Playable Ads Developer</title>
+<title>Nguyễn Văn Tới — Game Developer &amp; Playable Ads Developer</title>
 <!--
   ==========================================================
   PORTFOLIO — GAME DEVELOPER / PLAYABLE ADS DEVELOPER
@@ -16,8 +15,8 @@
   ==========================================================
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0d1220;
@@ -555,17 +554,215 @@
 </style>
 <!-- Ghi đè giao diện do Admin tạo — đừng xóa thẻ này -->
 <style id="customStyle"></style>
-</head>
-<body>
+<style>.--savior-overlay-transform-reset {
+  transform: none !important;
+}
+.--savior-overlay-z-index-top {
+  z-index: 2147483643 !important;
+}
+.--savior-overlay-position-relative {
+  position: relative;
+}
+.--savior-overlay-position-static {
+  position: static !important;
+}
+.--savior-overlay-overflow-hidden {
+  overflow: hidden !important;
+}
+.--savior-overlay-overflow-x-visible {
+  overflow-x: visible !important;
+}
+.--savior-overlay-overflow-y-visible {
+  overflow-y: visible !important;
+}
+.--savior-overlay-z-index-reset {
+  z-index: auto !important;
+}
+.--savior-overlay-display-none {
+  display: none !important;
+}
+.--savior-overlay-clearfix {
+  clear: both;
+}
+.--savior-overlay-reset-filter {
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+.--savior-tooltip-host {
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+}
+/*Override css styles for Twitch.tv*/
+main.--savior-overlay-z-index-reset {
+  z-index: auto !important;
+}
+.modal__backdrop.--savior-overlay-z-index-reset {
+  position: static !important;
+}
+main.--savior-overlay-z-index-top {
+  z-index: auto !important;
+}
+main.--savior-overlay-z-index-top .channel-root__player-container + div,
+main.--savior-overlay-z-index-top .video-player-hosting-ui__container + div {
+  opacity: 0.1;
+}
+/*Dirty hack for facebook big video page e.g: https://www.facebook.com/abc/videos/...*/
+.--savior-backdrop {
+  position: fixed !important;
+  z-index: 2147483642 !important;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw !important;
+  background-color: rgba(0,0,0,0.9);
+}
+.--savior-overlay-twitter-video-player {
+  position: fixed;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+}
+.--savior-overlay-z-index-reset [class*="DivSideNavContainer"],
+.--savior-overlay-z-index-reset [class*="DivHeaderContainer"],
+.--savior-overlay-z-index-reset [class*="DivBottomContainer"],
+.--savior-overlay-z-index-reset [class*="DivCategoryListWrapper"],
+.--savior-overlay-z-index-reset [data-testid="sidebarColumn"],
+.--savior-overlay-z-index-reset header[role="banner"],
+.--savior-overlay-z-index-reset [data-testid="cellInnerDiv"]:not(.--savior-overlay-z-index-reset),
+.--savior-overlay-z-index-reset [aria-label="Home timeline"]>div:first-child,
+.--savior-overlay-z-index-reset [aria-label="Home timeline"]>div:nth-child(3) {
+  z-index: -1 !important;
+}
+.--savior-overlay-z-index-reset [data-testid="cellInnerDiv"] .--savior-backdrop+div {
+  z-index: 2147483643 !important;
+}
+.--savior-overlay-z-index-reset [data-testid="primaryColumn"]>[aria-label="Home timeline"] {
+  z-index: 0 !important;
+}
+.--savior-overlay-z-index-reset#mtLayer,
+.--savior-overlay-z-index-reset.media-layer {
+  z-index: 3000 !important;
+}
+.--savior-overlay-position-relative [class*="SecBar_secBar_"],
+.--savior-overlay-position-relative .woo-box-flex [class*="Frame_top_"] {
+  z-index: 0 !important;
+}
+.--savior-overlay-position-relative .vue-recycle-scroller__item-view:not(.--savior-overlay-z-index-reset),
+.--savior-overlay-position-relative .woo-panel-main[class*="BackTop_main_"],
+.--savior-overlay-position-relative [class*="Main_side_"] {
+  z-index: -1 !important;
+}
+/* Fix conflict css with zingmp3 */
+.zm-video-modal.--savior-overlay-z-index-reset {
+  position: absolute;
+}
+/* Dirty hack for xvideos99 */
+#page #main.--savior-overlay-z-index-reset {
+  z-index: auto !important;
+}
+/* Overlay for ok.ru */
+#vp_w.--savior-overlay-z-index-reset.media-layer.media-layer__video {
+  overflow-y: hidden;
+  z-index: 2147483643 !important;
+}
+/* Fix missing controller for tv.naver.com */
+.--savior-overlay-z-index-top.rmc_controller,
+.--savior-overlay-z-index-top.rmc_setting_intro,
+.--savior-overlay-z-index-top.rmc_highlight,
+.--savior-overlay-z-index-top.rmc_control_settings {
+  z-index: 2147483644 !important;
+}
+/* Dirty hack for douyi.com */
+.swiper-wrapper.--savior-overlay-z-index-reset .swiper-slide:not(.swiper-slide-active),
+.swiper-wrapper.--savior-overlay-transform-reset .swiper-slide:not(.swiper-slide-active) {
+  display: none;
+}
+.videoWrap + div > div {
+  pointer-events: unset;
+}
+/* Dirty hack for fpt.ai */
+.mfp-wrap.--savior-overlay-z-index-top {
+  position: relative;
+}
+.mfp-wrap.--savior-overlay-z-index-top .mfp-close {
+  display: none;
+}
+.mfp-wrap.--savior-overlay-z-index-top .mfp-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+section.--savior-overlay-z-index-reset>main[role="main"].--savior-overlay-z-index-reset + nav {
+  z-index: -1 !important;
+}
+section.--savior-overlay-z-index-reset>main[role="main"].--savior-overlay-z-index-reset section.--savior-overlay-z-index-reset div.--savior-overlay-z-index-reset ~ div {
+  position: relative;
+}
+.watching-movie #video-player.--savior-overlay-z-index-top {
+  z-index: 2147483644 !important;
+}
+div[class^="tiktok"].--savior-overlay-z-index-reset {
+  z-index: 2147483644 !important;
+}
+.--savior-lightoff-fix section:not(:has([class*="--savior-overlay-"])),
+.--savior-lightoff-fix section.section_video ~ section {
+  z-index: -1;
+  position: relative;
+}
+.--savior-lightoff-fix header,
+.--savior-lightoff-fix footer,
+.--savior-lightoff-fix .top-header,
+.--savior-lightoff-fix .swiper-container,
+.--savior-lightoff-fix #to_top,
+.--savior-lightoff-fix #button-adblock {
+  z-index: -1 !important;
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style></head>
+<body class="" style="">
 
 <!-- ===== Thanh điều hướng — 4 tab ===== -->
 <header class="masthead">
   <div class="masthead-inner">
-    <a href="#trang-chu" class="site-title" data-nav="trang-chu">Nguyễn Văn An<span class="lvl">DEV</span></a>
+    <a href="#trang-chu" class="site-title" data-nav="trang-chu">Nguyễn Văn Tới<span class="lvl">DEV</span></a>
     <nav class="nav">
-      <a href="#trang-chu" data-nav="trang-chu" class="active">Trang chủ</a>
+      <a href="#trang-chu" data-nav="trang-chu" class="">Trang chủ</a>
       <a href="#kinh-nghiem" data-nav="kinh-nghiem">Kinh nghiệm</a>
-      <a href="#playable-ads" data-nav="playable-ads">Playable Ads</a>
+      <a href="#playable-ads" data-nav="playable-ads" class="active">Playable Ads</a>
       <a href="#game-dev" data-nav="game-dev">Game Dev</a>
     </nav>
   </div>
@@ -576,24 +773,24 @@
   <aside class="sidebar">
     <div class="sidebar-sticky">
       <!-- Thay link ảnh đại diện của bạn tại đây -->
-      <img class="profile-img" src="https://ui-avatars.com/api/?name=Nguyen+Van+An&size=240&background=151c2e&color=ffb454" alt="Ảnh đại diện">
+      <img class="profile-img" src="https://scontent.fhan18-1.fna.fbcdn.net/v/t39.30808-6/405203680_1709339926202025_679060101249050563_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx595x596&ctp=s595x596&_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeFc7xES_FsMDbDGsDFRWEJvX0KIEAtAGTlfQogQC0AZOY9tLQg_iRU3zAF97RMJVnyi5nGoXA8CyqPdvYok9ZMg&_nc_ohc=uWYA_OFO5U0Q7kNvwHd5oXs&_nc_oc=AdqDhWiiFrg3t8OvM-_2H89wAMZz5lfc1kUw8jyQXRqLFahs55V4ELSea1O1RximbZ0&_nc_zt=23&_nc_ht=scontent.fhan18-1.fna&_nc_gid=Sp8LAt_jVkc1QgsmaHP-Wg&_nc_ss=7b2a8&oh=00_Af9rxAs8udbxTNbMrd4WEE093_9FJKChUJqNY94sZ2Nhvg&oe=6A3A925F" alt="Ảnh đại diện">
       <div>
-        <h3 class="author-name">Nguyễn Văn An</h3>
+        <h3 class="author-name">Nguyễn Văn Tới</h3>
         <p class="author-bio">Game Developer ·<br>Playable Ads Developer</p>
         <span class="status">sẵn sàng nhận dự án</span>
       </div>
       <ul class="author-links">
         <li><a href="mailto:an.nguyen@example.com">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"></path></svg>
           Email</a></li>
         <li><a href="https://github.com/username" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.74.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.15c0 .3.21.66.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.74.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.15c0 .3.21.66.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"></path></svg>
           GitHub</a></li>
         <li><a href="https://linkedin.com/in/username" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V10.3H5.67v8.05h2.67zM7 9.13a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.21v-4.4c0-2.36-1.26-3.46-2.94-3.46-1.36 0-1.96.75-2.3 1.27V10.3H10.4c.04.76 0 8.05 0 8.05h2.7v-4.5c0-.24.02-.48.09-.65.2-.48.64-.98 1.38-.98.97 0 1.36.74 1.36 1.83v4.3h2.41z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V10.3H5.67v8.05h2.67zM7 9.13a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.21v-4.4c0-2.36-1.26-3.46-2.94-3.46-1.36 0-1.96.75-2.3 1.27V10.3H10.4c.04.76 0 8.05 0 8.05h2.7v-4.5c0-.24.02-.48.09-.65.2-.48.64-.98 1.38-.98.97 0 1.36.74 1.36 1.83v4.3h2.41z"></path></svg>
           LinkedIn</a></li>
         <li><a href="https://username.itch.io" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M3.13 2C2.32 2.67 1 4.1 1 5.07v1.5c0 1.25 1.17 2.35 2.4 2.35 1.18 0 2.13-.95 2.13-2.1 0 1.15.93 2.1 2.1 2.1 1.18 0 2.1-.95 2.1-2.1 0 1.15.94 2.1 2.12 2.1h.3c1.18 0 2.12-.95 2.12-2.1 0 1.15.92 2.1 2.1 2.1 1.17 0 2.1-.95 2.1-2.1 0 1.15.95 2.1 2.13 2.1 1.23 0 2.4-1.1 2.4-2.35v-1.5c0-.97-1.32-2.4-2.13-3.07H3.13zM10 10.13c-.5.9-1.5 1.5-2.55 1.55a3.16 3.16 0 0 1-2.3-.93c-.13.1-.27.2-.42.28v6.4c0 2.05.04 3.57.6 4.07.84.74 6.46.5 6.67.5.2 0 5.83.24 6.66-.5.57-.5.61-2.02.61-4.07v-6.4a3.4 3.4 0 0 1-.42-.28 3.16 3.16 0 0 1-2.3.93A3.18 3.18 0 0 1 14 10.13a3.2 3.2 0 0 1-2 1.55 3.2 3.2 0 0 1-2-1.55zm-1.18 3.34c.82 0 1.55.4 2.18 1.45l1-.05 1-.05c.63-.96 1.36-1.35 2.18-1.35 1.4 0 2.82 1.36 2.82 4.1 0 1.78-.66 2.43-1.78 2.43-.86 0-1.42-.5-1.96-1.18-.2.03-1.5.1-2.26.1-.77 0-2.05-.07-2.26-.1-.54.68-1.1 1.18-1.96 1.18-1.12 0-1.78-.65-1.78-2.43 0-2.74 1.42-4.1 2.82-4.1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M3.13 2C2.32 2.67 1 4.1 1 5.07v1.5c0 1.25 1.17 2.35 2.4 2.35 1.18 0 2.13-.95 2.13-2.1 0 1.15.93 2.1 2.1 2.1 1.18 0 2.1-.95 2.1-2.1 0 1.15.94 2.1 2.12 2.1h.3c1.18 0 2.12-.95 2.12-2.1 0 1.15.92 2.1 2.1 2.1 1.17 0 2.1-.95 2.1-2.1 0 1.15.95 2.1 2.13 2.1 1.23 0 2.4-1.1 2.4-2.35v-1.5c0-.97-1.32-2.4-2.13-3.07H3.13zM10 10.13c-.5.9-1.5 1.5-2.55 1.55a3.16 3.16 0 0 1-2.3-.93c-.13.1-.27.2-.42.28v6.4c0 2.05.04 3.57.6 4.07.84.74 6.46.5 6.67.5.2 0 5.83.24 6.66-.5.57-.5.61-2.02.61-4.07v-6.4a3.4 3.4 0 0 1-.42-.28 3.16 3.16 0 0 1-2.3.93A3.18 3.18 0 0 1 14 10.13a3.2 3.2 0 0 1-2 1.55 3.2 3.2 0 0 1-2-1.55zm-1.18 3.34c.82 0 1.55.4 2.18 1.45l1-.05 1-.05c.63-.96 1.36-1.35 2.18-1.35 1.4 0 2.82 1.36 2.82 4.1 0 1.78-.66 2.43-1.78 2.43-.86 0-1.42-.5-1.96-1.18-.2.03-1.5.1-2.26.1-.77 0-2.05-.07-2.26-.1-.54.68-1.1 1.18-1.96 1.18-1.12 0-1.78-.65-1.78-2.43 0-2.74 1.42-4.1 2.82-4.1z"></path></svg>
           itch.io</a></li>
       </ul>
     </div>
@@ -603,14 +800,14 @@
   <main class="content">
 
     <!-- ===== TAB 1: TRANG CHỦ ===== -->
-    <section id="trang-chu" class="visible">
+    <section id="trang-chu" class="">
       <p class="eyebrow">// xin chào, tôi là</p>
-      <h1>Nguyễn Văn An — tôi biến ý tưởng thành game, và game thành playable ads chuyển đổi cao<span class="cursor"></span></h1>
+      <h1>Nguyễn Văn Tới — tôi biến ý tưởng thành game, và game thành playable ads chuyển đổi cao<span class="cursor"></span></h1>
       <p class="lead">5 năm phát triển game mobile và playable ads bằng Unity. Tôi làm việc xuyên suốt từ lập trình gameplay, tích hợp quảng cáo, tối ưu hiệu năng, đến phát hành sản phẩm lên cả Google Play và App Store.</p>
 
       <div class="stats">
         <div class="stat"><div class="num">10+</div><div class="label">Game mobile đã tham gia</div></div>
-        <div class="stat"><div class="num">2</div><div class="label">Nền tảng: iOS & Android</div></div>
+        <div class="stat"><div class="num">2</div><div class="label">Nền tảng: iOS &amp; Android</div></div>
         <div class="stat"><div class="num">5</div><div class="label">Năm kinh nghiệm (2021–2026)</div></div>
       </div>
 
@@ -619,17 +816,17 @@
         <span class="chip hot">Unity / C#</span>
         <span class="chip hot">Playable Ads</span>
         <span class="chip hot">Game Puzzle</span>
-        <span class="chip hot">Android & iOS</span>
+        <span class="chip hot">Android &amp; iOS</span>
         <span class="chip">Tích hợp Ads / SDK</span>
         <span class="chip">IAP</span>
         <span class="chip">A/B Testing</span>
-        <span class="chip">Effect & Sound</span>
+        <span class="chip">Effect &amp; Sound</span>
         <span class="chip">Tối ưu hiệu năng</span>
       </div>
 
       <h2>Tôi có thể giúp gì cho bạn?</h2>
       <p><strong style="color: var(--accent)">Playable Ads:</strong> chuyển thể gameplay thành playable HTML5 nhẹ, mượt, đạt chuẩn AppLovin, Unity Ads, ironSource, Mintegral, Google Ads, Facebook — kèm A/B test nhiều phiên bản để tối ưu CTR và CVR.</p>
-      <p><strong style="color: var(--accent)">Game Development:</strong> phát triển game mobile hoàn chỉnh từ ý tưởng đến phát hành — gameplay, UI/UX, tích hợp ads & IAP, tối ưu hiệu năng cho thiết bị cấu hình thấp, và đưa sản phẩm lên cả Google Play lẫn App Store.</p>
+      <p><strong style="color: var(--accent)">Game Development:</strong> phát triển game mobile hoàn chỉnh từ ý tưởng đến phát hành — gameplay, UI/UX, tích hợp ads &amp; IAP, tối ưu hiệu năng cho thiết bị cấu hình thấp, và đưa sản phẩm lên cả Google Play lẫn App Store.</p>
       <p>Xem chi tiết tại tab <a href="#playable-ads" data-nav-link="playable-ads">Playable Ads</a> và <a href="#game-dev" data-nav-link="game-dev">Game Dev</a>, hoặc <a href="mailto:an.nguyen@example.com">gửi email cho tôi</a>.</p>
     </section>
 
@@ -656,7 +853,7 @@
           <h3>Game Developer — MetaGame</h3>
           <p class="meta">03/2022 → 01/2025 · Hà Nội</p>
           <ul>
-            <li>Lập trình và phát triển các tựa game Puzzle/Casual bằng Unity (C#). <strong>Nhiệm vụ trọng tâm:</strong> bảo trì và cập nhật game sau phát hành, tích hợp SDK bên thứ ba, chỉnh sửa & tối ưu logic quảng cáo.</li>
+            <li>Lập trình và phát triển các tựa game Puzzle/Casual bằng Unity (C#). <strong>Nhiệm vụ trọng tâm:</strong> bảo trì và cập nhật game sau phát hành, tích hợp SDK bên thứ ba, chỉnh sửa &amp; tối ưu logic quảng cáo.</li>
             <li>Xây dựng và phát hành sản phẩm trên <strong>cả hai nền tảng Android và iOS</strong>: build, ký số, quản lý chứng chỉ/provisioning, và đưa game qua quy trình kiểm duyệt của Google Play lẫn App Store.</li>
             <li>Kiểm thử, sửa lỗi, tối ưu hiệu suất và phối hợp với các bộ phận khác để hoàn thiện sản phẩm.</li>
           </ul>
@@ -667,7 +864,7 @@
               <p>Dòng game merge vật lý: người chơi chạm để thả trái cây, hai quả giống nhau va vào nhau sẽ hợp thành quả lớn hơn, mục tiêu tạo ra quả dưa hấu lớn nhất và leo bảng xếp hạng toàn cầu.</p>
               <div class="jp-label">Tôi đã code</div>
               <ul>
-                <li>Hệ thống vật lý va chạm & hợp nhất trái cây, tính toán điểm và combo.</li>
+                <li>Hệ thống vật lý va chạm &amp; hợp nhất trái cây, tính toán điểm và combo.</li>
                 <li>Vòng lặp gameplay, điều kiện thua (đầy khung) và hệ thống booster.</li>
                 <li>Bảng xếp hạng toàn cầu (leaderboard) và lưu tiến trình người chơi.</li>
                 <li>Tích hợp quảng cáo (rewarded/interstitial) và IAP; tinh chỉnh logic hiển thị Ads.</li>
@@ -675,8 +872,8 @@
               </ul>
             </div>
             <div class="jp">
-              <h4>Phát hành đa nền tảng — Android & iOS<span class="solo-badge">SOLO</span></h4>
-              <div class="jp-type">Publishing · Google Play & App Store</div>
+              <h4>Phát hành đa nền tảng — Android &amp; iOS<span class="solo-badge">SOLO</span></h4>
+              <div class="jp-type">Publishing · Google Play &amp; App Store</div>
               <p>Đưa nhiều tựa game ra thị trường trên cả hai hệ điều hành, đảm nhận toàn bộ quy trình từ build đến lên store và cập nhật phiên bản.</p>
               <div class="jp-label">Tôi đã làm</div>
               <ul>
@@ -687,7 +884,7 @@
               </ul>
             </div>
             <div class="jp">
-              <h4>Bảo trì & vận hành sau phát hành<span class="solo-badge">SOLO</span></h4>
+              <h4>Bảo trì &amp; vận hành sau phát hành<span class="solo-badge">SOLO</span></h4>
               <div class="jp-type">LiveOps · Post-launch</div>
               <p>Duy trì các tựa game đang vận hành: theo dõi crash, cập nhật nội dung, đảm bảo doanh thu quảng cáo ổn định qua các phiên bản SDK mới.</p>
               <div class="jp-label">Tôi đã làm</div>
@@ -726,7 +923,7 @@
               <p>Game xếp khối cổ điển chủ đề đá quý: kéo thả các khối hình lên lưới để lấp đầy hàng/cột và xóa chúng để ghi điểm, chơi đến khi hết chỗ trống.</p>
               <div class="jp-label">Tôi đã code</div>
               <ul>
-                <li>Logic lưới, đặt khối, kiểm tra & xóa hàng/cột đầy, tính điểm và combo.</li>
+                <li>Logic lưới, đặt khối, kiểm tra &amp; xóa hàng/cột đầy, tính điểm và combo.</li>
                 <li>Bộ sinh khối ngẫu nhiên, điều kiện kết thúc (game over) và lưu điểm cao.</li>
                 <li>Tích hợp quảng cáo, IAP, hệ thống booster và bảng xếp hạng.</li>
               </ul>
@@ -768,33 +965,33 @@
           <div class="xp-bar"><i style="width: 92%"></i></div>
         </div>
         <div class="xp">
-          <div class="xp-label"><span>Tích hợp Ads & SDK bên thứ ba</span><span class="pct">90%</span></div>
+          <div class="xp-label"><span>Tích hợp Ads &amp; SDK bên thứ ba</span><span class="pct">90%</span></div>
           <div class="xp-bar"><i style="width: 90%"></i></div>
         </div>
         <div class="xp">
-          <div class="xp-label"><span>Phát hành Android & iOS (Play / App Store)</span><span class="pct">88%</span></div>
+          <div class="xp-label"><span>Phát hành Android &amp; iOS (Play / App Store)</span><span class="pct">88%</span></div>
           <div class="xp-bar"><i style="width: 88%"></i></div>
         </div>
         <div class="xp">
-          <div class="xp-label"><span>Tối ưu hiệu năng & dung lượng</span><span class="pct">90%</span></div>
+          <div class="xp-label"><span>Tối ưu hiệu năng &amp; dung lượng</span><span class="pct">90%</span></div>
           <div class="xp-bar"><i style="width: 90%"></i></div>
         </div>
         <div class="xp">
-          <div class="xp-label"><span>Effect & âm thanh game</span><span class="pct">82%</span></div>
+          <div class="xp-label"><span>Effect &amp; âm thanh game</span><span class="pct">82%</span></div>
           <div class="xp-bar"><i style="width: 82%"></i></div>
         </div>
       </div>
     </section>
 
     <!-- ===== TAB 3: PLAYABLE ADS ===== -->
-    <section id="playable-ads">
+    <section id="playable-ads" class="visible">
       <p class="eyebrow">// chạm để chơi</p>
       <h1>Playable Ads</h1>
       <p class="lead">Playable HTML5 nhẹ, tải nhanh, tương thích mọi ad network. Mỗi dự án dưới đây đều được build một codebase — xuất đa network, kèm nhiều phiên bản A/B test.</p>
 
       <!-- Thẻ dự án được render tự động từ kho dữ liệu JSON (xem #projectsData cuối file).
            Thêm/sửa/xóa dự án bằng bảng Admin (#admin) → mục "Dự án". -->
-      <div class="grid" id="gridPlayables"></div>
+      <div class="grid" id="gridPlayables"><article class="project-card" draggable="true"><a class="thumb phone js-play " href="#" data-playable="playables/player.html#worm-puzzle.html" data-newtab="https://playground.lunalabs.io/preview/315811/422292/6e4b615fb4897e3397adc52be4d5a34e8a68d961d4a78d2fc26f9abf51b79d7f" data-title="Worm Puzzle: Snake Apple Game"><img class="shot" src="https://play-lh.googleusercontent.com/YTqLgXJL6_T924zJUiCE5hpDlVzLhGOXaI2WBTxiuCVm5kqWTNfThntUV7Y75ybGoOiBs8EjjORSsZuvxPfHFQ=w526-h296" alt="Worm Puzzle: Snake Apple Game"><div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/dBWRvcfHETIlVASewwmN-9f8oanp9J-6O6SGyuoX_exJNFEHPdkLuLbtiJAL9MAJBl3PeSknlKjsq9va6sBt=w240-h480" alt=""><div><h3>Worm Puzzle: Snake Apple Game</h3><span class="dev">Metagame.Ltd · Puzzle</span></div></div><p>Playable cho game giải đố logic: điều khiển chú sâu ăn táo để dài ra, vượt mê cung và chui vào hố đích. Dễ chơi, khó thành thạo.</p><div class="card-tags"><span class="tag">HTML5</span><span class="tag">Luna Playable</span><span class="tag net">10K+ lượt tải</span></div><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#worm-puzzle.html" data-newtab="https://playground.lunalabs.io/preview/315811/422292/6e4b615fb4897e3397adc52be4d5a34e8a68d961d4a78d2fc26f9abf51b79d7f" data-title="Worm Puzzle: Snake Apple Game">▶ Chơi ngay</a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.metas.worm.puzzle.apple.snake.slither.eat" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.36-.24-.6-.66-.6-1.2V3c0-.54.24-.96.6-1.2zm11.4 9 2.7-2.7 2.94 1.68c.96.54.96 1.9 0 2.44L17.7 13.9 15 11.2v-.4zm-1.2 1.2 2.46 2.46-9.6 5.5 7.14-7.96zm0-2.4L6.66 3.64l9.6 5.5-2.46 2.46z"></path></svg>Google Play</a></div></div></article><article class="project-card" draggable="true"><div class="thumb phone g2">Idle Miner Rush (mẫu)<div class="play"><span>▶</span></div></div><div class="card-body"><div class="card-head"><div><h3>Idle Miner Rush (mẫu)</h3><span class="dev">Studio ABC · Idle</span></div></div><p>Playable idle-tycoon với tutorial 3 bước, tối ưu first-tap dưới 2 giây. (Thẻ mẫu — xóa bằng Admin)</p><div class="card-tags"><span class="tag">Three.js</span><span class="tag">GSAP</span><span class="tag net">ironSource</span><span class="tag net">Mintegral</span></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g3" href="#" data-playable="playables/player.html#collect-fruit" data-newtab="https://assets.lunalabs.io/uploads/apps/build/6690136/6bcf813524e7186f5deea45d027d798c/c9e4d6311817cec8525e4192b16a54df.html" data-title="Collect Fruit">Collect Fruit<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Collect Fruit</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#collect-fruit" data-newtab="https://assets.lunalabs.io/uploads/apps/build/6690136/6bcf813524e7186f5deea45d027d798c/c9e4d6311817cec8525e4192b16a54df.html" data-title="Collect Fruit">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g4" href="#" data-playable="playables/player.html#brain-master.html" data-title="Brain Master">Brain Master<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Brain Master</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#brain-master.html" data-title="Brain Master">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g5" href="#" data-playable="playables/player.html#cake-sort.html" data-title="Cake Sort">Cake Sort<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Cake Sort</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#cake-sort.html" data-title="Cake Sort">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g6" href="#" data-playable="playables/player.html#cake-sort-2.html" data-title="Cake Sort 2">Cake Sort 2<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Cake Sort 2</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#cake-sort-2.html" data-title="Cake Sort 2">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g1" href="#" data-playable="playables/player.html#brain-master-2.html" data-title="Brain Master 2">Brain Master 2<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Brain Master 2</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#brain-master-2.html" data-title="Brain Master 2">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g2" href="#" data-playable="playables/player.html#craft.html" data-title="Craft">Craft<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Craft</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#craft.html" data-title="Craft">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g3" href="#" data-playable="playables/player.html#craft-2.html" data-title="Craft 2">Craft 2<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Craft 2</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#craft-2.html" data-title="Craft 2">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g4" href="#" data-playable="playables/player.html#roblock.html" data-title="Roblock">Roblock<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Roblock</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#roblock.html" data-title="Roblock">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g5" href="#" data-playable="playables/player.html#wood-block.html" data-title="Wood Block">Wood Block<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Wood Block</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#wood-block.html" data-title="Wood Block">▶ Chơi ngay</a></div></div></article><article class="project-card" draggable="true"><a class="thumb phone js-play g6" href="#" data-playable="playables/player.html#zip-line.html" data-title="Zip Line">Zip Line<div class="play"><span>▶</span></div></a><div class="card-body"><div class="card-head"><div><h3>Zip Line</h3></div></div><p></p><div class="card-links"><a href="#" class="js-play" data-playable="playables/player.html#zip-line.html" data-title="Zip Line">▶ Chơi ngay</a></div></div></article></div>
 
       <h2>Quy trình làm playable của tôi</h2>
       <ul style="margin-left: 1.3em;">
@@ -812,12 +1009,12 @@
       <p class="lead">Các tựa game mobile tôi đã phát triển hoặc tham gia phát triển, từ hyper-casual đến casual puzzle.</p>
 
       <!-- Thẻ dự án được render tự động từ kho dữ liệu JSON — quản lý qua bảng Admin. -->
-      <div class="grid" id="gridGames"></div>
+      <div class="grid" id="gridGames"><article class="project-card" draggable="true"><div class="thumb "><img class="shot" src="https://play-lh.googleusercontent.com/DJGoy7Z8K6B48VNNZG4m3O1r82L2sEtnwKijtFoOVI_cMkCjT_28dHg95Oqouad9wVNgVJ4K25K82N-pVkivQQ=w526-h296" alt="Fruit Drop Master"></div><div class="card-body"><div class="card-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/3i_uGI963jT1eGr5yny1IZoFpOoDvCf8qJGA8bOXER6S5uZHc-ZtYTEX0EsJdGufN6EzNKDXAtm-lEgqWwIbHA=w240-h480" alt=""><div><h3>Fruit Drop Master</h3><span class="dev">Metagame.Ltd · Puzzle / Merge</span></div></div><p>Game merge trái cây kiểu Suika: thả và ghép trái cây giống nhau thành quả lớn hơn, chinh phục quả Dưa Hấu Khổng Lồ. Vật lý mượt, leaderboard toàn cầu.</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Lập trình core gameplay vật lý merge</li><li>Tích hợp ads, IAP và leaderboard</li><li>Tối ưu hiệu năng &amp; hiệu ứng va chạm</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Physics</span></div><span class="metric"><b>10M+</b> lượt tải · 4.3★ (81K đánh giá)</span><div class="card-links"><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.metagame.watermelonmastermergefruit" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.36-.24-.6-.66-.6-1.2V3c0-.54.24-.96.6-1.2zm11.4 9 2.7-2.7 2.94 1.68c.96.54.96 1.9 0 2.44L17.7 13.9 15 11.2v-.4zm-1.2 1.2 2.46 2.46-9.6 5.5 7.14-7.96zm0-2.4L6.66 3.64l9.6 5.5-2.46 2.46z"></path></svg>Google Play</a></div></div></article><article class="project-card" draggable="true"><div class="thumb "><img class="shot" src="https://play-lh.googleusercontent.com/g1dnWCg6Vo5FNcNLTg_EgnwG_4yMD2UNmumor-4vJ8_ZgIzblNnBdOMK-aJ_dkQAv9axA-kOjeF_KZNsHPWXhQ=w526-h296" alt="Fruit Fusion Fun"></div><div class="card-body"><div class="card-head"><img class="app-icon" src="https://play-lh.googleusercontent.com/Eb2DP0qP8nckGnVmBe2kWqHROEiN_ti8X9LJC7KBchRM5M4l52CpDM9xdKt3JQxOHNKNV-ka_NFdRAEY5uldXw=w240-h240" alt=""><div><h3>Fruit Fusion Fun</h3><span class="dev">Metagame.Ltd · Puzzle / Merge</span></div></div><p>Game merge trái cây nâng tầm 2048 với đồ họa sống động: chạm để thả, ghép hai quả giống nhau thành quả lớn hơn, tạo combo và leo bảng xếp hạng toàn cầu.</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Lập trình gameplay merge &amp; hệ thống combo</li><li>Tích hợp ads, IAP và leaderboard</li><li>Tối ưu hiệu năng &amp; hiệu ứng va chạm</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Physics</span></div><span class="metric"><b>5M+</b> lượt tải · 4.1★ (16.6K đánh giá)</span><div class="card-links"><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.fruitdrop.fusion.fun" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.36-.24-.6-.66-.6-1.2V3c0-.54.24-.96.6-1.2zm11.4 9 2.7-2.7 2.94 1.68c.96.54.96 1.9 0 2.44L17.7 13.9 15 11.2v-.4zm-1.2 1.2 2.46 2.46-9.6 5.5 7.14-7.96zm0-2.4L6.66 3.64l9.6 5.5-2.46 2.46z"></path></svg>Google Play</a></div></div></article><article class="project-card" draggable="true"><div class="thumb g3">Juicy Merge: Melons Puzzle</div><div class="card-body"><div class="card-head"><img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/67/3d/59/673d599f-c93b-1413-cf56-b8690287c8b5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/240x240bb.jpg" alt=""><div><h3>Juicy Merge: Melons Puzzle</h3><span class="dev">Metagame.Ltd · Casual / Merge</span></div></div><p>Game merge trái cây dựa trên 2048 cổ điển với đồ họa hoa quả sinh động: chạm để thả, ghép trái cây cùng loại, thi đua bảng xếp hạng toàn cầu để chinh phục quả dưa hấu lớn nhất.</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Lập trình gameplay merge &amp; hệ thống booster</li><li>Tích hợp IAP và bảng xếp hạng</li><li>Tối ưu hiệu ứng va chạm mượt mà</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Physics</span></div><span class="metric"><b>30K+</b> đánh giá · 4.8★ (iOS)</span><div class="card-links"><a class="store-btn" href="https://apps.apple.com/us/app/juicy-merge-melons-puzzle/id6475623561" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.05 12.54c-.03-2.89 2.36-4.28 2.47-4.35-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.73 1.13-4.72 2.86-2.02 3.5-.52 8.67 1.45 11.51.96 1.39 2.1 2.95 3.6 2.89 1.45-.06 1.99-.93 3.74-.93s2.24.93 3.77.9c1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.04-.02-3.03-1.16-3.06-4.6zM14.16 4.06c.8-.97 1.34-2.31 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.85-1.39 2.23-1.22 3.54 1.29.1 2.6-.65 3.41-1.62z"></path></svg>App Store</a></div></div></article><article class="project-card" draggable="true"><div class="thumb g4">Punch Wuggy</div><div class="card-body"><div class="card-head"><img class="app-icon" src="https://puewreirymqutlgfdorf.supabase.co/storage/v1/object/public/project-images/1781605718363-2s1ksp.png" alt=""><div><h3>Punch Wuggy</h3><span class="dev">Omega Studio · Hyper-casual / Action</span></div></div><p>Game đối kháng hyper-casual: điều khiển nhân vật co duỗi tay đấm, knock-out đối thủ và sống sót trên đấu trường. (Cập nhật icon/ảnh sau)</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Lập trình gameplay đối kháng &amp; vật lý đấm</li><li>Tích hợp ads và hệ thống nâng cấp</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Physics</span></div></div></article><article class="project-card" draggable="true"><div class="thumb g5">Block Puzzle: Classic Gems</div><div class="card-body"><div class="card-head"><div><h3>Block Puzzle: Classic Gems</h3><span class="dev">Omega Studio · Puzzle</span></div></div><p>Game xếp khối kiểu Tetris/Block Puzzle cổ điển với chủ đề đá quý: kéo thả khối lấp đầy hàng để ghi điểm. (Cập nhật icon/ảnh sau)</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Lập trình core gameplay xếp khối &amp; tính điểm</li><li>Tích hợp ads, IAP và bảng xếp hạng</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">C#</span></div><div class="card-links"><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.topfreegame.blockpuzzlejewel.brickclassic.puzzle" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.36-.24-.6-.66-.6-1.2V3c0-.54.24-.96.6-1.2zm11.4 9 2.7-2.7 2.94 1.68c.96.54.96 1.9 0 2.44L17.7 13.9 15 11.2v-.4zm-1.2 1.2 2.46 2.46-9.6 5.5 7.14-7.96zm0-2.4L6.66 3.64l9.6 5.5-2.46 2.46z"></path></svg>Google Play</a></div></div></article><article class="project-card" draggable="true"><div class="thumb g6">Stick vs Titans</div><div class="card-body"><div class="card-head"><div><h3>Stick vs Titans</h3><span class="dev">Omega Studio · Action / Strategy</span></div></div><p>Game thủ thành phong cách stickman: chỉ huy đội quân chống lại các titan khổng lồ tấn công. (Cập nhật icon/ảnh sau)</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Lập trình gameplay thủ thành &amp; AI kẻ địch</li><li>Hệ thống nâng cấp lính &amp; combat</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">C#</span></div></div></article><article class="project-card" draggable="true"><div class="thumb g1">Stick vs Titans 2</div><div class="card-body"><div class="card-head"><div><h3>Stick vs Titans 2</h3><span class="dev">Omega Studio · Action / Strategy</span></div></div><p>Phần tiếp theo của Stick vs Titans với màn chơi và titan mới, lối chơi thủ thành stickman được mở rộng. (Cập nhật icon/ảnh sau)</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Phát triển gameplay &amp; nội dung phần 2</li><li>Cân bằng độ khó và hệ thống nâng cấp</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">C#</span></div></div></article><article class="project-card" draggable="true"><div class="thumb g2">Stick vs Titans 3</div><div class="card-body"><div class="card-head"><div><h3>Stick vs Titans 3</h3><span class="dev">Omega Studio · Action / Strategy</span></div></div><p>Phần thứ ba của series Stick vs Titans, bổ sung cơ chế chiến đấu và titan boss mới. (Cập nhật icon/ảnh sau)</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Phát triển gameplay &amp; boss mới cho phần 3</li><li>Tối ưu hiệu năng combat đông kẻ địch</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">C#</span></div></div></article><article class="project-card" draggable="true"><div class="thumb g3">Tile Connect: Matching Classic</div><div class="card-body"><div class="card-head"><div><h3>Tile Connect: Matching Classic</h3><span class="dev">Omega Studio · Puzzle / Match</span></div></div><p>Game nối ô kiểu Onet/Mahjong cổ điển: tìm và nối các ô giống nhau để xóa khỏi bàn chơi. (Cập nhật icon/ảnh sau)</p><div class="role"><div class="role-title">Nhiệm vụ của tôi</div><ul><li>Lập trình thuật toán nối ô &amp; sinh màn</li><li>Tích hợp ads, booster và level system</li></ul></div><div class="card-tags"><span class="tag">Unity</span><span class="tag">C#</span></div></div></article></div>
 
       <h2>Thế mạnh kỹ thuật</h2>
       <ul style="margin-left: 1.3em;">
-        <li><strong>Gameplay & hệ thống:</strong> state machine, object pooling, hệ thống level/progression, save system.</li>
-        <li><strong>Tối ưu:</strong> draw call batching, texture atlas, profiling memory & CPU cho thiết bị tầm thấp.</li>
+        <li><strong>Gameplay &amp; hệ thống:</strong> state machine, object pooling, hệ thống level/progression, save system.</li>
+        <li><strong>Tối ưu:</strong> draw call batching, texture atlas, profiling memory &amp; CPU cho thiết bị tầm thấp.</li>
         <li><strong>LiveOps:</strong> remote config, A/B test, event theo mùa, analytics funnel.</li>
         <li><strong>Monetization:</strong> tích hợp rewarded/interstitial ads, IAP, đo lường LTV.</li>
       </ul>
@@ -828,14 +1025,14 @@
 
 <!-- ===== Modal chơi thử playable ngay trong trang ===== -->
 <div class="playable-modal" id="playableModal" aria-hidden="true">
-  <div class="phone-frame">
+  <div class="phone-frame landscape">
     <button class="modal-close" id="modalClose" aria-label="Đóng">✕</button>
     <button class="modal-rotate" id="modalRotate" aria-label="Xoay ngang/dọc" title="Xoay ngang/dọc">⟳</button>
     <div class="phone-notch"></div>
     <iframe id="playableFrame" src="about:blank" allow="autoplay; fullscreen" title="Chơi thử playable"></iframe>
     <div class="modal-bar">
-      <span class="pm-title" id="modalTitle"></span>
-      <a id="modalNewTab" href="#" target="_blank" rel="noopener">Mở tab mới ↗</a>
+      <span class="pm-title" id="modalTitle">Collect Fruit</span>
+      <a id="modalNewTab" href="https://assets.lunalabs.io/uploads/apps/build/6690136/6bcf813524e7186f5deea45d027d798c/c9e4d6311817cec8525e4192b16a54df.html" target="_blank" rel="noopener">Mở tab mới ↗</a>
     </div>
   </div>
 </div>
@@ -846,28 +1043,26 @@
   <h3>⚙ Admin</h3>
 
   <!-- Đăng nhập Supabase (chỉ hiện khi đã bật backend) -->
-  <div id="authBox" style="display:none">
-    <div id="authLoggedOut">
+  <div id="authBox" style="display: block;">
+    <div id="authLoggedOut" style="display: none;">
       <p class="admin-hint">Đăng nhập để chỉnh sửa và lưu lên server:</p>
-      <div class="admin-row"><input type="email" id="authEmail" placeholder="email admin"
-        style="width:100%;box-sizing:border-box;padding:0.5em;border-radius:7px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)"></div>
-      <div class="admin-row"><input type="password" id="authPass" placeholder="mật khẩu"
-        style="width:100%;box-sizing:border-box;padding:0.5em;border-radius:7px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)"></div>
+      <div class="admin-row"><input type="email" id="authEmail" placeholder="email admin" style="width:100%;box-sizing:border-box;padding:0.5em;border-radius:7px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)"></div>
+      <div class="admin-row"><input type="password" id="authPass" placeholder="mật khẩu" style="width:100%;box-sizing:border-box;padding:0.5em;border-radius:7px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)"></div>
       <button class="admin-btn primary" id="authLogin">Đăng nhập</button>
       <p class="admin-hint" id="authMsg"></p>
     </div>
-    <div id="authLoggedIn" style="display:none">
-      <p class="admin-hint">✓ Đã đăng nhập: <b id="authWho"></b><br>Mọi thay đổi tự lưu lên server.</p>
+    <div id="authLoggedIn" style="display: block;">
+      <p class="admin-hint">✓ Đã đăng nhập: <b id="authWho">admin@gmail.com</b><br>Mọi thay đổi tự lưu lên server.</p>
       <button class="admin-btn" id="authLogout">Đăng xuất</button>
     </div>
     <hr style="border:0;border-top:1px solid var(--border);margin:1em 0">
   </div>
 
-  <p class="admin-hint" id="staticHint">Chỉnh xong bấm <b>Tải HTML để đăng</b> rồi thay file trên host — đó là cách duy nhất để mọi người thấy thay đổi.</p>
+  <p class="admin-hint" id="staticHint" style="display: none;">Chỉnh xong bấm <b>Tải HTML để đăng</b> rồi thay file trên host — đó là cách duy nhất để mọi người thấy thay đổi.</p>
 
   <h4>Nội dung</h4>
-  <button class="admin-btn" id="btnEdit">✏ Bật chỉnh sửa chữ & ảnh</button>
-  <button class="admin-btn" id="btnInspect">🎯 Chọn & chỉnh phần tử</button>
+  <button class="admin-btn" id="btnEdit">✏ Bật chỉnh sửa chữ &amp; ảnh</button>
+  <button class="admin-btn" id="btnInspect">🎯 Chọn &amp; chỉnh phần tử</button>
   <p class="admin-hint">✏ click chữ để gõ sửa, click ảnh để đổi. 🎯 click phần tử bất kỳ để chỉnh size, màu, class, vị trí. Kéo thả thẻ dự án để đổi thứ tự (khi Admin đang mở).</p>
 
   <h4>Dự án (thêm / sửa / xóa)</h4>
@@ -875,7 +1070,7 @@
     <button class="admin-mini on" id="tabPlayables">Playable Ads</button>
     <button class="admin-mini" id="tabGames">Game Dev</button>
   </div>
-  <div id="projList"></div>
+  <div id="projList"><div class="proj-row"><span class="pname" title="Worm Puzzle: Snake Apple Game">Worm Puzzle: Snake Apple Game</span><button data-act="up" data-i="0" title="Lên">↑</button><button data-act="down" data-i="0" title="Xuống">↓</button><button data-act="edit" data-i="0" title="Sửa">✎</button><button class="del" data-act="del" data-i="0" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Idle Miner Rush (mẫu)">Idle Miner Rush (mẫu)</span><button data-act="up" data-i="1" title="Lên">↑</button><button data-act="down" data-i="1" title="Xuống">↓</button><button data-act="edit" data-i="1" title="Sửa">✎</button><button class="del" data-act="del" data-i="1" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Collect Fruit">Collect Fruit</span><button data-act="up" data-i="2" title="Lên">↑</button><button data-act="down" data-i="2" title="Xuống">↓</button><button data-act="edit" data-i="2" title="Sửa">✎</button><button class="del" data-act="del" data-i="2" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Brain Master">Brain Master</span><button data-act="up" data-i="3" title="Lên">↑</button><button data-act="down" data-i="3" title="Xuống">↓</button><button data-act="edit" data-i="3" title="Sửa">✎</button><button class="del" data-act="del" data-i="3" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Cake Sort">Cake Sort</span><button data-act="up" data-i="4" title="Lên">↑</button><button data-act="down" data-i="4" title="Xuống">↓</button><button data-act="edit" data-i="4" title="Sửa">✎</button><button class="del" data-act="del" data-i="4" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Cake Sort 2">Cake Sort 2</span><button data-act="up" data-i="5" title="Lên">↑</button><button data-act="down" data-i="5" title="Xuống">↓</button><button data-act="edit" data-i="5" title="Sửa">✎</button><button class="del" data-act="del" data-i="5" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Brain Master 2">Brain Master 2</span><button data-act="up" data-i="6" title="Lên">↑</button><button data-act="down" data-i="6" title="Xuống">↓</button><button data-act="edit" data-i="6" title="Sửa">✎</button><button class="del" data-act="del" data-i="6" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Craft">Craft</span><button data-act="up" data-i="7" title="Lên">↑</button><button data-act="down" data-i="7" title="Xuống">↓</button><button data-act="edit" data-i="7" title="Sửa">✎</button><button class="del" data-act="del" data-i="7" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Craft 2">Craft 2</span><button data-act="up" data-i="8" title="Lên">↑</button><button data-act="down" data-i="8" title="Xuống">↓</button><button data-act="edit" data-i="8" title="Sửa">✎</button><button class="del" data-act="del" data-i="8" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Roblock">Roblock</span><button data-act="up" data-i="9" title="Lên">↑</button><button data-act="down" data-i="9" title="Xuống">↓</button><button data-act="edit" data-i="9" title="Sửa">✎</button><button class="del" data-act="del" data-i="9" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Wood Block">Wood Block</span><button data-act="up" data-i="10" title="Lên">↑</button><button data-act="down" data-i="10" title="Xuống">↓</button><button data-act="edit" data-i="10" title="Sửa">✎</button><button class="del" data-act="del" data-i="10" title="Xóa">✕</button></div><div class="proj-row"><span class="pname" title="Zip Line">Zip Line</span><button data-act="up" data-i="11" title="Lên">↑</button><button data-act="down" data-i="11" title="Xuống">↓</button><button data-act="edit" data-i="11" title="Sửa">✎</button><button class="del" data-act="del" data-i="11" title="Xóa">✕</button></div></div>
   <button class="admin-btn" id="btnAddProj">➕ Thêm dự án</button>
   <p class="admin-hint">Dùng ↑↓ đổi thứ tự, ✎ sửa, ✕ xóa. Mọi thay đổi hiện ngay trên trang — nhớ bấm "Tải HTML để đăng" khi xong.</p>
 
@@ -912,8 +1107,8 @@
   </div>
   <button class="admin-btn" id="btnResetStyle">↺ Về giao diện gốc</button>
 
-  <h4>Lưu & xuất bản</h4>
-  <p class="admin-hint" id="dbNote" style="display:none; color:var(--accent-2)">✓ Dự án được lưu tự động vào database. Nút dưới chỉ để xuất <b>thay đổi giao diện</b> (màu/size/chữ tĩnh).</p>
+  <h4>Lưu &amp; xuất bản</h4>
+  <p class="admin-hint" id="dbNote" style="display: block; color: var(--accent-2);">✓ Dự án được lưu tự động vào database. Nút dưới chỉ để xuất <b>thay đổi giao diện</b> (màu/size/chữ tĩnh).</p>
   <button class="admin-btn" id="btnSaveDraft">💾 Lưu nháp (trình duyệt này)</button>
   <button class="admin-btn" id="btnLoadDraft">↩ Khôi phục nháp</button>
   <button class="admin-btn primary" id="btnExport">⬇ Tải HTML để đăng</button>
@@ -923,7 +1118,7 @@
 <!-- ===== Form thêm/sửa dự án ===== -->
 <div class="proj-form-overlay" id="projFormOverlay">
   <div class="proj-form">
-    <h3 id="pfTitle">Thêm dự án</h3>
+    <h3 id="pfTitle">Thêm Playable Ad</h3>
 
     <!-- Tự động điền từ link store -->
     <div class="autofill-box">
@@ -975,12 +1170,13 @@
     </div>
 
     <!-- Riêng Game -->
-    <div id="pfGameFields">
+    <div id="pfGameFields" style="display: none;">
       <div class="pf-row">
         <label>Nhiệm vụ của tôi (mỗi dòng 1 nhiệm vụ)</label>
-        <textarea id="pf_role" placeholder="Lập trình core gameplay&#10;Tích hợp ads và IAP"></textarea>
+        <textarea id="pf_role" placeholder="Lập trình core gameplay
+Tích hợp ads và IAP"></textarea>
       </div>
-      <div class="pf-row"><label>Số liệu nổi bật (cho phép &lt;b&gt;)</label><input type="text" id="pf_metric" placeholder="<b>10M+</b> lượt tải · 4.3★"></div>
+      <div class="pf-row"><label>Số liệu nổi bật (cho phép &lt;b&gt;)</label><input type="text" id="pf_metric" placeholder="&lt;b&gt;10M+&lt;/b&gt; lượt tải · 4.3★"></div>
     </div>
 
     <div class="pf-two">
@@ -1033,225 +1229,363 @@
 <!-- ===== Footer ===== -->
 <footer class="footer">
   <div class="footer-inner">
-    <span>© 2026 Nguyễn Văn An — Game & Playable Ads Developer.</span>
-    <span class="mono">made with ❤ & lots of FPS</span>
+    <span>© 2026 Nguyễn Văn Tới — Game &amp; Playable Ads Developer.</span>
+    <span class="mono">made with ❤ &amp; lots of FPS</span>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
-<script type="application/json" id="projectsData">
-{
+<script type="application/json" id="projectsData">{
  "playables": [
   {
-   "title": "Worm Puzzle: Snake Apple Game",
+   "as": "",
+   "gp": "https://play.google.com/store/apps/details?id=com.metas.worm.puzzle.apple.snake.slither.eat",
    "sub": "Metagame.Ltd · Puzzle",
    "desc": "Playable cho game giải đố logic: điều khiển chú sâu ăn táo để dài ra, vượt mê cung và chui vào hố đích. Dễ chơi, khó thành thạo.",
+   "file": "worm-puzzle.html",
    "icon": "https://play-lh.googleusercontent.com/dBWRvcfHETIlVASewwmN-9f8oanp9J-6O6SGyuoX_exJNFEHPdkLuLbtiJAL9MAJBl3PeSknlKjsq9va6sBt=w240-h480",
-   "thumb": "https://play-lh.googleusercontent.com/YTqLgXJL6_T924zJUiCE5hpDlVzLhGOXaI2WBTxiuCVm5kqWTNfThntUV7Y75ybGoOiBs8EjjORSsZuvxPfHFQ=w526-h296",
    "tags": [
     "HTML5",
     "Luna Playable"
    ],
+   "thumb": "https://play-lh.googleusercontent.com/YTqLgXJL6_T924zJUiCE5hpDlVzLhGOXaI2WBTxiuCVm5kqWTNfThntUV7Y75ybGoOiBs8EjjORSsZuvxPfHFQ=w526-h296",
+   "title": "Worm Puzzle: Snake Apple Game",
    "badges": [
     "10K+ lượt tải"
    ],
-   "file": "worm-puzzle.html",
    "newtab": "https://playground.lunalabs.io/preview/315811/422292/6e4b615fb4897e3397adc52be4d5a34e8a68d961d4a78d2fc26f9abf51b79d7f",
-   "orient": "portrait",
-   "gp": "https://play.google.com/store/apps/details?id=com.metas.worm.puzzle.apple.snake.slither.eat",
-   "as": ""
+   "orient": "portrait"
   },
   {
-   "title": "Idle Miner Rush (mẫu)",
+   "as": "",
+   "gp": "",
    "sub": "Studio ABC · Idle",
    "desc": "Playable idle-tycoon với tutorial 3 bước, tối ưu first-tap dưới 2 giây. (Thẻ mẫu — xóa bằng Admin)",
+   "file": "",
    "icon": "",
-   "thumb": "",
    "tags": [
     "Three.js",
     "GSAP"
    ],
+   "thumb": "",
+   "title": "Idle Miner Rush (mẫu)",
    "badges": [
     "ironSource",
     "Mintegral"
    ],
-   "file": "",
    "newtab": "",
-   "orient": "portrait",
+   "orient": "portrait"
+  },
+  {
+   "title": "Collect Fruit",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
    "gp": "",
-   "as": ""
+   "as": "",
+   "badges": [],
+   "file": "collect-fruit",
+   "orient": "portrait",
+   "newtab": "https://assets.lunalabs.io/uploads/apps/build/6690136/6bcf813524e7186f5deea45d027d798c/c9e4d6311817cec8525e4192b16a54df.html"
+  },
+  {
+   "title": "Brain Master",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "brain-master.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Cake Sort",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "cake-sort.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Cake Sort 2",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "cake-sort-2.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Brain Master 2",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "brain-master-2.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Craft",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "craft.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Craft 2",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "craft-2.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Roblock",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "roblock.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Wood Block",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "wood-block.html",
+   "orient": "portrait",
+   "newtab": ""
+  },
+  {
+   "title": "Zip Line",
+   "sub": "",
+   "desc": "",
+   "icon": "",
+   "thumb": "",
+   "tags": [],
+   "gp": "",
+   "as": "",
+   "badges": [],
+   "file": "zip-line.html",
+   "orient": "portrait",
+   "newtab": ""
   }
  ],
  "games": [
   {
-   "title": "Fruit Drop Master",
+   "as": "",
+   "gp": "https://play.google.com/store/apps/details?id=com.metagame.watermelonmastermergefruit",
    "sub": "Metagame.Ltd · Puzzle / Merge",
    "desc": "Game merge trái cây kiểu Suika: thả và ghép trái cây giống nhau thành quả lớn hơn, chinh phục quả Dưa Hấu Khổng Lồ. Vật lý mượt, leaderboard toàn cầu.",
    "icon": "https://play-lh.googleusercontent.com/3i_uGI963jT1eGr5yny1IZoFpOoDvCf8qJGA8bOXER6S5uZHc-ZtYTEX0EsJdGufN6EzNKDXAtm-lEgqWwIbHA=w240-h480",
-   "thumb": "https://play-lh.googleusercontent.com/DJGoy7Z8K6B48VNNZG4m3O1r82L2sEtnwKijtFoOVI_cMkCjT_28dHg95Oqouad9wVNgVJ4K25K82N-pVkivQQ=w526-h296",
-   "tags": [
-    "Unity",
-    "Physics"
-   ],
-   "metric": "<b>10M+</b> lượt tải · 4.3★ (81K đánh giá)",
    "role": [
     "Lập trình core gameplay vật lý merge",
     "Tích hợp ads, IAP và leaderboard",
     "Tối ưu hiệu năng & hiệu ứng va chạm"
    ],
-   "gp": "https://play.google.com/store/apps/details?id=com.metagame.watermelonmastermergefruit",
-   "as": ""
-  },
-  {
-   "title": "Fruit Fusion Fun",
-   "sub": "Metagame.Ltd · Puzzle / Merge",
-   "desc": "Game merge trái cây nâng tầm 2048 với đồ họa sống động: chạm để thả, ghép hai quả giống nhau thành quả lớn hơn, tạo combo và leo bảng xếp hạng toàn cầu.",
-   "icon": "https://play-lh.googleusercontent.com/Eb2DP0qP8nckGnVmBe2kWqHROEiN_ti8X9LJC7KBchRM5M4l52CpDM9xdKt3JQxOHNKNV-ka_NFdRAEY5uldXw=w240-h240",
-   "thumb": "https://play-lh.googleusercontent.com/g1dnWCg6Vo5FNcNLTg_EgnwG_4yMD2UNmumor-4vJ8_ZgIzblNnBdOMK-aJ_dkQAv9axA-kOjeF_KZNsHPWXhQ=w526-h296",
    "tags": [
     "Unity",
     "Physics"
    ],
-   "metric": "<b>5M+</b> lượt tải · 4.1★ (16.6K đánh giá)",
+   "thumb": "https://play-lh.googleusercontent.com/DJGoy7Z8K6B48VNNZG4m3O1r82L2sEtnwKijtFoOVI_cMkCjT_28dHg95Oqouad9wVNgVJ4K25K82N-pVkivQQ=w526-h296",
+   "title": "Fruit Drop Master",
+   "metric": "<b>10M+</b> lượt tải · 4.3★ (81K đánh giá)"
+  },
+  {
+   "as": "",
+   "gp": "https://play.google.com/store/apps/details?id=com.fruitdrop.fusion.fun",
+   "sub": "Metagame.Ltd · Puzzle / Merge",
+   "desc": "Game merge trái cây nâng tầm 2048 với đồ họa sống động: chạm để thả, ghép hai quả giống nhau thành quả lớn hơn, tạo combo và leo bảng xếp hạng toàn cầu.",
+   "icon": "https://play-lh.googleusercontent.com/Eb2DP0qP8nckGnVmBe2kWqHROEiN_ti8X9LJC7KBchRM5M4l52CpDM9xdKt3JQxOHNKNV-ka_NFdRAEY5uldXw=w240-h240",
    "role": [
     "Lập trình gameplay merge & hệ thống combo",
     "Tích hợp ads, IAP và leaderboard",
     "Tối ưu hiệu năng & hiệu ứng va chạm"
    ],
-   "gp": "https://play.google.com/store/apps/details?id=com.fruitdrop.fusion.fun",
-   "as": ""
-  },
-  {
-   "title": "Juicy Merge: Melons Puzzle",
-   "sub": "Metagame.Ltd · Casual / Merge",
-   "desc": "Game merge trái cây dựa trên 2048 cổ điển với đồ họa hoa quả sinh động: chạm để thả, ghép trái cây cùng loại, thi đua bảng xếp hạng toàn cầu để chinh phục quả dưa hấu lớn nhất.",
-   "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/67/3d/59/673d599f-c93b-1413-cf56-b8690287c8b5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/240x240bb.jpg",
-   "thumb": "",
    "tags": [
     "Unity",
     "Physics"
    ],
-   "metric": "<b>30K+</b> đánh giá · 4.8★ (iOS)",
+   "thumb": "https://play-lh.googleusercontent.com/g1dnWCg6Vo5FNcNLTg_EgnwG_4yMD2UNmumor-4vJ8_ZgIzblNnBdOMK-aJ_dkQAv9axA-kOjeF_KZNsHPWXhQ=w526-h296",
+   "title": "Fruit Fusion Fun",
+   "metric": "<b>5M+</b> lượt tải · 4.1★ (16.6K đánh giá)"
+  },
+  {
+   "as": "https://apps.apple.com/us/app/juicy-merge-melons-puzzle/id6475623561",
+   "gp": "",
+   "sub": "Metagame.Ltd · Casual / Merge",
+   "desc": "Game merge trái cây dựa trên 2048 cổ điển với đồ họa hoa quả sinh động: chạm để thả, ghép trái cây cùng loại, thi đua bảng xếp hạng toàn cầu để chinh phục quả dưa hấu lớn nhất.",
+   "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/67/3d/59/673d599f-c93b-1413-cf56-b8690287c8b5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/240x240bb.jpg",
    "role": [
     "Lập trình gameplay merge & hệ thống booster",
     "Tích hợp IAP và bảng xếp hạng",
     "Tối ưu hiệu ứng va chạm mượt mà"
    ],
-   "gp": "",
-   "as": "https://apps.apple.com/us/app/juicy-merge-melons-puzzle/id6475623561"
-  },
-  {
-   "title": "Punch Wuggy",
-   "sub": "Omega Studio · Hyper-casual / Action",
-   "desc": "Game đối kháng hyper-casual: điều khiển nhân vật co duỗi tay đấm, knock-out đối thủ và sống sót trên đấu trường. (Cập nhật icon/ảnh sau)",
-   "icon": "",
-   "thumb": "",
    "tags": [
     "Unity",
     "Physics"
    ],
-   "metric": "",
+   "thumb": "",
+   "title": "Juicy Merge: Melons Puzzle",
+   "metric": "<b>30K+</b> đánh giá · 4.8★ (iOS)"
+  },
+  {
+   "as": "",
+   "gp": "",
+   "sub": "Omega Studio · Hyper-casual / Action",
+   "desc": "Game đối kháng hyper-casual: điều khiển nhân vật co duỗi tay đấm, knock-out đối thủ và sống sót trên đấu trường. (Cập nhật icon/ảnh sau)",
+   "icon": "https://puewreirymqutlgfdorf.supabase.co/storage/v1/object/public/project-images/1781605718363-2s1ksp.png",
    "role": [
     "Lập trình gameplay đối kháng & vật lý đấm",
     "Tích hợp ads và hệ thống nâng cấp"
    ],
-   "gp": "",
-   "as": ""
+   "tags": [
+    "Unity",
+    "Physics"
+   ],
+   "thumb": "",
+   "title": "Punch Wuggy",
+   "metric": ""
   },
   {
-   "title": "Block Puzzle: Classic Gems",
+   "as": "",
+   "gp": "https://play.google.com/store/apps/details?id=com.topfreegame.blockpuzzlejewel.brickclassic.puzzle",
    "sub": "Omega Studio · Puzzle",
    "desc": "Game xếp khối kiểu Tetris/Block Puzzle cổ điển với chủ đề đá quý: kéo thả khối lấp đầy hàng để ghi điểm. (Cập nhật icon/ảnh sau)",
    "icon": "",
-   "thumb": "",
-   "tags": [
-    "Unity",
-    "C#"
-   ],
-   "metric": "",
    "role": [
     "Lập trình core gameplay xếp khối & tính điểm",
     "Tích hợp ads, IAP và bảng xếp hạng"
    ],
-   "gp": "https://play.google.com/store/apps/details?id=com.topfreegame.blockpuzzlejewel.brickclassic.puzzle",
-   "as": ""
-  },
-  {
-   "title": "Stick vs Titans",
-   "sub": "Omega Studio · Action / Strategy",
-   "desc": "Game thủ thành phong cách stickman: chỉ huy đội quân chống lại các titan khổng lồ tấn công. (Cập nhật icon/ảnh sau)",
-   "icon": "",
-   "thumb": "",
    "tags": [
     "Unity",
     "C#"
    ],
-   "metric": "",
+   "thumb": "",
+   "title": "Block Puzzle: Classic Gems",
+   "metric": ""
+  },
+  {
+   "as": "",
+   "gp": "",
+   "sub": "Omega Studio · Action / Strategy",
+   "desc": "Game thủ thành phong cách stickman: chỉ huy đội quân chống lại các titan khổng lồ tấn công. (Cập nhật icon/ảnh sau)",
+   "icon": "",
    "role": [
     "Lập trình gameplay thủ thành & AI kẻ địch",
     "Hệ thống nâng cấp lính & combat"
    ],
-   "gp": "",
-   "as": ""
-  },
-  {
-   "title": "Stick vs Titans 2",
-   "sub": "Omega Studio · Action / Strategy",
-   "desc": "Phần tiếp theo của Stick vs Titans với màn chơi và titan mới, lối chơi thủ thành stickman được mở rộng. (Cập nhật icon/ảnh sau)",
-   "icon": "",
-   "thumb": "",
    "tags": [
     "Unity",
     "C#"
    ],
-   "metric": "",
+   "thumb": "",
+   "title": "Stick vs Titans",
+   "metric": ""
+  },
+  {
+   "as": "",
+   "gp": "",
+   "sub": "Omega Studio · Action / Strategy",
+   "desc": "Phần tiếp theo của Stick vs Titans với màn chơi và titan mới, lối chơi thủ thành stickman được mở rộng. (Cập nhật icon/ảnh sau)",
+   "icon": "",
    "role": [
     "Phát triển gameplay & nội dung phần 2",
     "Cân bằng độ khó và hệ thống nâng cấp"
    ],
-   "gp": "",
-   "as": ""
-  },
-  {
-   "title": "Stick vs Titans 3",
-   "sub": "Omega Studio · Action / Strategy",
-   "desc": "Phần thứ ba của series Stick vs Titans, bổ sung cơ chế chiến đấu và titan boss mới. (Cập nhật icon/ảnh sau)",
-   "icon": "",
-   "thumb": "",
    "tags": [
     "Unity",
     "C#"
    ],
-   "metric": "",
+   "thumb": "",
+   "title": "Stick vs Titans 2",
+   "metric": ""
+  },
+  {
+   "as": "",
+   "gp": "",
+   "sub": "Omega Studio · Action / Strategy",
+   "desc": "Phần thứ ba của series Stick vs Titans, bổ sung cơ chế chiến đấu và titan boss mới. (Cập nhật icon/ảnh sau)",
+   "icon": "",
    "role": [
     "Phát triển gameplay & boss mới cho phần 3",
     "Tối ưu hiệu năng combat đông kẻ địch"
    ],
-   "gp": "",
-   "as": ""
-  },
-  {
-   "title": "Tile Connect: Matching Classic",
-   "sub": "Omega Studio · Puzzle / Match",
-   "desc": "Game nối ô kiểu Onet/Mahjong cổ điển: tìm và nối các ô giống nhau để xóa khỏi bàn chơi. (Cập nhật icon/ảnh sau)",
-   "icon": "",
-   "thumb": "",
    "tags": [
     "Unity",
     "C#"
    ],
-   "metric": "",
+   "thumb": "",
+   "title": "Stick vs Titans 3",
+   "metric": ""
+  },
+  {
+   "as": "",
+   "gp": "",
+   "sub": "Omega Studio · Puzzle / Match",
+   "desc": "Game nối ô kiểu Onet/Mahjong cổ điển: tìm và nối các ô giống nhau để xóa khỏi bàn chơi. (Cập nhật icon/ảnh sau)",
+   "icon": "",
    "role": [
     "Lập trình thuật toán nối ô & sinh màn",
     "Tích hợp ads, booster và level system"
    ],
-   "gp": "",
-   "as": ""
+   "tags": [
+    "Unity",
+    "C#"
+   ],
+   "thumb": "",
+   "title": "Tile Connect: Matching Classic",
+   "metric": ""
   }
  ]
-}
-</script>
+}</script>
 
 <script>
   // ============================================================
@@ -2151,5 +2485,6 @@
   });
 </script>
 
-</body>
-</html>
+
+
+</body><en2vi-host class="corom-element" version="3" style="all: initial; position: absolute; top: 0; left: 0; right: 0; height: 0; margin: 0; text-align: left; z-index: 10000000000; pointer-events: none; border: none; display: block"></en2vi-host><savior-host style="all: unset; position: absolute; top: 0; left: 0; z-index: 99999999999999; display: block !important; overflow: unset"></savior-host></html>
